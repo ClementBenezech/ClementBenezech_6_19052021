@@ -34,7 +34,7 @@ function createPhotographer (photographerData) {
                         var newImg = document.createElement(elementTag);
                         newImg.id = elementId;
                         newImg.className = elementClass;
-                        newImg.setAttribute("src", "./../../public/images/id/"+this.portrait );
+                        newImg.setAttribute("src", "./../public/images/id/"+this.portrait );
                         
                         document.getElementById(elementParent).appendChild(newImg);
                     break;
