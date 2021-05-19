@@ -1,0 +1,49 @@
+.main-content {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  background-color: rgb(255, 255, 255);
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 20vh;
+
+  &__title {
+    margin-top: -14vh;
+    width: 95vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    color: $color-primary-background;
+    font-family: "Roboto";
+  }
+
+  &__photographer-card {
+    display: flex;
+    flex-direction: column;
+    width: 33vw;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    font-family: "Roboto";
+    & > * {
+      display: flex;
+      background-color: white;
+      font-size: 2vh;
+      height: 3vh;
+    }
+    &__portrait {
+      width: 15vw;
+      height: 15vw;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    &__name {
+      color: $color-primary;
+      font-size: 5vh;
+      height: 6vh;
+    }
+  }
+}

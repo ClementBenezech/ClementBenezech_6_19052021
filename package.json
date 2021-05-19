@@ -1,0 +1,12 @@
+{
+  "name": "fisheye",
+  "version": "1.0.0",
+  "description": "Fisheye website - Project 6 -front end dev OCR",
+  "main": "index.html",
+  "scripts": {
+    "sass": "sass --watch ./sass/main.scss:./public/css/style.css",
+    "prefix": "postcss ./public/css/style.css --use autoprefixer -d ./public/css/prefixed/"
+  },
+  "author": "Clement Benezech",
+  "license": "ISC"
+}

@@ -1,0 +1,96 @@
+/*Used to adress desktop specific layout
+This mixin uses the width value defined for desktop by retrieving it from the $breakpoints map.
+The @ content directive allows for custom properties to be specified in the @include in the scss class directly, making it reusable*/
+.main-content {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  background-color: white;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 20vh;
+}
+.main-content__title {
+  margin-top: -14vh;
+  width: 95vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  color: #901c1c;
+  font-family: "Roboto";
+}
+.main-content__photographer-card {
+  display: flex;
+  flex-direction: column;
+  width: 33vw;
+  align-content: center;
+  align-items: center;
+  justify-content: space-around;
+  font-family: "Roboto";
+}
+.main-content__photographer-card > * {
+  display: flex;
+  background-color: white;
+  font-size: 2vh;
+  height: 3vh;
+}
+.main-content__photographer-card__portrait {
+  width: 15vw;
+  height: 15vw;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.main-content__photographer-card__name {
+  color: #d3573c;
+  font-size: 5vh;
+  height: 6vh;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15vh;
+  align-items: center;
+}
+.header__logo {
+  display: flex;
+  flex-direction: row;
+  height: 6vh;
+  width: 30vw;
+  color: #901c1c;
+  font-family: "Roboto";
+  font-size: 6vh;
+  margin-left: 5vw;
+  align-items: center;
+}
+.header__tag-bar {
+  width: 40vw;
+  height: 6vh;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.header__tag-bar__element {
+  display: flex;
+  width: 30%;
+  height: 4vh;
+  align-content: center;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "Roboto";
+  color: #901c1c;
+  font-weight: bold;
+  border-radius: 2vh;
+  border: 1px solid #901c1c;
+}
+
+/*# sourceMappingURL=style.css.map */
