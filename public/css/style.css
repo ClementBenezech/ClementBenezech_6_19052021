@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*Used to adress desktop specific layout
 This mixin uses the width value defined for desktop by retrieving it from the $breakpoints map.
 The @ content directive allows for custom properties to be specified in the @include in the scss class directly, making it reusable*/
@@ -11,10 +12,21 @@ The @ content directive allows for custom properties to be specified in the @inc
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-top: 20vh;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+.main-content__media-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+}
+.main-content__media-list__media {
+  width: 33vw;
+  object-fit: cover;
 }
 .main-content__title {
-  margin-top: -14vh;
+  margin-top: 1vh;
   width: 95vw;
   display: flex;
   flex-direction: row;
@@ -22,8 +34,17 @@ The @ content directive allows for custom properties to be specified in the @inc
   color: #901c1c;
   font-family: "Roboto";
 }
+.main-content__photographer-header {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+}
 .main-content__photographer-card {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   width: 33vw;
   align-content: center;
@@ -34,19 +55,51 @@ The @ content directive allows for custom properties to be specified in the @inc
 .main-content__photographer-card > * {
   display: flex;
   background-color: white;
-  font-size: 2vh;
-  height: 3vh;
+  font-size: 1.5vw;
+  height: auto;
+}
+.main-content__photographer-card__location {
+  font-size: 1vw;
+  color: #901c1c;
+}
+.main-content__photographer-card__price {
+  font-size: 0.75vw;
+  color: #901c1c;
+}
+.main-content__photographer-card__price::after {
+  content: " € / Jour";
 }
 .main-content__photographer-card__portrait {
-  width: 15vw;
-  height: 15vw;
+  width: 10vw;
+  height: 10vw;
   object-fit: cover;
   border-radius: 50%;
 }
 .main-content__photographer-card__name {
   color: #d3573c;
-  font-size: 5vh;
-  height: 6vh;
+  font-size: 2vw;
+  height: 2vw;
+}
+.main-content__photographer-card__tagline {
+  font-size: 1vw;
+  text-align: center;
+}
+.main-content__photographer-card__tag-list {
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.main-content__photographer-card__tag-list__tag {
+  margin: 0.5vw;
+  background-color: transparent;
+  border: 0.1vw solid #901c1c;
+  border-radius: 4vw;
+  padding: 0 0.5vw;
+  font-size: 1vw;
+}
+.main-content__photographer-card__tag-list__tag::before {
+  content: "#";
 }
 
 .header {
