@@ -14,16 +14,25 @@ The @ content directive allows for custom properties to be specified in the @inc
   flex-wrap: wrap;
   padding-top: 4vh;
   padding-bottom: 4vh;
+  justify-content: center;
 }
 .main-content__media-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
+  justify-content: space-evenly;
+  margin-top: 3vw;
+  width: 100vw;
 }
 .main-content__media-list__media {
-  width: 33vw;
+  box-sizing: border-box;
+  width: 27vw;
+  height: 27vw;
   object-fit: cover;
+  border-radius: 0.5vw;
+  overflow: hidden;
+  margin-bottom: 5vw;
 }
 .main-content__title {
   margin-top: 1vh;
@@ -37,10 +46,39 @@ The @ content directive allows for custom properties to be specified in the @inc
 .main-content__photographer-header {
   width: 100vw;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  flex-direction: row;
+  justify-content: space-evenly;
   text-align: center;
   align-items: center;
+}
+.main-content__business-card {
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+  width: 75vw;
+  font-family: "Roboto";
+  margin-top: 5vh;
+}
+.main-content__business-card > * {
+  text-align: left;
+  font-size: 2vw;
+}
+.main-content__business-card__tag-list {
+  justify-content: left;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.main-content__business-card__tag-list__tag {
+  margin: 0.5vw;
+  background-color: transparent;
+  border: 0.1vw solid #901c1c;
+  border-radius: 4vw;
+  padding: 0 0.5vw;
+  font-size: 1vw;
+}
+.main-content__business-card__tag-list__tag::before {
+  content: "#";
 }
 .main-content__photographer-card {
   display: flex;
