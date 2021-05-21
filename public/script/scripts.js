@@ -8,99 +8,64 @@ function createPhotographer (photographerData) {
       tagline: photographerData.tagline,
       price: photographerData.price,
       image: photographerData.portrait,
+        
+        renderCard: function () {
+            //will render the photographer card on the home page
+            console.log("just before container div");
+            containerDiv = domController("div", this.id, "main-content__photographer-card", "main-content").renderDomElement();
+            console.log(containerDiv);
+            
+            containerDiv.addEventListener("click", () => {
+                    this.renderPhotographerPage();
+            })
+            portraitDiv = domController("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image).renderDomElement() ;
+            nameDiv = domController("div", "name", "main-content__photographer-card__name", containerDiv.id, this.name).renderDomElement();
+            locationDiv = domController("div", "location", "main-content__photographer-card__location", containerDiv.id, this.city+", "+this.country).renderDomElement();
+            taglineDiv = domController("div", "tagline", "main-content__photographer-card__tagline", containerDiv.id, this.tagline).renderDomElement();
+            priceDiv = domController("div", "price", "main-content__photographer-card__price", containerDiv.id, this.price).renderDomElement();
+            tagsDiv = domController("div", "tags"+this.id, "main-content__photographer-card__tag-list", containerDiv.id).renderDomElement();
+            globalMediaList[0].getTagList(this).forEach( tag => {
+                currentTag = domController("div", "tag", "main-content__photographer-card__tag-list__tag", tagsDiv.id, tag).renderDomElement();
+                console.log ("On crée le tag "+tag+" dans la div "+tagsDiv.id);
+            })             
+            console.log("Artist name is"+this.name+" and his tagline is "+this.tagline);
+        },
         renderPhotographerPage: function() {
             //Génère la page photographer. Fait appel à rendermediaList pour le contenu media.
             
-            this.deleteMainContent();    
+            domElementCreator.deleteMainContent();    
             this.renderPhotographerHeader();         
 
             //Rendu de la liste de médias.
 
             globalMediaList[0].renderMediaList(this);
         },
-        renderCard: function () {
-            //will render the photographer card on the home page
-            containerDiv = this.createDomElement("div", this.id, "main-content__photographer-card", "main-content");
-            
-            containerDiv.addEventListener("click", () => {
-                    this.renderPhotographerPage();
-            })
-
-            portraitDiv = this.createDomElement("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image) ;
-            nameDiv = this.createDomElement("div", "name", "main-content__photographer-card__name", containerDiv.id, this.name) ;
-            locationDiv = this.createDomElement("div", "location", "main-content__photographer-card__location", containerDiv.id, this.city+", "+this.country);
-            taglineDiv = this.createDomElement("div", "tagline", "main-content__photographer-card__tagline", containerDiv.id, this.tagline);
-            priceDiv = this.createDomElement("div", "price", "main-content__photographer-card__price", containerDiv.id, this.price);
-            tagsDiv = this.createDomElement("div", "tags"+this.id, "main-content__photographer-card__tag-list", containerDiv.id);
-            globalMediaList[0].getTagList(this).forEach( tag => {
-                currentTag = this.createDomElement("div", "tag", "main-content__photographer-card__tag-list__tag", tagsDiv.id, tag);
-                console.log ("On crée le tag "+tag+" dans la div "+tagsDiv.id);
-            })             
-            console.log("Artist name is"+this.name+" and his tagline is "+this.tagline);
-        },
-        deleteMainContent: function() {
-                 //Identification des éléments à retirer du main content.
-                 mainContentChildren = document.getElementById("main-content").children;
-                 //Transformationd de la collection d'éléments en Array[]
-                 mainContentChildren = Array.prototype.slice.call(mainContentChildren, 0)
-                 const contentToActuallyDump = mainContentChildren.filter(content => content.id != "main-content__title");
- 
-                 //Supression des éléments à retirer de la page.
-                 contentToActuallyDump.forEach(content => {
-                         content.remove();
-                 })
-        },
         renderPhotographerHeader: function() {
                 //Generate stuff for the header of the photographer page.
-                containerDiv = this.createDomElement("div", this.id, "main-content__photographer-header", "main-content");
+                containerDiv = domController("div", this.id, "main-content__photographer-header", "main-content").renderDomElement();
 
                 this.renderBusinessCard();
 
-                portraitDiv = this.createDomElement("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image);      
-                /*priceDiv = this.createDomElement("div", "price", "main-content__photographer-card__price", containerDiv.id, this.price);*/
+                portraitDiv = domController("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image).renderDomElement();      
+                /*priceDiv = this.domController("div", "price", "main-content__photographer-card__price", containerDiv.id, this.price);*/
                 
                    
         },
         renderBusinessCard: function() {
           //Will display information about a photographer on it's page. Used by renderPhotographerHeader
-            businessCardDiv = this.createDomElement("div", "business-card", "main-content__business-card", containerDiv.id);
-            nameDiv = this.createDomElement("div", "name", "main-content__business-card__name", businessCardDiv.id, this.name) ;
-            locationDiv = this.createDomElement("div", "location", "main-content__business-card__location", businessCardDiv.id, this.city+", "+this.country);
-            taglineDiv = this.createDomElement("div", "tagline", "main-content__business-card__tagline", businessCardDiv.id, this.tagline);
+            businessCardDiv = domController("div", "business-card", "main-content__business-card", containerDiv.id).renderDomElement();
+            nameDiv = domController("div", "name", "main-content__business-card__name", businessCardDiv.id, this.name).renderDomElement() ;
+            locationDiv = domController("div", "location", "main-content__business-card__location", businessCardDiv.id, this.city+", "+this.country).renderDomElement();
+            taglineDiv = domController("div", "tagline", "main-content__business-card__tagline", businessCardDiv.id, this.tagline).renderDomElement();
             /*Gestion des tags à séparer dans une méthode*/
-            tagsDiv = this.createDomElement("div", "tags"+this.id, "main-content__business-card__tag-list", businessCardDiv.id);
+            tagsDiv = domController("div", "tags"+this.id, "main-content__business-card__tag-list", businessCardDiv.id).renderDomElement();
             this.tags.forEach( tag => {
-                    currentTag = this.createDomElement("div", "tag", "main-content__photographer-card__tag-list__tag", tagsDiv.id, tag);
+                    currentTag = domController("div", "tag", "main-content__photographer-card__tag-list__tag", tagsDiv.id, tag).renderDomElement();
                     console.log ("On crée le tag "+tag+" dans la div "+tagsDiv.id);
             })
         },
       
-      
-        createDomElement: function(elementTag, elementId, elementClass, elementParent, elementContent) {
-        //Will create a dom element to render the specified element on the page
-        switch (elementTag) {
-            case "div":
-                        var newDiv = document.createElement(elementTag);
-                        newDiv.id = elementId;
-                        newDiv.className = elementClass;
-                        document.getElementById(elementParent).appendChild(newDiv);
-                        if (elementContent) {
-                            newDiv.innerHTML += elementContent;
-                        }
-                    break;
-            case "img":
-            case "video":
-                        var newImg = document.createElement(elementTag);
-                        newImg.id = elementId;
-                        newImg.className = elementClass;
-                        newImg.setAttribute("src", "public/images/"+elementContent );
-                        
-                        document.getElementById(elementParent).appendChild(newImg);
-                    break;
-                    }
 
-            return newDiv;  
-        }
         };
   }
   
@@ -153,11 +118,11 @@ function createPhotographer (photographerData) {
                         console.log("distinct tag list: "+distinctTagList)
                         return distinctTagList;
     
-            },
-            renderMediaList: function (photographer) {
+                },
+                renderMediaList: function (photographer) {
                 //Selecting photographer's media in the globalMediaList
                 let photographerMediaList = globalMediaList.filter(media => media.photographerId == photographer.id);
-                mediaContainer = photographerList[0].createDomElement("div", "main-content__media-list", "main-content__media-list", "main-content");
+                mediaContainer = domController("div", "main-content__media-list", "main-content__media-list", "main-content").renderDomElement();
                 var mediaType;
                 var mediaLink;
 
@@ -175,47 +140,134 @@ function createPhotographer (photographerData) {
                     }
                     
                     //Create each media to populate the photographer's page;
-                    currentMedia = photographerList[0].createDomElement(mediaType, "media"+media.id, "main-content__media-list__media", mediaContainer.id, mediaLink) ;
+                    currentMedia = domController(mediaType, "media"+media.id, "main-content__media-list__media", mediaContainer.id, mediaLink).renderDomElement() ;
                    
                 })
-        },
+            },
             }
     }
 
+   function domController(elementTag, elementId, elementClass, elementParent, elementContent) {
+        //Will create a dom element to render the specified element on the page
+        //Also provides methods to interact with the DOM: deletMainContent and renderHome
+        return {
 
+            elementTag: elementTag,
+            elementId: elementId,
+            elementClass: elementClass,
+            elementParent: elementParent,
+            elementContent: elementContent,
 
-    
+            deleteMainContent: function() {
+                    //Identification des éléments à retirer du main content.
+                    mainContentChildren = document.getElementById("main-content").children;
+                    //Transformationd de la collection d'éléments en Array[]
+                    mainContentChildren = Array.prototype.slice.call(mainContentChildren, 0)
+                    const contentToActuallyDump = mainContentChildren.filter(content => content.id != "main-content__title");
 
-//Api Call. Getting Photgraphers and Media information from example JSON file.
-function InitializePage() {
-    fetch('./public/FishEyeData.json').then(response => {
-        return response.json();
-    
-                }).then(data => {  
-    
-                    //Create a Global Media List to be accessed by the PhotoGrapher Object
+                    //Supression des éléments à retirer de la page.
+                    contentToActuallyDump.forEach(content => {
+                            content.remove();
+                    })
+            },
+
+            renderHome: function(selectedTag) {
+                    //each time home is rendered, we call the api again (in case site content has been uptdated in the meantime. )
+                    //alternatively we could create a initializeData function which would do the "fetching job" and we could call this whenever we want
+                    console.log("rendering home");
+                    this.deleteMainContent();
+                        //Create a Global Media List to be accessed by the PhotoGrapher Object
                     globalMediaList = new Array(0);
                     photographerList = [];
+                    fetch('./public/FishEyeData.json').then(response => {
+                            return response.json();
+                        
+                                    }).then(data => {  
+                                        //Creating media and adding it to collection
+                                        data['media'].forEach(media => {
+                                        var currentMedia = createMedia (media);
+                                        currentMedia.addToCollection();
+                                        })
+                                        //Creating Photographers Objects
+                                        //Generating Photographers cards on the front page
+
+                                        data['photographers'].forEach(photographer => {
+                                            
+                                            if (selectedTag != undefined){
+                                            photographer["tags"].forEach(tag => {
+                                                    if (tag == selectedTag) {                                             
+                                                        currentPhotographer = createPhotographer (photographer);
+                                                        photographerList.push(currentPhotographer);
+                                                        currentPhotographer.renderCard();
+                                                    }
+                                                })
+                                            }
+                                            else 
+                                            {
+                                                        currentPhotographer = createPhotographer (photographer);
+                                                        photographerList.push(currentPhotographer);
+                                                        currentPhotographer.renderCard();
+                                            }
+                                        })
+                                        
+                                        
+                                        //Getting global Tag list and inserting it into the header. Clearing previous tag list before.
+                                        document.getElementById("header__tag-bar").innerHTML = "";
+                                        globalMediaList[0].getTagList("global").forEach( tag => {
+                                            currentTag = domController("div", "tag", "header__tag-bar__tag", "header__tag-bar", tag).renderDomElement();
+                                            //addingEventListener on each tag. Will use renderHome with a tag parameter to display only relevant photographs
+                                            currentTag.addEventListener("click", () => {
+                                                this.renderHome(tag)});
+                                        })
+                                    })
+
+            },
+            //Now this will create a dom element using the properties provided when creating the object.
+            //It handles different types of content appropriately (div, img and video tags)
+            renderDomElement: function() {
+                    console.log("rendering something");
+                    console.log(this.elementTag);
+                    switch (this.elementTag) {
+                        case "div":
+                                    var newDiv = document.createElement(this.elementTag);
+                                    newDiv.id = this.elementId;
+                                    newDiv.className = this.elementClass;
+                                    document.getElementById(this.elementParent).appendChild(newDiv);
+                                    if (this.elementContent) {
+                                        newDiv.innerHTML += this.elementContent;
+                                    }
+                                break;
+                        case "img":
+                        case "video":
+                                    var newImg = document.createElement(this.elementTag);
+                                    newImg.id = this.elementId;
+                                    newImg.className = this.elementClass;
+                                    newImg.setAttribute("src", "public/images/"+this.elementContent );
+                                    
+                                    document.getElementById(this.elementParent).appendChild(newImg);
+                                break;
+                                }
+                                console.log(newDiv);
+                                return newDiv;     
+                    }
                     
-                    //Creating media and adding it to collection
-                    data['media'].forEach(media => {
-                    var currentMedia = createMedia (media);
-                    currentMedia.addToCollection();
-                    })
+            }
+           
+    }
 
-                    //Creating Photographers Objects
-                    //Generating Photographers cards on the front page
-                    data['photographers'].forEach(photographer => {
-                    currentPhotographer = createPhotographer (photographer);
-                    photographerList.push(currentPhotographer);
-                    currentPhotographer.renderCard();
-                    })
+    
 
-                    //Getting global Tag list and inserting it into the header
-                    globalMediaList[0].getTagList("global").forEach( tag => {
-                        currentTag = photographerList[0].createDomElement("div", "tag", "header__tag-bar__tag", "header__tag-bar", tag);
-                    })
-                })
+//Api Call. Getting Photographers and Media information from example JSON file.
+function InitializePage() {
+
+    //Create a dom element creator as an entry point for the object public methods renderHome, deleteMainContent
+    domElementCreator = domController();
+
+    //Adding eventListener to the logo. On click, it will reload the home page
+    document.getElementById("header__logo").addEventListener("click", () => { domElementCreator.renderHome()});
+
+    //rendering Home Page
+    domElementCreator.renderHome();
 }
 
 
