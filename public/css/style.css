@@ -154,7 +154,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   display: flex;
   flex-direction: row;
   height: 6vh;
-  width: 30vw;
+  min-width: 15vw;
   color: #901c1c;
   font-family: "Roboto";
   font-size: 6vh;
@@ -162,26 +162,22 @@ The @ content directive allows for custom properties to be specified in the @inc
   align-items: center;
 }
 .header__tag-bar {
-  width: 40vw;
-  height: 6vh;
-  background-color: white;
+  justify-content: left;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-}
-.header__tag-bar__element {
-  display: flex;
-  width: 30%;
-  height: 4vh;
-  align-content: center;
-  justify-content: space-around;
-  align-items: center;
+  flex-wrap: wrap;
   font-family: "Roboto";
-  color: #901c1c;
-  font-weight: bold;
-  border-radius: 2vh;
-  border: 1px solid #901c1c;
+}
+.header__tag-bar__tag {
+  margin: 0.5vw;
+  background-color: transparent;
+  border: 0.1vw solid #901c1c;
+  border-radius: 4vw;
+  padding: 0 0.5vw;
+  font-size: 1vw;
+}
+.header__tag-bar__tag::before {
+  content: "#";
 }
 
 /*# sourceMappingURL=style.css.map */

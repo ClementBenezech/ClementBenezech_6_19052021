@@ -12,7 +12,7 @@
     flex-direction: row;
 
     height: 6vh;
-    width: 30vw;
+    min-width: 15vw;
     color: $color-primary-background;
     font-family: "Roboto";
     font-size: 6vh;
@@ -20,26 +20,21 @@
     align-items: center;
   }
   &__tag-bar {
-    width: 40vw;
-    height: 6vh;
-    background-color: rgb(255, 255, 255);
-
+    justify-content: left;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    &__element {
-      display: flex;
-      width: 30%;
-      height: 4vh;
-      align-content: center;
-      justify-content: space-around;
-      align-items: center;
-      font-family: "Roboto";
-      color: $color-primary-background;
-      font-weight: bold;
-      border-radius: 2vh;
-      border: 1px solid $color-primary-background;
+    flex-wrap: wrap;
+    font-family: "Roboto";
+    &__tag {
+      margin: 0.5vw;
+      background-color: transparent;
+      border: 0.1vw solid $color-primary-background;
+      border-radius: 4vw;
+      padding: 0 0.5vw;
+      font-size: 1vw;
+      &::before {
+        content: "#";
+      }
     }
   }
 }

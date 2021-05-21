@@ -16,7 +16,7 @@ function createPhotographer (photographerData) {
 
             //Rendu de la liste de médias.
 
-            this.renderMediaList();
+            globalMediaList[0].renderMediaList(this);
         },
         renderCard: function () {
             //will render the photographer card on the home page
@@ -32,7 +32,7 @@ function createPhotographer (photographerData) {
             taglineDiv = this.createDomElement("div", "tagline", "main-content__photographer-card__tagline", containerDiv.id, this.tagline);
             priceDiv = this.createDomElement("div", "price", "main-content__photographer-card__price", containerDiv.id, this.price);
             tagsDiv = this.createDomElement("div", "tags"+this.id, "main-content__photographer-card__tag-list", containerDiv.id);
-            this.tags.forEach( tag => {
+            globalMediaList[0].getTagList(this).forEach( tag => {
                 currentTag = this.createDomElement("div", "tag", "main-content__photographer-card__tag-list__tag", tagsDiv.id, tag);
                 console.log ("On crée le tag "+tag+" dans la div "+tagsDiv.id);
             })             
@@ -75,33 +75,6 @@ function createPhotographer (photographerData) {
             })
         },
       
-        renderMediaList: function () {
-                //Selecting photographer's media in the globalMediaList
-                const photographerMediaList = globalMediaList.filter(media => media.photographerId == this.id);
-
-                
-                mediaContainer = this.createDomElement("div", "main-content__media-list", "main-content__media-list", "main-content");
-                var mediaType;
-                var mediaLink;
-                photographerMediaList.forEach (media => {
-                    console.log(media.image);
-
-                    //finding out media-type
-                    if (media.image != undefined){
-                        mediaType = "img";
-                        mediaLink = media.image;
-                    }
-                    else if (media.video != undefined){
-                        mediaType = "video";
-                        mediaLink = media.video;
-                    }
-                    
-                    //Create each media to populate the photographer's page;
-                    currentMedia = this.createDomElement(mediaType, "media"+media.id, "main-content__media-list__media", mediaContainer.id, mediaLink) ;
-                   
-                })
-        }, 
-      
       
         createDomElement: function(elementTag, elementId, elementClass, elementParent, elementContent) {
         //Will create a dom element to render the specified element on the page
@@ -130,7 +103,7 @@ function createPhotographer (photographerData) {
         }
         };
   }
-
+  
   function createMedia (mediaData) {
     return {  
                 id: mediaData.id,
@@ -149,8 +122,63 @@ function createPhotographer (photographerData) {
                     else if (this.video) {
                         console.log("render a video");
                     }
-                }
-        
+                },
+                addToCollection: function () {
+                    globalMediaList.push(this);
+                },
+                getTagList: function(photographer) {
+
+                    
+                                     
+                    let photographerMediaList = globalMediaList;
+                    if (photographer == "global") {
+                        
+                    }
+                    else{
+                        photographerMediaList = globalMediaList.filter(media => photographer.id == media.photographerId);
+                        console.log("media tags resquested by a photograph");
+                    }
+    
+                    globalTagList = new Array(0);
+                    console.log(photographerMediaList);
+    
+                        photographerMediaList.forEach(media => {
+                                media['tags'].forEach(tag => {
+                                globalTagList.push(tag); 
+                                console.log(tag);
+                            })
+                        })
+                        //gettingDistinct Tags values from the global tag list
+                        const distinctTagList = [...new Set(globalTagList)];
+                        console.log("distinct tag list: "+distinctTagList)
+                        return distinctTagList;
+    
+            },
+            renderMediaList: function (photographer) {
+                //Selecting photographer's media in the globalMediaList
+                let photographerMediaList = globalMediaList.filter(media => media.photographerId == photographer.id);
+                mediaContainer = photographerList[0].createDomElement("div", "main-content__media-list", "main-content__media-list", "main-content");
+                var mediaType;
+                var mediaLink;
+
+                photographerMediaList.forEach (media => {
+                    console.log(media.image);
+
+                    //finding out media-type
+                    if (media.image != undefined){
+                        mediaType = "img";
+                        mediaLink = media.image;
+                    }
+                    else if (media.video != undefined){
+                        mediaType = "video";
+                        mediaLink = media.video;
+                    }
+                    
+                    //Create each media to populate the photographer's page;
+                    currentMedia = photographerList[0].createDomElement(mediaType, "media"+media.id, "main-content__media-list__media", mediaContainer.id, mediaLink) ;
+                   
+                })
+        },
             }
     }
 
@@ -158,61 +186,40 @@ function createPhotographer (photographerData) {
 
     
 
-//Appel du fichier JSON contenant les données à afficher sur le site
-fetch('./public/FishEyeData.json').then(response => {
-    return response.json();
+//Api Call. Getting Photgraphers and Media information from example JSON file.
+function InitializePage() {
+    fetch('./public/FishEyeData.json').then(response => {
+        return response.json();
+    
+                }).then(data => {  
+    
+                    //Create a Global Media List to be accessed by the PhotoGrapher Object
+                    globalMediaList = new Array(0);
+                    photographerList = [];
+                    
+                    //Creating media and adding it to collection
+                    data['media'].forEach(media => {
+                    var currentMedia = createMedia (media);
+                    currentMedia.addToCollection();
+                    })
 
-            }).then(data => {  
+                    //Creating Photographers Objects
+                    //Generating Photographers cards on the front page
+                    data['photographers'].forEach(photographer => {
+                    currentPhotographer = createPhotographer (photographer);
+                    photographerList.push(currentPhotographer);
+                    currentPhotographer.renderCard();
+                    })
 
-                globalMediaList = new Array(0);
-                data['media'].forEach(media => {
-                var currentMedia = createMedia (media);
-                globalMediaList.push(currentMedia);
+                    //Getting global Tag list and inserting it into the header
+                    globalMediaList[0].getTagList("global").forEach( tag => {
+                        currentTag = photographerList[0].createDomElement("div", "tag", "header__tag-bar__tag", "header__tag-bar", tag);
+                    })
                 })
-                
-                data['photographers'].forEach(photographer => {
-                var currentPhotographer = createPhotographer (photographer);
-                currentPhotographer.renderCard();
-                /*currentPhotographer.renderPhotographerPage();*/
-                })
-
-                
-
-            }).then(data => {
-                console.log(globalMediaList);
-
-           })
+}
 
 
 
-
-
-
-
-
-//Appel du fichier JSON contenant les données à afficher sur le site
-/*fetch('./public/FishEyeData.json').then(response => {
-    return response.json();
-
-        }).then(data => {
-
-        globalMediaList = new Array(0);
-        
-        data['photographers'].forEach(photographer => {
-            var currentPhotographer = createPhotographer (photographer);
-            currentPhotographer.renderCard();
-        })
-        data['media'].forEach(media => {
-            var currentMedia = createMedia (media);
-            globalMediaList.push(currentMedia);
-        } )
-    console.log(globalMediaList);
-    globalMediaList.forEach(media => {
-    media.renderMedia();
-    currentPhotographer.renderMediaList(globalMediaList);
-    })
-  }).catch(err => {
-    console.log("whoops! An error occured while fetching the FishEyeData.json file")
-  });*/
+InitializePage();
 
   
