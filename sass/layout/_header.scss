@@ -17,21 +17,23 @@
     font-family: "Roboto";
     font-size: 6vh;
     margin-left: 5vw;
+    margin-right: 3vw;
     align-items: center;
   }
   &__tag-bar {
-    justify-content: left;
+    justify-content: center;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: no-wrap;
     font-family: "Roboto";
+    width: 50vw;
     &__tag {
       margin: 0.5vw;
       background-color: transparent;
       border: 0.1vw solid $color-primary-background;
       border-radius: 4vw;
       padding: 0 0.5vw;
-      font-size: 1vw;
+      font-size: 1.2vw;
       &::before {
         content: "#";
       }

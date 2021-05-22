@@ -1,0 +1,9 @@
+.filter-menu {
+  display: flex;
+  flex-direction: column;
+  width: 5vw;
+  margin-right: 85vw;
+  &__filter {
+    background-color: red;
+  }
+}

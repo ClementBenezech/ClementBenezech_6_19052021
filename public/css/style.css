@@ -12,8 +12,6 @@ The @ content directive allows for custom properties to be specified in the @inc
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-top: 4vh;
-  padding-bottom: 4vh;
   justify-content: center;
 }
 .main-content__media-list {
@@ -35,13 +33,16 @@ The @ content directive allows for custom properties to be specified in the @inc
   margin-bottom: 5vw;
 }
 .main-content__title {
-  margin-top: 1vh;
-  width: 95vw;
+  margin-top: 0vh;
+  width: 100vw;
+  height: 8vh;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   color: #901c1c;
   font-family: "Roboto";
+  align-items: flex-end;
+  padding-right: 2vw;
 }
 .main-content__photographer-header {
   width: 100vw;
@@ -85,9 +86,10 @@ The @ content directive allows for custom properties to be specified in the @inc
   box-sizing: border-box;
   flex-direction: column;
   width: 33vw;
+  height: 20vw;
   align-content: center;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
   font-family: "Roboto";
 }
 .main-content__photographer-card > * {
@@ -140,6 +142,16 @@ The @ content directive allows for custom properties to be specified in the @inc
   content: "#";
 }
 
+.filter-menu {
+  display: flex;
+  flex-direction: column;
+  width: 5vw;
+  margin-right: 85vw;
+}
+.filter-menu__filter {
+  background-color: red;
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -159,14 +171,16 @@ The @ content directive allows for custom properties to be specified in the @inc
   font-family: "Roboto";
   font-size: 6vh;
   margin-left: 5vw;
+  margin-right: 3vw;
   align-items: center;
 }
 .header__tag-bar {
-  justify-content: left;
+  justify-content: center;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
   font-family: "Roboto";
+  width: 50vw;
 }
 .header__tag-bar__tag {
   margin: 0.5vw;
@@ -174,7 +188,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   border: 0.1vw solid #901c1c;
   border-radius: 4vw;
   padding: 0 0.5vw;
-  font-size: 1vw;
+  font-size: 1.2vw;
 }
 .header__tag-bar__tag::before {
   content: "#";
