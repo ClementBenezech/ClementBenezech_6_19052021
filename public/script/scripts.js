@@ -124,7 +124,7 @@ function createPhotographer (photographerData) {
                                 
                 
                 
-                let photographerMediaList = globalMediaList.filter(media => media.photographerId == photographer.id);
+                const photographerMediaList = globalMediaList.filter(media => media.photographerId == photographer.id);
                 console.log(photographerMediaList);
                 photographerMediaList.sort((a,b) => { 
                     
@@ -174,25 +174,39 @@ function createPhotographer (photographerData) {
                     document.getElementById("main-content__media-list").innerHTML = "";
                 }
                 
-                var mediaType;
-                var mediaLink;
+                
 
                 photographerMediaList.forEach (media => {
                     /*console.log(media.image);*/
 
+                    let mediaType;
+                    let mediaLink;
+                    let aMedia;
+                    console.log(media)
                     //finding out media-type
                     if (media.image != undefined){
                         mediaType = "img";
                         mediaLink = media.image;
-                    }
+                        }
                     else if (media.video != undefined){
                         mediaType = "video";
                         mediaLink = media.video;
-                    }
+                        }
+
+                        aMedia = domController(mediaType, media.id, "main-content__media-list__media", mediaContainer.id, mediaLink);
+                        
+                        aMediaDiv = aMedia.renderDomElement();
+                        console.log("amediadiv");
+                        console.log(aMediaDiv);
+                        aMediaDiv.addEventListener("click", () => {aMedia.renderModale(mediaLink)});
+                        
+
+                                          
+              
+
+  
                     
-                    //Create each media to populate the photographer's page;
-                    currentMedia = domController(mediaType, "media"+media.id, "main-content__media-list__media", mediaContainer.id, mediaLink).renderDomElement() ;
-                   
+                    //add an event listener trigerring the image viewer modale
                 })
             },
             }
@@ -222,6 +236,12 @@ function createPhotographer (photographerData) {
                     })
             },
 
+            renderModale: function(mediaLink) {
+                
+        modalContainer = domController("div", "modal-viewer", "modal-viewer", "body").renderDomElement();
+                modalePicture = domController(this.elementTag, this.elementId, "modal-viewer__media", modalContainer.id, mediaLink ).renderDomElement();
+             },
+
             renderFilterMenu: function(photographer) {
                 let filters = new Array("title", "likes", "date");
                 filterMenu = domController("div", "filter-menu", "filter-menu", "main-content").renderDomElement() ;
@@ -249,7 +269,7 @@ function createPhotographer (photographerData) {
                                     }).then(data => {  
                                         //Creating media and adding it to collection
                                         data['media'].forEach(media => {
-                                        var currentMedia = createMedia (media);
+                                        let currentMedia = createMedia (media);
                                         currentMedia.addToCollection();
                                         })
                                         //Creating Photographers Objects
@@ -293,28 +313,33 @@ function createPhotographer (photographerData) {
                     console.log(this.elementTag);*/
                     switch (this.elementTag) {
                         case "div":
-                                    var newDiv = document.createElement(this.elementTag);
+                                    let newDiv = document.createElement(this.elementTag);
                                     newDiv.id = this.elementId;
                                     newDiv.className = this.elementClass;
                                     document.getElementById(this.elementParent).appendChild(newDiv);
                                     if (this.elementContent) {
                                         newDiv.innerHTML += this.elementContent;
                                     }
+                                    return newDiv;   
                                 break;
                         case "img":
                         case "video":
-                                    var newImg = document.createElement(this.elementTag);
+                                    let newImg = document.createElement(this.elementTag);
                                     newImg.id = this.elementId;
                                     newImg.className = this.elementClass;
-                                    newImg.setAttribute("src", "public/images/small/"+this.elementContent );
+                                    newImg.setAttribute("src", "public/images/small/"+this.elementContent);
                                     
                                     document.getElementById(this.elementParent).appendChild(newImg);
+                                    if (this.elementTag == "video") {
+                                        document.getElementById(newImg.id).controls = true; ;
+                                    }
+                                    return newImg; 
                                 break;
                                 }
                                 /*console.log(newDiv);*/
-                                return newDiv;     
+                                        
                     }
-                    
+                      
             }
            
     }
