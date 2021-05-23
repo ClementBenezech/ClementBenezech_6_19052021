@@ -80,6 +80,8 @@ function createPhotographer (photographerData) {
                 likes: mediaData.likes,
                 date:  mediaData.date,	
                 price: mediaData.price,
+                mediaLink: "",
+                mediaType: "",
                 renderMedia: function () {
                     if (this.image) {
                         console.log("render a photo");
@@ -121,20 +123,16 @@ function createPhotographer (photographerData) {
                 },
                 renderMediaList: function (photographer, orderBy) {
                 //Selecting photographer's media in the globalMediaList
-                                
-                
-                
                 const photographerMediaList = globalMediaList.filter(media => media.photographerId == photographer.id);
-                console.log(photographerMediaList);
+                
+                //Now we are using a switch to order this array of objects according to the orderBy parameter of the method.
                 photographerMediaList.sort((a,b) => { 
                     
-                    console.log(orderBy);
                     switch (orderBy) {
                         
                         case "title":
                             return a.title.localeCompare(b.title);
                         case "date":
-                            console.log("inside case DATE")
                             current = new Date(a.date);
                             currentPlusOne = new Date(b.date);
                             let result = "0";
@@ -158,14 +156,14 @@ function createPhotographer (photographerData) {
                                 return 0;
                             }
                             default:    
-                            /*return 0;*/
-                            console.log("default condition of orderBy switch");
+
+
                             return 0;
                     }
                 })
 
-                console.log(photographerMediaList)
-
+                //checking if the medialist has been created already. If this is the first call of this method, then it won't exist, and we'll initialize is here. 
+                //If it exists, we clear its content with innerHTML;
                 if (document.getElementById("main-content__media-list") == undefined) {
                     mediaContainer = domController("div", "main-content__media-list", "main-content__media-list", "main-content").renderDomElement();
                 }
@@ -175,38 +173,22 @@ function createPhotographer (photographerData) {
                 }
                 
                 
-
+                //Then we generate a card for each media in the array
                 photographerMediaList.forEach (media => {
-                    /*console.log(media.image);*/
-
-                    let mediaType;
-                    let mediaLink;
                     let aMedia;
                     console.log(media)
-                    //finding out media-type
+                    //finding out media-type of the object, and filling the property
                     if (media.image != undefined){
-                        mediaType = "img";
-                        mediaLink = media.image;
-                        }
+                        media.mediaType = "img";
+                        media.mediaLink = media.image;
+                    }
                     else if (media.video != undefined){
-                        mediaType = "video";
-                        mediaLink = media.video;
-                        }
-
-                        aMedia = domController(mediaType, media.id, "main-content__media-list__media", mediaContainer.id, mediaLink);
-                        
-                        aMediaDiv = aMedia.renderDomElement();
-                        console.log("amediadiv");
-                        console.log(aMediaDiv);
-                        aMediaDiv.addEventListener("click", () => {aMedia.renderModale(mediaLink)});
-                        
-
-                                          
-              
-
-  
-                    
-                    //add an event listener trigerring the image viewer modale
+                        media.mediaType = "video";
+                        media.mediaLink = media.video;
+                    }
+                    aMedia = domController(media.mediaType, media.id, "main-content__media-list__media", mediaContainer.id, media.mediaLink);
+                    aMediaDiv = aMedia.renderDomElement();
+                    aMediaDiv.addEventListener("click", () => {aMedia.renderModale(media, photographerMediaList)});
                 })
             },
             }
@@ -224,25 +206,79 @@ function createPhotographer (photographerData) {
             elementContent: elementContent,
 
             deleteMainContent: function() {
-                    //Identification des éléments à retirer du main content.
+                    //Getting Main Content Children
                     mainContentChildren = document.getElementById("main-content").children;
-                    //Transformationd de la collection d'éléments en Array[]
+                    //Turning collection into array.
                     mainContentChildren = Array.prototype.slice.call(mainContentChildren, 0)
+                    //Filtering out the main title so it remains on the page
                     const contentToActuallyDump = mainContentChildren.filter(content => content.id != "main-content__title");
 
-                    //Supression des éléments à retirer de la page.
+                    //Deleting children.
                     contentToActuallyDump.forEach(content => {
                             content.remove();
                     })
             },
 
-            renderModale: function(mediaLink) {
+            renderModale: function(media, photographerMediaList) {
+
+                        
+                        //finding out right media to link each arrow to. 
+                        //We check if we have reached a boudary of the array. If so, we adapt the beahavior of arrows
+                        
+                        //Settting up a maxIndex value for the array. 
+                        //I need to decrease it by 1 for it to point to the right media object. I may have an empty object at the end of the array. Will investigate. 
+                        let maxIndex = photographerMediaList.length - 1;
+                        
+                        if (photographerMediaList.indexOf(media) <= 0) {
+                            mediaPrevious = photographerMediaList[maxIndex];
+                            mediaNext =     photographerMediaList[photographerMediaList.indexOf(media) +1];    
+                        }
+                        else if (photographerMediaList.indexOf(media) >= maxIndex) {
+                            mediaPrevious = photographerMediaList[photographerMediaList.indexOf(media) -1];
+                            mediaNext =     photographerMediaList[0];
+                        }
+                        else 
+                        {
+                            mediaPrevious = photographerMediaList[photographerMediaList.indexOf(media) -1];
+                            mediaNext = photographerMediaList[photographerMediaList.indexOf(media) +1];
+                        }
+                        
+                        
                 
-        modalContainer = domController("div", "modal-viewer", "modal-viewer", "body").renderDomElement();
-                modalePicture = domController(this.elementTag, this.elementId, "modal-viewer__media", modalContainer.id, mediaLink ).renderDomElement();
+                        
+                        //DOM: Creating the "carousel" dom Elements: closebutton, left and right arrows
+                        modaleContainer =    domController("div", "modal-viewer", "modal-viewer", "body").renderDomElement();
+                        
+                        modaleClose =       domController("div", "modal-viewer__close", "modal-viewer__close", modaleContainer.id).renderDomElement();
+                        modalePrevious =    domController("div", "modal-viewer__previous", "modal-viewer__nav-arrow modal-viewer__previous", modaleContainer.id, "<").renderDomElement();
+                        modaleNext =        domController("div", "modal-viewer__next", "modal-viewer__nav-arrow modal-viewer__next", modaleContainer.id, ">").renderDomElement();
+
+                        //DOM: Adding Event Listerners on the 3 nav buttons.
+                        modaleClose.addEventListener("click", () => { 
+                            this.destroyModale();
+                        });
+
+                        modalePrevious.addEventListener("click", () => {
+                            this.destroyModale();
+                            this.renderModale(mediaPrevious, photographerMediaList);
+                        });
+
+                        modaleNext.addEventListener("click", () => { 
+                            this.destroyModale();
+                            this.renderModale(mediaNext, photographerMediaList);
+                        });
+
+                        //DOM: Adding the current picture in the modale.
+                        modalePicture =     domController(media.mediaType, this.elementId, "modal-viewer__media", modaleContainer.id, media.mediaLink ).renderDomElement();
              },
 
-            renderFilterMenu: function(photographer) {
+             destroyModale: function() {
+                //Pretty self explanatory. Will wipe out the modale. 
+                document.getElementById("modal-viewer").remove();
+             },
+
+            // Shall I move this to photographer object?
+             renderFilterMenu: function(photographer) {
                 let filters = new Array("title", "likes", "date");
                 filterMenu = domController("div", "filter-menu", "filter-menu", "main-content").renderDomElement() ;
                 filters.forEach(filter => {
@@ -299,6 +335,7 @@ function createPhotographer (photographerData) {
                                         document.getElementById("header__tag-bar").innerHTML = "";
                                         globalMediaList[0].getTagList("global").forEach( tag => {
                                             currentTag = domController("div", "tag", "header__tag-bar__tag", "header__tag-bar", tag).renderDomElement();
+
                                             //addingEventListener on each tag. Will use renderHome with a tag parameter to display only relevant photographs
                                             currentTag.addEventListener("click", () => {
                                                 this.renderHome(tag)});
@@ -306,11 +343,10 @@ function createPhotographer (photographerData) {
                                     })
 
             },
-            //Now this will create a dom element using the properties provided when creating the object.
-            //It handles different types of content appropriately (div, img and video tags)
+            
             renderDomElement: function() {
-                    /*console.log("rendering something");
-                    console.log(this.elementTag);*/
+                   //Now this will create a dom element using the properties provided when creating the object.
+                    //It handles different types of content appropriately (div, img and video tags)
                     switch (this.elementTag) {
                         case "div":
                                     let newDiv = document.createElement(this.elementTag);
@@ -330,13 +366,18 @@ function createPhotographer (photographerData) {
                                     newImg.setAttribute("src", "public/images/small/"+this.elementContent);
                                     
                                     document.getElementById(this.elementParent).appendChild(newImg);
+                                    console.log("this.elementTag")
                                     if (this.elementTag == "video") {
-                                        document.getElementById(newImg.id).controls = true; ;
+                                        document.getElementById(newImg.id).controls = true;
+                                        if (document.getElementsByClassName("modal-viewer__media")[0] != undefined){
+                                          console.log(document.getElementsByClassName("modal-viewer__media")[0]);  
+                                        document.getElementsByClassName("modal-viewer__media")[0].controls = true;
+                                    }
                                     }
                                     return newImg; 
-                                break;
+
                                 }
-                                /*console.log(newDiv);*/
+
                                         
                     }
                       

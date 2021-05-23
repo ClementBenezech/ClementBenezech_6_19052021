@@ -159,10 +159,43 @@ The @ content directive allows for custom properties to be specified in the @inc
   left: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.7);
-  z-index: 99;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.modal-viewer__media {
+  display: flex;
+  flex-direction: row;
+}
+.modal-viewer__nav-arrow {
+  background-color: red;
+  position: absolute;
+  top: 48vh;
+  z-index: 99;
+  color: black;
+  height: 2vw;
+  width: 2vw;
+  font-family: "Roboto";
+  color: black;
+}
+.modal-viewer__previous {
+  left: 1vw;
+}
+.modal-viewer__next {
+  right: 1vw;
+}
+.modal-viewer__close {
+  background-color: red;
+  position: absolute;
+  top: 1vw;
+  right: 1vw;
+  z-index: 99;
+  color: black;
+  height: 1vw;
+  width: 1vw;
+  font-family: "Roboto";
+  color: black;
 }
 
 .header {
