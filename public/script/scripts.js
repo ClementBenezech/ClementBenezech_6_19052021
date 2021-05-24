@@ -288,176 +288,159 @@ function createPhotographer (photographerData) {
                                 domElementCreator.renderModale(mediaNext, this.photographerMediaList);
                             }      
 
-                        })
-
+                        })                     
                         
-                      
-
-                            /*console.log(leftArrowListener);
-                            console.log(this);
-
-                            if (leftArrowListener.key === "ArrowLeft") {
-                                console.log("should go left");
-                                this.destroyModale();
-                                this.renderModale(mediaPrevious, photographerMediaList);
-                            }*/
-
-                            /*else if (event.key === "ArrowRight")
-                            {
-                                this.destroyModale();
-                                this.renderModale(mediaNext, photographerMediaList);
-                            } */
-                            
-
-                        
-
-                        
-                        
-                        
-                        
-
                         //DOM: Adding the current picture in the modale.
                         modalePicture =     domController(media.mediaType, this.elementId, "modal-viewer__media", modaleContainer.id, media.mediaLink ).renderDomElement();
 
                         modaleContainer.focus();
-             },
+                },
 
-             previousEventListener: function (e) {
-                console.log("inside previousEventListener");
-                console.log(this);
-                
-                if (e.key === "ArrowLeft") {
-                    console.log("should go left");
-                    domElementCreator.destroyModale();
-                    domElementCreator.renderModale(mediaPrevious, this.photographerMediaList);
-                }
-             },
-
-             nextEventListener: function (e) {
-                console.log("inside previousEventListener");
-                console.log(this);
-                
-                if (e.key === "ArrowRight") {
-                    console.log("should go left");
-                    domElementCreator.destroyModale();
-                    domElementCreator.renderModale(mediaNext, this.photographerMediaList);
-                }
-             },
-
-
-
-             destroyModale: function() {
-                //Pretty self explanatory. Will wipe out the modale. 
-                document.getElementById("modal-viewer").remove();
-             },
-
-            // Shall I move this to photographer object?
-             renderFilterMenu: function(photographer) {
-                let filters = new Array("title", "likes", "date");
-                filterMenu = domController("div", "filter-menu", "filter-menu", "main-content").renderDomElement() ;
-                filters.forEach(filter => {
-                    console.log("CurrentFilter "+filter);
-                    filterDiv = domController("div", filter, "filter-menu__filter", filterMenu.id, filter).renderDomElement() ;
-                    filterDiv.addEventListener("click", () => {
-                        globalMediaList[0].renderMediaList(photographer, filter);
-                        console.log("setting up the event listener for a filter named "+filter);
-                    });
-                })
-            },
-
-            renderHome: function(selectedTag) {
-                    //each time home is rendered, we call the api again (in case site content has been uptdated in the meantime. )
-                    //alternatively we could create a initializeData function which would do the "fetching job" and we could call this whenever we want
-                    console.log("rendering home");
-                    this.deleteMainContent();
-                        //Create a Global Media List to be accessed by the PhotoGrapher Object
-                    globalMediaList = new Array(0);
-                    photographerList = [];
-                    fetch('./public/FishEyeData.json').then(response => {
-                            return response.json();
-                        
-                                    }).then(data => {  
-                                        //Creating media and adding it to collection
-                                        data['media'].forEach(media => {
-                                        let currentMedia = createMedia (media);
-                                        currentMedia.addToCollection();
-                                        })
-                                        //Creating Photographers Objects
-                                        //Generating Photographers cards on the front page
-
-                                        data['photographers'].forEach(photographer => {
-                                            
-                                            if (selectedTag != undefined){
-                                            photographer["tags"].forEach(tag => {
-                                                    if (tag == selectedTag) {                                             
-                                                        currentPhotographer = createPhotographer (photographer);
-                                                        photographerList.push(currentPhotographer);
-                                                        currentPhotographer.renderCard();
-                                                    }
-                                                })
-                                            }
-                                            else 
-                                            {
-                                                        currentPhotographer = createPhotographer (photographer);
-                                                        photographerList.push(currentPhotographer);
-                                                        currentPhotographer.renderCard();
-                                            }
-                                        })
-                                        
-                                        
-                                        //Getting global Tag list and inserting it into the header. Clearing previous tag list before.
-                                        document.getElementById("header__tag-bar").innerHTML = "";
-                                        globalMediaList[0].getTagList("global").forEach( tag => {
-                                            currentTag = domController("div", "tag", "header__tag-bar__tag", "header__tag-bar", tag).renderDomElement();
-
-                                            //addingEventListener on each tag. Will use renderHome with a tag parameter to display only relevant photographs
-                                            currentTag.addEventListener("click", () => {
-                                                this.renderHome(tag)});
-                                        })
-                                    })
-
-            },
-            
-            renderDomElement: function() {
-                   //Now this will create a dom element using the properties provided when creating the object.
-                    //It handles different types of content appropriately (div, img and video tags)
-                    switch (this.elementTag) {
-                        case "div":
-                                    let newDiv = document.createElement(this.elementTag);
-                                    newDiv.id = this.elementId;
-                                    newDiv.className = this.elementClass;
-                                    document.getElementById(this.elementParent).appendChild(newDiv);
-                                    if (this.elementContent) {
-                                        newDiv.innerHTML += this.elementContent;
-                                    }
-                                    return newDiv;   
-                                break;
-                        case "img":
-                        case "video":
-                                    let newImg = document.createElement(this.elementTag);
-                                    newImg.id = this.elementId;
-                                    newImg.className = this.elementClass;
-                                    newImg.setAttribute("src", "public/images/small/"+this.elementContent);
-                                    
-                                    document.getElementById(this.elementParent).appendChild(newImg);
-                                    console.log("this.elementTag")
-                                    if (this.elementTag == "video") {
-                                        document.getElementById(newImg.id).controls = true;
-                                        if (document.getElementsByClassName("modal-viewer__media")[0] != undefined){
-                                          console.log(document.getElementsByClassName("modal-viewer__media")[0]);  
-                                        document.getElementsByClassName("modal-viewer__media")[0].controls = true;
-                                    }
-                                    }
-                                    return newImg; 
-
-                                }
-
-                                        
+                previousEventListener: function (e) {
+                    console.log("inside previousEventListener");
+                    console.log(this);
+                    
+                    if (e.key === "ArrowLeft") {
+                        console.log("should go left");
+                        domElementCreator.destroyModale();
+                        domElementCreator.renderModale(mediaPrevious, this.photographerMediaList);
                     }
-                      
-            }
-           
-    }
+                },
+
+                nextEventListener: function (e) {
+                    console.log("inside previousEventListener");
+                    console.log(this);
+                    
+                    if (e.key === "ArrowRight") {
+                        console.log("should go left");
+                        domElementCreator.destroyModale();
+                        domElementCreator.renderModale(mediaNext, this.photographerMediaList);
+                    }
+                },
+
+
+
+                destroyModale: function() {
+                    //Pretty self explanatory. Will wipe out the modale. 
+                    document.getElementById("modal-viewer").remove();
+                },
+
+                // Shall I move this to photographer object?
+                renderFilterMenu: function(photographer) {
+                    let filters = new Array("title", "likes", "date");
+                    filterMenu = domController("div", "filter-menu", "filter-menu", "main-content").renderDomElement() ;
+                    filters.forEach(filter => {
+                        console.log("CurrentFilter "+filter);
+                        filterDiv = domController("div", filter, "filter-menu__filter", filterMenu.id, filter).renderDomElement() ;
+                        filterDiv.addEventListener("click", () => {
+                            globalMediaList[0].renderMediaList(photographer, filter);
+                            console.log("setting up the event listener for a filter named "+filter);
+                        });
+                    })
+                },
+
+                renderHome: function(selectedTag) {
+                        //each time home is rendered, we call the api again (in case site content has been uptdated in the meantime. )
+                        //alternatively we could create a initializeData function which would do the "fetching job" and we could call this whenever we want
+                        console.log("rendering home");
+                        this.deleteMainContent();
+                            //Create a Global Media List to be accessed by the PhotoGrapher Object
+                        globalMediaList = new Array(0);
+                        photographerList = [];
+                        fetch('./public/FishEyeData.json').then(response => {
+                                return response.json();
+                            
+                                        }).then(data => {  
+                                            //Creating media and adding it to collection
+                                            data['media'].forEach(media => {
+                                            let currentMedia = createMedia (media);
+                                            currentMedia.addToCollection();
+                                            })
+                                            //Creating Photographers Objects
+                                            //Generating Photographers cards on the front page
+
+                                            data['photographers'].forEach(photographer => {
+                                                
+                                                if (selectedTag != undefined){
+                                                photographer["tags"].forEach(tag => {
+                                                        if (tag == selectedTag) {                                             
+                                                            currentPhotographer = createPhotographer (photographer);
+                                                            photographerList.push(currentPhotographer);
+                                                            currentPhotographer.renderCard();
+                                                        }
+                                                    })
+                                                }
+                                                else 
+                                                {
+                                                            currentPhotographer = createPhotographer (photographer);
+                                                            photographerList.push(currentPhotographer);
+                                                            currentPhotographer.renderCard();
+                                                }
+                                            })
+                                            
+                                            
+                                            //Getting global Tag list and inserting it into the header. Clearing previous tag list before.
+                                            document.getElementById("header__tag-bar").innerHTML = "";
+                                            globalMediaList[0].getTagList("global").forEach( tag => {
+                                                currentTag = domController("div", "tag", "header__tag-bar__tag", "header__tag-bar", tag).renderDomElement();
+
+                                                //addingEventListener on each tag. Will use renderHome with a tag parameter to display only relevant photographs
+                                                currentTag.addEventListener("click", () => {
+                                                    this.renderHome(tag)});
+                                            })
+                                        })
+
+                },
+                
+                renderDomElement: function() {
+                    //Now this will create a dom element using the properties provided when creating the object.
+                        //It handles different types of content appropriately (div, img and video tags)
+                        switch (this.elementTag) {
+                            case "div":
+                                        let newDiv = document.createElement(this.elementTag);
+                                        newDiv.id = this.elementId;
+                                        newDiv.className = this.elementClass;
+                                        document.getElementById(this.elementParent).appendChild(newDiv);
+                                        if (this.elementContent) {
+                                            newDiv.innerHTML += this.elementContent;
+                                        }
+                                        return newDiv;   
+                                    break;
+                            case "img":
+                            case "video":
+                                        let newImg = document.createElement(this.elementTag);
+                                        newImg.id = this.elementId;
+                                        newImg.className = this.elementClass;
+                                        newImg.setAttribute("src", "public/images/small/"+this.elementContent);
+                                        
+                                        
+
+                                        document.getElementById(this.elementParent).appendChild(newImg);
+                                        console.log(this.elementParent);
+
+                                        //if this a "modale" picture (from carousel component), then we give it bigger size images from the media collection
+                                        if (this.elementParent === "modal-viewer") {
+                                            
+                                            newImg.setAttribute("srcset", "public/images/small/"+this.elementContent+" 800w, public/images/"+this.elementContent+" 1920w");
+                                            newImg.setAttribute("sizes", "80vw");                                        
+                                        }
+
+                                        //If this is a video, activate video controls.
+                                        if (this.elementTag == "video") {
+                                            document.getElementById(newImg.id).controls = true;
+
+                                        
+                                        }
+                                        return newImg; 
+
+                                    }
+
+                                            
+                        }
+                        
+                }
+            
+        }
 
     
 

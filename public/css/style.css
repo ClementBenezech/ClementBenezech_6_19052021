@@ -167,6 +167,7 @@ The @ content directive allows for custom properties to be specified in the @inc
 .modal-viewer__media {
   display: flex;
   flex-direction: row;
+  max-height: 90vh;
 }
 .modal-viewer__nav-arrow {
   background-color: red;
