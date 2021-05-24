@@ -12,7 +12,7 @@ function createPhotographer (photographerData) {
         renderCard: function () {
             //will render the photographer card on the home page
            
-            containerDiv = domController("div", this.id, "main-content__photographer-card", "main-content").renderDomElement();
+            containerDiv = domController("article", this.id, "main-content__photographer-card", "main-content").renderDomElement();
             /*console.log(containerDiv);*/
             
             containerDiv.addEventListener("click", () => {
@@ -42,7 +42,7 @@ function createPhotographer (photographerData) {
         },
         renderPhotographerHeader: function() {
                 //Generate stuff for the header of the photographer page.
-                containerDiv = domController("div", this.id, "main-content__photographer-header", "main-content").renderDomElement();
+                containerDiv = domController("section", this.id, "main-content__photographer-header", "main-content").renderDomElement();
 
                 this.renderBusinessCard();
 
@@ -172,7 +172,7 @@ function createPhotographer (photographerData) {
                 //checking if the medialist has been created already. If this is the first call of this method, then it won't exist, and we'll initialize is here. 
                 //If it exists, we clear its content with innerHTML;
                 if (document.getElementById("main-content__media-list") == undefined) {
-                    mediaContainer = domController("div", "main-content__media-list", "main-content__media-list", "main-content").renderDomElement();
+                    mediaContainer = domController("section", "main-content__media-list", "main-content__media-list", "main-content").renderDomElement();
                 }
                 else
                 {
@@ -403,7 +403,9 @@ function createPhotographer (photographerData) {
                     //Now this will create a dom element using the properties provided when creating the object.
                         //It handles different types of content appropriately (div, img and video tags)
                         switch (this.elementTag) {
+                            case "article":
                             case "div":
+                            case "section":
                                         let newDiv = document.createElement(this.elementTag);
                                         newDiv.id = this.elementId;
                                         newDiv.className = this.elementClass;
