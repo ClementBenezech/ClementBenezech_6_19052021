@@ -204,6 +204,7 @@ function createPhotographer (photographerData) {
             elementClass: elementClass,
             elementParent: elementParent,
             elementContent: elementContent,
+            photographerMediaList: new Array(0),
 
             deleteMainContent: function() {
                     //Getting Main Content Children
@@ -222,6 +223,8 @@ function createPhotographer (photographerData) {
             renderModale: function(media, photographerMediaList) {
 
                         
+                        this.photographerMediaList = photographerMediaList;
+                        console.log(this.photographerMediaList);
                         //finding out right media to link each arrow to. 
                         //We check if we have reached a boudary of the array. If so, we adapt the beahavior of arrows
                         
@@ -253,7 +256,7 @@ function createPhotographer (photographerData) {
                         modalePrevious =    domController("div", "modal-viewer__previous", "modal-viewer__nav-arrow modal-viewer__previous", modaleContainer.id, "<").renderDomElement();
                         modaleNext =        domController("div", "modal-viewer__next", "modal-viewer__nav-arrow modal-viewer__next", modaleContainer.id, ">").renderDomElement();
 
-                        //DOM: Adding Event Listerners on the 3 nav buttons.
+                        //DOM: Adding Event Listerners on the 3 nav buttons
                         modaleClose.addEventListener("click", () => { 
                             this.destroyModale();
                         });
@@ -268,9 +271,80 @@ function createPhotographer (photographerData) {
                             this.renderModale(mediaNext, photographerMediaList);
                         });
 
+
+                        //Giving the Modale window a tabIndex so it can be focused and "capture" the keyboard input.
+                        modaleContainer.tabIndex = "0";
+                        modaleContainer.focus();
+
+
+                        //Creating eventListeners for the modale keyboard controls.
+                        modaleContainer.addEventListener("keydown", (event) => {
+                            if (event.key === "ArrowLeft") {
+                                domElementCreator.destroyModale();
+                                domElementCreator.renderModale(mediaPrevious, this.photographerMediaList);
+                            }        
+                            else if (event.key === "ArrowRight") {
+                                domElementCreator.destroyModale();
+                                domElementCreator.renderModale(mediaNext, this.photographerMediaList);
+                            }      
+
+                        })
+
+                        
+                      
+
+                            /*console.log(leftArrowListener);
+                            console.log(this);
+
+                            if (leftArrowListener.key === "ArrowLeft") {
+                                console.log("should go left");
+                                this.destroyModale();
+                                this.renderModale(mediaPrevious, photographerMediaList);
+                            }*/
+
+                            /*else if (event.key === "ArrowRight")
+                            {
+                                this.destroyModale();
+                                this.renderModale(mediaNext, photographerMediaList);
+                            } */
+                            
+
+                        
+
+                        
+                        
+                        
+                        
+
                         //DOM: Adding the current picture in the modale.
                         modalePicture =     domController(media.mediaType, this.elementId, "modal-viewer__media", modaleContainer.id, media.mediaLink ).renderDomElement();
+
+                        modaleContainer.focus();
              },
+
+             previousEventListener: function (e) {
+                console.log("inside previousEventListener");
+                console.log(this);
+                
+                if (e.key === "ArrowLeft") {
+                    console.log("should go left");
+                    domElementCreator.destroyModale();
+                    domElementCreator.renderModale(mediaPrevious, this.photographerMediaList);
+                }
+             },
+
+             nextEventListener: function (e) {
+                console.log("inside previousEventListener");
+                console.log(this);
+                
+                if (e.key === "ArrowRight") {
+                    console.log("should go left");
+                    domElementCreator.destroyModale();
+                    domElementCreator.renderModale(mediaNext, this.photographerMediaList);
+                }
+             },
+
+
 
              destroyModale: function() {
                 //Pretty self explanatory. Will wipe out the modale. 
