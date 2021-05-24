@@ -46,18 +46,22 @@
     width: 100vw;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     text-align: center;
-    align-items: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding-left: 5vw;
   }
 
-  &__business-card {
+  & &__business-card {
     display: flex;
     flex-direction: column;
     justify-items: flex-start;
-    width: 75vw;
+    justify-content: flex-start;
+    width: 30vw;
     font-family: "Roboto";
     margin-top: 5vh;
+
     & > * {
       text-align: left;
       font-size: 2vw;
@@ -122,6 +126,11 @@
     &__tagline {
       font-size: 1vw;
       text-align: center;
+    }
+    &__contact-button {
+      background-color: red;
+      margin-right: 50vw;
+      margin-top: 10vh;
     }
     &__tag-list {
       justify-content: space-evenly;

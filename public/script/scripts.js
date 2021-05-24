@@ -46,6 +46,13 @@ function createPhotographer (photographerData) {
 
                 this.renderBusinessCard();
 
+
+                ContactButton = domController("div", "contact-button", "main-content__photographer-card__contact-button", containerDiv.id, "Contactez-moi").renderDomElement();
+                ContactButton.addEventListener("click", () => {
+                        document.getElementById("contact-modale").className = "contact-modale";
+                })
+
+
                 portraitDiv = domController("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image).renderDomElement();      
                 /*priceDiv = this.domController("div", "price", "main-content__photographer-card__price", containerDiv.id, this.price);*/
                 
@@ -416,7 +423,6 @@ function createPhotographer (photographerData) {
                                         
 
                                         document.getElementById(this.elementParent).appendChild(newImg);
-                                        console.log(this.elementParent);
 
                                         //if this a "modale" picture (from carousel component), then we give it bigger size images from the media collection
                                         if (this.elementParent === "modal-viewer") {
@@ -452,6 +458,14 @@ function InitializePage() {
 
     //Adding eventListener to the logo. On click, it will reload the home page
     document.getElementById("header__logo").addEventListener("click", () => { domElementCreator.renderHome()});
+
+    //Adding eventlistener on the contact modale close button
+    document.getElementById('contact-modale__close').addEventListener("click", () => {
+        console.log(document.getElementById('contact-modale'));
+        document.getElementById('contact-modale').className = "contact-modale--hidden";
+    })
+
+
 
     //rendering Home Page
     domElementCreator.renderHome();

@@ -48,29 +48,32 @@ The @ content directive allows for custom properties to be specified in the @inc
   width: 100vw;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   text-align: center;
-  align-items: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding-left: 5vw;
 }
-.main-content__business-card {
+.main-content .main-content__business-card {
   display: flex;
   flex-direction: column;
   justify-items: flex-start;
-  width: 75vw;
+  justify-content: flex-start;
+  width: 30vw;
   font-family: "Roboto";
   margin-top: 5vh;
 }
-.main-content__business-card > * {
+.main-content .main-content__business-card > * {
   text-align: left;
   font-size: 2vw;
 }
-.main-content__business-card__tag-list {
+.main-content .main-content__business-card__tag-list {
   justify-content: left;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.main-content__business-card__tag-list__tag {
+.main-content .main-content__business-card__tag-list__tag {
   margin: 0.5vw;
   background-color: transparent;
   border: 0.1vw solid #901c1c;
@@ -78,7 +81,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   padding: 0 0.5vw;
   font-size: 1vw;
 }
-.main-content__business-card__tag-list__tag::before {
+.main-content .main-content__business-card__tag-list__tag::before {
   content: "#";
 }
 .main-content__photographer-card {
@@ -124,6 +127,11 @@ The @ content directive allows for custom properties to be specified in the @inc
   font-size: 1vw;
   text-align: center;
 }
+.main-content__photographer-card__contact-button {
+  background-color: red;
+  margin-right: 50vw;
+  margin-top: 10vh;
+}
 .main-content__photographer-card__tag-list {
   justify-content: space-evenly;
   display: flex;
@@ -168,6 +176,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   display: flex;
   flex-direction: row;
   max-height: 90vh;
+  min-height: 90vh;
 }
 .modal-viewer__nav-arrow {
   background-color: red;
@@ -239,6 +248,47 @@ The @ content directive allows for custom properties to be specified in the @inc
 }
 .header__tag-bar__tag::before {
   content: "#";
+}
+
+.contact-modale {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.434);
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+.contact-modale--hidden {
+  display: none;
+}
+.contact-modale__close {
+  background-color: red;
+  position: absolute;
+  top: 1vw;
+  right: 1vw;
+  z-index: 99;
+  color: black;
+  height: 1vw;
+  width: 1vw;
+  font-family: "Roboto";
+  color: black;
+}
+.contact-modale__form {
+  background-color: royalblue;
+  max-width: 40vw;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.contact-modale__form > * {
+  height: 3vh;
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
