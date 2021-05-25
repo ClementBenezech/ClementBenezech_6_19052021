@@ -1,0 +1,26 @@
+@keyframes enter-right {
+  0% {
+    left: 100vw;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes enter-bottom {
+  0% {
+    margin-top: 100vw;
+  }
+  100% {
+    margin-top: 20vh;
+  }
+}
+
+@keyframes enter-left-carousel {
+  0% {
+    margin-right: 100vw;
+  }
+  100% {
+    margin-right: 0;
+  }
+}

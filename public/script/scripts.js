@@ -362,6 +362,7 @@ function createPhotographer (photographerData) {
                 // Shall I move this to photographer object?
                 renderFilterMenu: function(photographer) {
                     let filters = new Array("title", "likes", "date");
+                    filterLabel = domController("div", "filter-label", "filter-label", "main-content", "Trier par").renderDomElement() ;
                     filterMenu = domController("div", "filter-menu", "filter-menu", "main-content").renderDomElement() ;
                     filters.forEach(filter => {
                         console.log("CurrentFilter "+filter);

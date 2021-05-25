@@ -1,9 +1,27 @@
 .filter-menu {
   display: flex;
   flex-direction: column;
-  width: 5vw;
-  margin-right: 85vw;
-  &__filter {
-    background-color: red;
+  width: 10vw;
+  height: 4vh;
+  overflow: hidden;
+  border-radius: 5%;
+  margin-right: 70vw;
+  &:hover {
+    overflow: visible;
   }
+  &__filter {
+    font-family: $font-family-primary;
+    font-size: 4vh;
+    line-height: 4vh;
+    background-color: $color-primary-background;
+    z-index: 4;
+  }
+}
+
+.filter-label {
+  font-family: $font-family-primary;
+  font-size: 4vh;
+  line-height: 4vh;
+  width: 10vw;
+  float: left;
 }

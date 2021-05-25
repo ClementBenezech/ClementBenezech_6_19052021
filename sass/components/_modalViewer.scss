@@ -1,0 +1,64 @@
+.modal-viewer {
+  position: fixed;
+  top: 5vh;
+  left: 5vw;
+  right: 5vw;
+  bottom: 5vh;
+  background: rgba(white, 0.9);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: auto;
+  &__media {
+    display: flex;
+    flex-direction: row;
+    max-height: 80vh;
+    min-height: 80vh;
+    max-width: 60vw;
+    border-radius: 0.5vh;
+    animation: enter-left-carousel 0.2s ease-out forwards;
+    z-index: 5;
+  }
+  &__nav-arrow {
+    position: absolute;
+    top: 48vh;
+    z-index: 3;
+    color: black;
+    font-size: 3vw;
+    color: $color-primary-background;
+    font-weight: bold;
+  }
+  &__previous {
+    left: 10vw;
+    &::after {
+      font-family: "Font Awesome 5 Free";
+      content: "\f104";
+    }
+  }
+  &__next {
+    text-align: right;
+    right: 10vw;
+    &::after {
+      font-family: "Font Awesome 5 Free";
+      content: "\f105";
+    }
+  }
+  &__close {
+    position: absolute;
+    top: 1vw;
+    right: 2vw;
+    z-index: 99;
+    color: black;
+    height: 1vw;
+    width: 1vw;
+    color: $color-primary-background;
+    font-size: 2vw;
+    font-weight: bold;
+    &::after {
+      font-family: "Font Awesome 5 Free";
+      content: "\f00d";
+    }
+  }
+}

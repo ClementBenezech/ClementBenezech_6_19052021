@@ -24,9 +24,7 @@
 }
 
 .main-content {
-  position: absolute;
-  top: 0%;
-  left: 0%;
+  /*margin-top: 20vh;*/
   background-color: rgb(255, 255, 255);
   width: 100vw;
   min-height: 100vh;
@@ -34,7 +32,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-
+  overflow: hidden;
+  animation: enter-bottom 1s ease-out forwards;
   &__media-list {
     display: flex;
     flex-direction: row;
@@ -84,9 +83,11 @@
   }
 
   &__title {
-    margin-top: 0vh;
-    width: 100vw;
-    height: 8vh;
+    position: absolute;
+    top: 7vh;
+    left: 0;
+    width: 98vw;
+
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -114,11 +115,22 @@
     justify-content: flex-start;
     width: 30vw;
     font-family: $font-family-primary;
-    margin-top: 5vh;
 
     & > * {
       text-align: left;
       font-size: 2vw;
+    }
+    &__name {
+      color: $color-primary;
+      font-size: 5vh;
+      height: 6vh;
+    }
+    &__location {
+      font-size: 1vw;
+      color: $color-primary-background;
+    }
+    &__tagline {
+      font-size: 1vw;
     }
     &__tag-list {
       justify-content: left;
@@ -175,16 +187,24 @@
     &__name {
       color: $color-primary;
       font-size: 2vw;
-      height: 2vw;
+      height: 3vw;
     }
     &__tagline {
       font-size: 1vw;
       text-align: center;
     }
     &__contact-button {
-      background-color: red;
-      margin-right: 50vw;
-      margin-top: 10vh;
+      background-color: $color-primary-background;
+      margin-right: 30vw;
+
+      height: 6vh;
+      width: 15vw;
+      padding: 1vh;
+      color: white;
+      font-family: $font-family-primary;
+      font-size: 3vh;
+      border-radius: 0.5vw;
+      box-sizing: border-box;
     }
     &__tag-list {
       justify-content: space-evenly;

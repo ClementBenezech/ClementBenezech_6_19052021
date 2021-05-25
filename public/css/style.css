@@ -2,6 +2,30 @@
 /*Used to adress desktop specific layout
 This mixin uses the width value defined for desktop by retrieving it from the $breakpoints map.
 The @ content directive allows for custom properties to be specified in the @include in the scss class directly, making it reusable*/
+@keyframes enter-right {
+  0% {
+    left: 100vw;
+  }
+  100% {
+    left: 0;
+  }
+}
+@keyframes enter-bottom {
+  0% {
+    margin-top: 100vw;
+  }
+  100% {
+    margin-top: 20vh;
+  }
+}
+@keyframes enter-left-carousel {
+  0% {
+    margin-right: 100vw;
+  }
+  100% {
+    margin-right: 0;
+  }
+}
 .total-likes {
   position: fixed;
   right: 5vw;
@@ -27,9 +51,7 @@ The @ content directive allows for custom properties to be specified in the @inc
 }
 
 .main-content {
-  position: absolute;
-  top: 0%;
-  left: 0%;
+  /*margin-top: 20vh;*/
   background-color: white;
   width: 100vw;
   min-height: 100vh;
@@ -37,6 +59,8 @@ The @ content directive allows for custom properties to be specified in the @inc
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  overflow: hidden;
+  animation: enter-bottom 1s ease-out forwards;
 }
 .main-content__media-list {
   display: flex;
@@ -83,9 +107,10 @@ The @ content directive allows for custom properties to be specified in the @inc
   margin-left: 2vw;
 }
 .main-content__title {
-  margin-top: 0vh;
-  width: 100vw;
-  height: 8vh;
+  position: absolute;
+  top: 7vh;
+  left: 0;
+  width: 98vw;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -111,11 +136,22 @@ The @ content directive allows for custom properties to be specified in the @inc
   justify-content: flex-start;
   width: 30vw;
   font-family: "DM Sans";
-  margin-top: 5vh;
 }
 .main-content__business-card > * {
   text-align: left;
   font-size: 2vw;
+}
+.main-content__business-card__name {
+  color: #d3573c;
+  font-size: 5vh;
+  height: 6vh;
+}
+.main-content__business-card__location {
+  font-size: 1vw;
+  color: #901c1c;
+}
+.main-content__business-card__tagline {
+  font-size: 1vw;
 }
 .main-content__business-card__tag-list {
   justify-content: left;
@@ -171,16 +207,23 @@ The @ content directive allows for custom properties to be specified in the @inc
 .main-content__photographer-card__name {
   color: #d3573c;
   font-size: 2vw;
-  height: 2vw;
+  height: 3vw;
 }
 .main-content__photographer-card__tagline {
   font-size: 1vw;
   text-align: center;
 }
 .main-content__photographer-card__contact-button {
-  background-color: red;
-  margin-right: 50vw;
-  margin-top: 10vh;
+  background-color: #901c1c;
+  margin-right: 30vw;
+  height: 6vh;
+  width: 15vw;
+  padding: 1vh;
+  color: white;
+  font-family: "DM Sans";
+  font-size: 3vh;
+  border-radius: 0.5vw;
+  box-sizing: border-box;
 }
 .main-content__photographer-card__tag-list {
   justify-content: space-evenly;
@@ -203,43 +246,66 @@ The @ content directive allows for custom properties to be specified in the @inc
 .filter-menu {
   display: flex;
   flex-direction: column;
-  width: 5vw;
-  margin-right: 85vw;
+  width: 10vw;
+  height: 4vh;
+  overflow: hidden;
+  border-radius: 5%;
+  margin-right: 70vw;
+}
+.filter-menu:hover {
+  overflow: visible;
 }
 .filter-menu__filter {
-  background-color: red;
+  font-family: "DM Sans";
+  font-size: 4vh;
+  line-height: 4vh;
+  background-color: #901c1c;
+  z-index: 4;
+}
+
+.filter-label {
+  font-family: "DM Sans";
+  font-size: 4vh;
+  line-height: 4vh;
+  width: 10vw;
+  float: left;
 }
 
 .modal-viewer {
   position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
+  top: 5vh;
+  left: 5vw;
+  right: 5vw;
+  bottom: 5vh;
   background: rgba(255, 255, 255, 0.9);
   z-index: 4;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  width: auto;
 }
 .modal-viewer__media {
   display: flex;
   flex-direction: row;
-  max-height: 90vh;
-  min-height: 90vh;
+  max-height: 80vh;
+  min-height: 80vh;
   max-width: 60vw;
+  border-radius: 0.5vh;
+  animation: enter-left-carousel 0.2s ease-out forwards;
+  z-index: 5;
 }
 .modal-viewer__nav-arrow {
   position: absolute;
   top: 48vh;
-  z-index: 99;
+  z-index: 3;
   color: black;
   font-size: 3vw;
   color: #901c1c;
   font-weight: bold;
 }
 .modal-viewer__previous {
-  left: 15vw;
+  left: 10vw;
 }
 .modal-viewer__previous::after {
   font-family: "Font Awesome 5 Free";
@@ -247,7 +313,7 @@ The @ content directive allows for custom properties to be specified in the @inc
 }
 .modal-viewer__next {
   text-align: right;
-  right: 15vw;
+  right: 10vw;
 }
 .modal-viewer__next::after {
   font-family: "Font Awesome 5 Free";
@@ -276,9 +342,10 @@ The @ content directive allows for custom properties to be specified in the @inc
   z-index: 3;
   position: absolute;
   top: 0;
-  left: 0;
-  height: 15vh;
+  height: 20vh;
   align-items: center;
+  animation: enter-right 0.5s ease-out forwards;
+  margin-bottom: 5vh;
 }
 .header__logo {
   display: flex;
@@ -329,16 +396,22 @@ The @ content directive allows for custom properties to be specified in the @inc
   display: none;
 }
 .contact-modale__close {
-  background-color: red;
   position: absolute;
-  top: 1vw;
-  right: 1vw;
+  top: 10vh;
+  right: 26vw;
   z-index: 99;
   color: black;
-  height: 1vw;
-  width: 1vw;
+  height: 5vw;
+  width: 5vw;
   font-family: "Roboto";
   color: black;
+}
+.contact-modale__close::after {
+  font-family: "Font Awesome 5 Free";
+  content: "";
+  font-weight: bold;
+  font-size: 5vh;
+  color: white;
 }
 .contact-modale__form {
   width: 50vw;
@@ -351,14 +424,15 @@ The @ content directive allows for custom properties to be specified in the @inc
   background-color: #db8876;
   border-radius: 0.5vh;
   padding-top: 4vh;
+  flex-wrap: nowrap;
 }
 .contact-modale__form > * {
-  height: 5vh;
+  height: 6vh;
   width: 90%;
   font-family: "DM Sans";
   font-size: 4vh;
   color: #312e2e;
-  margin: 0;
+  margin-bottom: 1vh;
 }
 .contact-modale__form > #GET-message {
   height: 20vh;

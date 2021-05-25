@@ -1,6 +1,5 @@
 .contact-modale {
   position: fixed;
-
   background: radial-gradient(#fbfbfb 30%, #ffffff90);
   left: 0;
   right: 0;
@@ -15,16 +14,23 @@
     display: none;
   }
   &__close {
-    background-color: red;
     position: absolute;
-    top: 1vw;
-    right: 1vw;
+    top: 10vh;
+    right: 26vw;
     z-index: 99;
     color: black;
-    height: 1vw;
-    width: 1vw;
+    height: 5vw;
+    width: 5vw;
     font-family: "Roboto";
     color: black;
+
+    &::after {
+      font-family: "Font Awesome 5 Free";
+      content: "\f00d";
+      font-weight: bold;
+      font-size: 5vh;
+      color: white;
+    }
   }
 
   &__form {
@@ -38,14 +44,15 @@
     background-color: $color-tertiary-background;
     border-radius: 0.5vh;
     padding-top: 4vh;
+    flex-wrap: nowrap;
 
     & > * {
-      height: 5vh;
+      height: 6vh;
       width: 90%;
       font-family: $font-family-primary;
       font-size: 4vh;
       color: #312e2e;
-      margin: 0;
+      margin-bottom: 1vh;
     }
     & > #GET-message {
       height: 20vh;
