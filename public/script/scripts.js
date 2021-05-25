@@ -154,10 +154,10 @@ function createPhotographer (photographerData) {
 
                         case "likes": 
                             if (a.likes < b.likes) {
-                                return -1;
+                                return 1;
                             }
                             else if (a.likes > b.likes) {
-                                return 1;
+                                return -1;
                             }
                             else{
                                 return 0;
@@ -172,18 +172,24 @@ function createPhotographer (photographerData) {
                 //checking if the medialist has been created already. If this is the first call of this method, then it won't exist, and we'll initialize is here. 
                 //If it exists, we clear its content with innerHTML;
                 if (document.getElementById("main-content__media-list") == undefined) {
-                    mediaContainer = domController("section", "main-content__media-list", "main-content__media-list", "main-content").renderDomElement();
+                    mediaList = domController("section", "main-content__media-list", "main-content__media-list", "main-content").renderDomElement();
                 }
                 else
                 {
                     document.getElementById("main-content__media-list").innerHTML = "";
                 }
+
+                //To display the total number of likes of the photographer, we count all the likes in its media collection.
+                //We extract the likes property into an array, then we use reduce to add up all values.             
+                let likesArray = photographerMediaList.map(likesArray => likesArray.likes);
+                const totalLikes = likesArray.reduce((a, b)=> a + b,0);
+                                console.log(totalLikes);
+                totalLikesDiv = domController("div", "total-likes", "total-likes", mediaList.id, totalLikes).renderDomElement();
                 
                 
                 //Then we generate a card for each media in the array
                 photographerMediaList.forEach (media => {
                     let aMedia;
-                    console.log(media)
                     //finding out media-type of the object, and filling the property
                     if (media.image != undefined){
                         media.mediaType = "img";
@@ -193,9 +199,30 @@ function createPhotographer (photographerData) {
                         media.mediaType = "video";
                         media.mediaLink = media.video;
                     }
-                    aMedia = domController(media.mediaType, media.id, "main-content__media-list__media", mediaContainer.id, media.mediaLink);
-                    aMediaDiv = aMedia.renderDomElement();
+
+                    console.log(media);
+                    
+                    mediaContainer = domController("article", "main-content__media-list__media"+media.id, "main-content__media-list__media", mediaList.id).renderDomElement();
+
+                    console.log(mediaContainer.id);
+
+                    aMedia = domController(media.mediaType, media.id, "main-content__media-list__media__image", mediaContainer.id, media.mediaLink);
+
+                    console.log(aMedia);
+                    aMediaDiv = aMedia.renderDomElement();                  
                     aMediaDiv.addEventListener("click", () => {aMedia.renderModale(media, photographerMediaList)});
+
+                    titleContainer = domController("div", "main-content__media-list__media__title-container"+media.id, "main-content__media-list__media__title-container", mediaContainer.id).renderDomElement();
+                    title = domController("div", "main-content__media-list__media__title-container__title", "main-content__media-list__media__title-container__title", titleContainer.id, media.title).renderDomElement();
+                    likes = domController("div", "main-content__media-list__media__title-container__likes", "main-content__media-list__media__title-container__likes", titleContainer.id, media.likes).renderDomElement();;
+
+                    likes.addEventListener("click", () => {
+                            media.likes = media.likes+1;
+                            this.renderMediaList(photographer, orderBy);
+                            console.log("trying toi add listener on likes");
+                    });
+
+
                 })
             },
             }
@@ -260,8 +287,8 @@ function createPhotographer (photographerData) {
                         modaleContainer =    domController("div", "modal-viewer", "modal-viewer", "body").renderDomElement();
                         
                         modaleClose =       domController("div", "modal-viewer__close", "modal-viewer__close", modaleContainer.id).renderDomElement();
-                        modalePrevious =    domController("div", "modal-viewer__previous", "modal-viewer__nav-arrow modal-viewer__previous", modaleContainer.id, "<").renderDomElement();
-                        modaleNext =        domController("div", "modal-viewer__next", "modal-viewer__nav-arrow modal-viewer__next", modaleContainer.id, ">").renderDomElement();
+                        modalePrevious =    domController("div", "modal-viewer__previous", "modal-viewer__nav-arrow modal-viewer__previous", modaleContainer.id).renderDomElement();
+                        modaleNext =        domController("div", "modal-viewer__next", "modal-viewer__nav-arrow modal-viewer__next", modaleContainer.id).renderDomElement();
 
                         //DOM: Adding Event Listerners on the 3 nav buttons
                         modaleClose.addEventListener("click", () => { 
@@ -401,7 +428,7 @@ function createPhotographer (photographerData) {
                 
                 renderDomElement: function() {
                     //Now this will create a dom element using the properties provided when creating the object.
-                        //It handles different types of content appropriately (div, img and video tags)
+                        //It handles different types of content appropriately (div, article, section, img and video tags)
                         switch (this.elementTag) {
                             case "article":
                             case "div":
@@ -422,7 +449,7 @@ function createPhotographer (photographerData) {
                                         newImg.className = this.elementClass;
                                         newImg.setAttribute("src", "public/images/small/"+this.elementContent);
                                         
-                                        
+                                        console.log(this.elementParent);
 
                                         document.getElementById(this.elementParent).appendChild(newImg);
 

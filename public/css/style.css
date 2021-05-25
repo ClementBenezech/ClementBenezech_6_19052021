@@ -2,6 +2,30 @@
 /*Used to adress desktop specific layout
 This mixin uses the width value defined for desktop by retrieving it from the $breakpoints map.
 The @ content directive allows for custom properties to be specified in the @include in the scss class directly, making it reusable*/
+.total-likes {
+  position: fixed;
+  right: 5vw;
+  bottom: 0;
+  background-color: #d3573c;
+  height: 5vh;
+  width: 15vw;
+  font-family: "DM Sans";
+  font-size: 2vw;
+  border-radius: 1vh 1vh 0 0;
+  padding-bottom: 2vh;
+  display: flex;
+  justify-content: space-between;
+}
+.total-likes > * {
+  margin-left: 1vw;
+}
+.total-likes::after {
+  font-family: "Font Awesome 5 Free";
+  content: "";
+  margin-left: 3vw;
+  margin-right: 1vw;
+}
+
 .main-content {
   position: absolute;
   top: 0%;
@@ -26,11 +50,37 @@ The @ content directive allows for custom properties to be specified in the @inc
 .main-content__media-list__media {
   box-sizing: border-box;
   width: 27vw;
-  height: 27vw;
-  object-fit: cover;
-  border-radius: 0.5vw;
+  height: 30vw;
   overflow: hidden;
   margin-bottom: 5vw;
+}
+.main-content__media-list__media__image {
+  object-fit: cover;
+  height: 27vw;
+  width: 27vw;
+  border-radius: 0.5vw;
+}
+.main-content__media-list__media__title-container {
+  height: 3vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "DM Sans";
+}
+.main-content__media-list__media__title-container__title {
+  font-size: 1.5vw;
+  color: #d3573c;
+}
+.main-content__media-list__media__title-container__likes {
+  font-size: 1.5vw;
+  margin-right: 0vw;
+  color: #901c1c;
+}
+.main-content__media-list__media__title-container__likes::after {
+  font-family: "Font Awesome 5 Free";
+  content: "";
+  margin-left: 2vw;
 }
 .main-content__title {
   margin-top: 0vh;
@@ -40,7 +90,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   flex-direction: row;
   justify-content: flex-end;
   color: #901c1c;
-  font-family: "Roboto";
+  font-family: "DM Sans";
   align-items: flex-end;
   padding-right: 2vw;
 }
@@ -54,26 +104,26 @@ The @ content directive allows for custom properties to be specified in the @inc
   box-sizing: border-box;
   padding-left: 5vw;
 }
-.main-content .main-content__business-card {
+.main-content__business-card {
   display: flex;
   flex-direction: column;
   justify-items: flex-start;
   justify-content: flex-start;
   width: 30vw;
-  font-family: "Roboto";
+  font-family: "DM Sans";
   margin-top: 5vh;
 }
-.main-content .main-content__business-card > * {
+.main-content__business-card > * {
   text-align: left;
   font-size: 2vw;
 }
-.main-content .main-content__business-card__tag-list {
+.main-content__business-card__tag-list {
   justify-content: left;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.main-content .main-content__business-card__tag-list__tag {
+.main-content__business-card__tag-list__tag {
   margin: 0.5vw;
   background-color: transparent;
   border: 0.1vw solid #901c1c;
@@ -81,7 +131,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   padding: 0 0.5vw;
   font-size: 1vw;
 }
-.main-content .main-content__business-card__tag-list__tag::before {
+.main-content__business-card__tag-list__tag::before {
   content: "#";
 }
 .main-content__photographer-card {
@@ -93,7 +143,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   align-content: center;
   align-items: center;
   justify-content: flex-start;
-  font-family: "Roboto";
+  font-family: "DM Sans";
 }
 .main-content__photographer-card > * {
   display: flex;
@@ -166,7 +216,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.9);
   z-index: 4;
   display: flex;
   align-items: center;
@@ -177,35 +227,47 @@ The @ content directive allows for custom properties to be specified in the @inc
   flex-direction: row;
   max-height: 90vh;
   min-height: 90vh;
+  max-width: 60vw;
 }
 .modal-viewer__nav-arrow {
-  background-color: red;
   position: absolute;
   top: 48vh;
   z-index: 99;
   color: black;
-  height: 2vw;
-  width: 2vw;
-  font-family: "Roboto";
-  color: black;
+  font-size: 3vw;
+  color: #901c1c;
+  font-weight: bold;
 }
 .modal-viewer__previous {
-  left: 1vw;
+  left: 15vw;
+}
+.modal-viewer__previous::after {
+  font-family: "Font Awesome 5 Free";
+  content: "";
 }
 .modal-viewer__next {
-  right: 1vw;
+  text-align: right;
+  right: 15vw;
+}
+.modal-viewer__next::after {
+  font-family: "Font Awesome 5 Free";
+  content: "";
 }
 .modal-viewer__close {
-  background-color: red;
   position: absolute;
   top: 1vw;
-  right: 1vw;
+  right: 2vw;
   z-index: 99;
   color: black;
   height: 1vw;
   width: 1vw;
-  font-family: "Roboto";
-  color: black;
+  color: #901c1c;
+  font-size: 2vw;
+  font-weight: bold;
+}
+.modal-viewer__close::after {
+  font-family: "Font Awesome 5 Free";
+  content: "";
 }
 
 .header {
@@ -252,7 +314,7 @@ The @ content directive allows for custom properties to be specified in the @inc
 
 .contact-modale {
   position: fixed;
-  background-color: rgba(255, 255, 255, 0.434);
+  background: radial-gradient(#fbfbfb 30%, #ffffff90);
   left: 0;
   right: 0;
   top: 0;
@@ -279,16 +341,28 @@ The @ content directive allows for custom properties to be specified in the @inc
   color: black;
 }
 .contact-modale__form {
-  background-color: royalblue;
-  max-width: 40vw;
-  min-height: 80vh;
+  width: 50vw;
+  height: 80vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #db8876;
+  border-radius: 0.5vh;
+  padding-top: 4vh;
 }
 .contact-modale__form > * {
-  height: 3vh;
-  width: 100%;
+  height: 5vh;
+  width: 90%;
+  font-family: "DM Sans";
+  font-size: 4vh;
+  color: #312e2e;
+  margin: 0;
+}
+.contact-modale__form > #GET-message {
+  height: 20vh;
+  margin-bottom: 2vw;
 }
 
 /*# sourceMappingURL=style.css.map */
