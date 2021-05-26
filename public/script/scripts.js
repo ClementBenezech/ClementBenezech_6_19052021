@@ -8,12 +8,12 @@ function createPhotographer (photographerData) {
       tagline: photographerData.tagline,
       price: photographerData.price,
       image: photographerData.portrait,
+      orderBy: "Popularité",
         
         renderCard: function () {
             //will render the photographer card on the home page
            
             containerDiv = domController("article", this.id, "main-content__photographer-card", "main-content").renderDomElement();
-            /*console.log(containerDiv);*/
             
             containerDiv.addEventListener("click", () => {
                     this.renderPhotographerPage();
@@ -26,19 +26,18 @@ function createPhotographer (photographerData) {
             tagsDiv = domController("div", "tags"+this.id, "main-content__photographer-card__tag-list", containerDiv.id).renderDomElement();
             globalMediaList[0].getTagList(this).forEach( tag => {
                 currentTag = domController("div", "tag", "main-content__photographer-card__tag-list__tag", tagsDiv.id, tag).renderDomElement();
-                /*console.log ("On crée le tag "+tag+" dans la div "+tagsDiv.id);*/
             })             
-            /*console.log("Artist name is"+this.name+" and his tagline is "+this.tagline);*/
         },
         renderPhotographerPage: function() {
-            //Génère la page photographer. Fait appel à rendermediaList pour le contenu media.
             
-            domElementCreator.deleteMainContent();    
+            domElementCreator.deleteMainContent();
+            //removing the tag bar since it should no appear on this type of pages
+            document.getElementById("header__tag-bar").remove();  
             this.renderPhotographerHeader();         
 
-            //Rendu de la liste de médias.
-            domElementCreator.renderFilterMenu(this);
-            globalMediaList[0].renderMediaList(this, "title");
+            //Rendering media items on the photographers page            
+
+            globalMediaList[0].renderMediaList(this);
         },
         renderPhotographerHeader: function() {
                 //Generate stuff for the header of the photographer page.
@@ -46,10 +45,20 @@ function createPhotographer (photographerData) {
 
                 this.renderBusinessCard();
 
-
+                
+                //creating the contact me button and setting up the event listener
                 ContactButton = domController("div", "contact-button", "main-content__photographer-card__contact-button", containerDiv.id, "Contactez-moi").renderDomElement();
                 ContactButton.addEventListener("click", () => {
-                        document.getElementById("contact-modale").className = "contact-modale";
+                        document.getElementById("contact-modale").className = "contact-modale"
+                        
+                        if (document.getElementById("contact-modale__form__contact-label") != undefined) {
+                            document.getElementById("contact-modale__form__contact-label").remove();
+                            }
+                        
+                        customContactName = domController("div", "contact-modale__form__contact-name", "contact-modale__form__contact-name", "contact-modale__form", this.name).renderDomElement();
+
+                        //Moving the newly generated photographers name under the contact me Label
+                        document.getElementById("contact-modale__form").insertBefore(customContactName, document.getElementById("contact-modale__form__contact-me-label").nextSibling);    
                 })
 
 
@@ -129,17 +138,26 @@ function createPhotographer (photographerData) {
     
                 },
                 renderMediaList: function (photographer, orderBy) {
+                    console.log ("photographer");
+                    console.log(photographer);
                 //Selecting photographer's media in the globalMediaList
                 const photographerMediaList = globalMediaList.filter(media => media.photographerId == photographer.id);
+
+                if (orderBy == undefined) {
+                    orderBy = photographer.orderBy;
+                    console.log("orderBy was undefined");
+                }
+
+                
                 
                 //Now we are using a switch to order this array of objects according to the orderBy parameter of the method.
                 photographerMediaList.sort((a,b) => { 
                     
                     switch (orderBy) {
                         
-                        case "title":
+                        case "Titre":
                             return a.title.localeCompare(b.title);
-                        case "date":
+                        case "Date":
                             current = new Date(a.date);
                             currentPlusOne = new Date(b.date);
                             let result = "0";
@@ -152,7 +170,7 @@ function createPhotographer (photographerData) {
                             }
                             return result;
 
-                        case "likes": 
+                        case "Popularité": 
                             if (a.likes < b.likes) {
                                 return 1;
                             }
@@ -169,25 +187,45 @@ function createPhotographer (photographerData) {
                     }
                 })
 
+                
+        
+                
+
                 //checking if the medialist has been created already. If this is the first call of this method, then it won't exist, and we'll initialize is here. 
                 //If it exists, we clear its content with innerHTML;
+
+                
+                console.log("creatingMediaList");
                 if (document.getElementById("main-content__media-list") == undefined) {
+                    domElementCreator.renderFilterMenu(photographer, orderBy);
                     mediaList = domController("section", "main-content__media-list", "main-content__media-list", "main-content").renderDomElement();
                 }
                 else
                 {
-                    document.getElementById("main-content__media-list").innerHTML = "";
+                    console.log("dans le else");
+                    document.getElementById("main-content__media-list").remove() ;
+                    domElementCreator.renderFilterMenu(photographer, orderBy);
+                    mediaList = domController("section", "main-content__media-list", "main-content__media-list", "main-content").renderDomElement();
                 }
+
+                
 
                 //To display the total number of likes of the photographer, we count all the likes in its media collection.
                 //We extract the likes property into an array, then we use reduce to add up all values.             
                 let likesArray = photographerMediaList.map(likesArray => likesArray.likes);
                 const totalLikes = likesArray.reduce((a, b)=> a + b,0);
-                                console.log(totalLikes);
-                totalLikesDiv = domController("div", "total-likes", "total-likes", mediaList.id, totalLikes).renderDomElement();
+                                console.log(photographerMediaList);
+                
+                LikesPriceContainer = domController("div", "likes-price__container", "likes-price__container", mediaList.id).renderDomElement();
+                totalLikesDiv = domController("div", "likes-price__container__likes", "likes-price__container__likes", LikesPriceContainer.id, totalLikes).renderDomElement();
+                priceDiv = domController("div", "likes-price__container__price", "likes-price__container__price", LikesPriceContainer.id, photographer.price).renderDomElement();
+
+                
                 
                 
                 //Then we generate a card for each media in the array
+
+                
                 photographerMediaList.forEach (media => {
                     let aMedia;
                     //finding out media-type of the object, and filling the property
@@ -199,16 +237,16 @@ function createPhotographer (photographerData) {
                         media.mediaType = "video";
                         media.mediaLink = media.video;
                     }
-
+                    console.log("media");
                     console.log(media);
                     
+
                     mediaContainer = domController("article", "main-content__media-list__media"+media.id, "main-content__media-list__media", mediaList.id).renderDomElement();
 
-                    console.log(mediaContainer.id);
+
 
                     aMedia = domController(media.mediaType, media.id, "main-content__media-list__media__image", mediaContainer.id, media.mediaLink);
 
-                    console.log(aMedia);
                     aMediaDiv = aMedia.renderDomElement();                  
                     aMediaDiv.addEventListener("click", () => {aMedia.renderModale(media, photographerMediaList)});
 
@@ -246,10 +284,10 @@ function createPhotographer (photographerData) {
                     //Turning collection into array.
                     mainContentChildren = Array.prototype.slice.call(mainContentChildren, 0)
                     //Filtering out the main title so it remains on the page
-                    const contentToActuallyDump = mainContentChildren.filter(content => content.id != "main-content__title");
+                    /*const contentToActuallyDump = mainContentChildren.filter(content => content.id != "main-content__title");*/
 
                     //Deleting children.
-                    contentToActuallyDump.forEach(content => {
+                    mainContentChildren.forEach(content => {
                             content.remove();
                     })
             },
@@ -331,22 +369,18 @@ function createPhotographer (photographerData) {
                 },
 
                 previousEventListener: function (e) {
-                    console.log("inside previousEventListener");
                     console.log(this);
                     
                     if (e.key === "ArrowLeft") {
-                        console.log("should go left");
                         domElementCreator.destroyModale();
                         domElementCreator.renderModale(mediaPrevious, this.photographerMediaList);
                     }
                 },
 
                 nextEventListener: function (e) {
-                    console.log("inside previousEventListener");
                     console.log(this);
                     
                     if (e.key === "ArrowRight") {
-                        console.log("should go left");
                         domElementCreator.destroyModale();
                         domElementCreator.renderModale(mediaNext, this.photographerMediaList);
                     }
@@ -359,17 +393,35 @@ function createPhotographer (photographerData) {
                     document.getElementById("modal-viewer").remove();
                 },
 
-                // Shall I move this to photographer object?
-                renderFilterMenu: function(photographer) {
-                    let filters = new Array("title", "likes", "date");
-                    filterLabel = domController("div", "filter-label", "filter-label", "main-content", "Trier par").renderDomElement() ;
-                    filterMenu = domController("div", "filter-menu", "filter-menu", "main-content").renderDomElement() ;
+                //This will render the dropdown menu each time we refresh the media content. 
+                //The menu will be dynamically sorted to display the current sort criteria.
+                renderFilterMenu: function(photographer, orderBy) {
+    
+                    //Reordering the filter array to accommodate current sort selection.
+                    //Using splice to cut the current filter, and paste it at index 0 of the array.
+                    let filters = new Array("Titre", "Popularité", "Date");
+                    let cutOut = filters.splice(filters.indexOf(orderBy), 1);
+                    filters.splice(0, 0, cutOut[0]);
+
+                //If a menu already exists, then destroy it before rendering the new one
+                
+                    if (document.getElementById("filter-menu__container") != undefined) {
+                    document.getElementById("filter-menu__container").remove();
+
+                };
+                    //Creating the structural elements of the menu
+                    filterContainer =   domController("div", "filter-menu__container", "filter-menu__container", "main-content").renderDomElement() ;
+                    filterLabel =       domController("div", "filter-label", "filter-label", filterContainer.id, "Trier par").renderDomElement() ;
+                    filterMenu =        domController("div", "filter-menu", "filter-menu", filterContainer.id).renderDomElement() ;
+
+                    //generating a menu item for each filters[] value
                     filters.forEach(filter => {
-                        console.log("CurrentFilter "+filter);
                         filterDiv = domController("div", filter, "filter-menu__filter", filterMenu.id, filter).renderDomElement() ;
+                       
+                        //adding event listener to the menu item.
                         filterDiv.addEventListener("click", () => {
                             globalMediaList[0].renderMediaList(photographer, filter);
-                            console.log("setting up the event listener for a filter named "+filter);
+                            console.log("eventlistener will be :"+filter );
                         });
                     })
                 },
@@ -379,6 +431,8 @@ function createPhotographer (photographerData) {
                         //alternatively we could create a initializeData function which would do the "fetching job" and we could call this whenever we want
                         console.log("rendering home");
                         this.deleteMainContent();
+                        //Inserting Page Title
+                        titleDiv = domController("div","main-content__title", "main-content__title", "main-content", "Nos Photographes").renderDomElement();
                             //Create a Global Media List to be accessed by the PhotoGrapher Object
                         globalMediaList = new Array(0);
                         photographerList = [];
@@ -414,8 +468,18 @@ function createPhotographer (photographerData) {
                                             })
                                             
                                             
+                                            
+
                                             //Getting global Tag list and inserting it into the header. Clearing previous tag list before.
-                                            document.getElementById("header__tag-bar").innerHTML = "";
+                                            if (document.getElementById("header__tag-bar") != undefined) {
+                                                document.getElementById("header__tag-bar").remove();
+                                                tagBar = domController("div", "header__tag-bar", "header__tag-bar", "header").renderDomElement();
+                                            }
+                                            else {
+
+                                                tagBar = domController("div", "header__tag-bar", "header__tag-bar", "header").renderDomElement();
+                                            }
+                                            
                                             globalMediaList[0].getTagList("global").forEach( tag => {
                                                 currentTag = domController("div", "tag", "header__tag-bar__tag", "header__tag-bar", tag).renderDomElement();
 
@@ -424,6 +488,7 @@ function createPhotographer (photographerData) {
                                                     this.renderHome(tag)});
                                             })
                                         })
+                                      
 
                 },
                 

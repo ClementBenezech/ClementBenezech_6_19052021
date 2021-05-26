@@ -11,6 +11,11 @@
   justify-content: center;
   margin: 0 auto;
   width: auto;
+
+  &:focus {
+    outline: none;
+  }
+
   &__media {
     display: flex;
     flex-direction: row;

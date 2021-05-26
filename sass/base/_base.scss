@@ -1,33 +1,44 @@
-.total-likes {
+.likes-price__container {
   position: fixed;
   right: 5vw;
-  bottom: 0;
+  animation: enter-bottom-button 0.2s ease-out forwards;
   background-color: $color-secondary-background;
-  height: 5vh;
+  height: 3vh;
   width: 15vw;
   font-family: $font-family-primary;
-  font-size: 2vw;
+  font-size: 1vw;
   border-radius: 1vh 1vh 0 0;
-  padding-bottom: 2vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+
+  &__likes {
+    &::after {
+      font-family: "Font Awesome 5 Free";
+      content: "";
+      margin-left: 0.5vw;
+      margin-right: 1vw;
+    }
+  }
+
+  &__price {
+    &::after {
+      content: " € / Jour";
+      margin-right: 1vw;
+    }
+  }
 
   display: flex;
   justify-content: space-between;
   & > * {
     margin-left: 1vw;
   }
-  &::after {
-    font-family: "Font Awesome 5 Free";
-    content: "";
-    margin-left: 3vw;
-    margin-right: 1vw;
-  }
 }
 
 .main-content {
-  /*margin-top: 20vh;*/
+  margin-top: 20vh;
   background-color: rgb(255, 255, 255);
   width: 100vw;
-  min-height: 100vh;
+  /*min-height: 100vh;*/
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -95,6 +106,7 @@
     font-family: $font-family-primary;
     align-items: flex-end;
     padding-right: 2vw;
+    font-size: 2vw;
   }
 
   &__photographer-header {
@@ -106,6 +118,7 @@
     align-items: flex-start;
     box-sizing: border-box;
     padding-left: 5vw;
+    padding-top: 0vh;
   }
 
   &__business-card {
@@ -122,8 +135,8 @@
     }
     &__name {
       color: $color-primary;
-      font-size: 5vh;
-      height: 6vh;
+      font-size: 3vw;
+      height: 4vw;
     }
     &__location {
       font-size: 1vw;
@@ -197,12 +210,13 @@
       background-color: $color-primary-background;
       margin-right: 30vw;
 
-      height: 6vh;
+      height: 4.5vw;
       width: 15vw;
-      padding: 1vh;
+      padding: 1.5vw;
       color: white;
       font-family: $font-family-primary;
-      font-size: 3vh;
+      font-size: 1.5vw;
+      line-height: 1.5vw;
       border-radius: 0.5vw;
       box-sizing: border-box;
     }

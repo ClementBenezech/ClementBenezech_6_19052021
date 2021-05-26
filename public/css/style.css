@@ -26,35 +26,56 @@ The @ content directive allows for custom properties to be specified in the @inc
     margin-right: 0;
   }
 }
-.total-likes {
+@keyframes drop-down-filter-menu {
+  0% {
+    height: 2.5vw;
+  }
+  100% {
+    height: 7.5vw;
+  }
+}
+@keyframes enter-bottom-button {
+  0% {
+    bottom: -10vw;
+  }
+  100% {
+    bottom: 0vw;
+  }
+}
+.likes-price__container {
   position: fixed;
   right: 5vw;
-  bottom: 0;
+  animation: enter-bottom-button 0.2s ease-out forwards;
   background-color: #d3573c;
-  height: 5vh;
+  height: 3vh;
   width: 15vw;
   font-family: "DM Sans";
-  font-size: 2vw;
+  font-size: 1vw;
   border-radius: 1vh 1vh 0 0;
-  padding-bottom: 2vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
   display: flex;
   justify-content: space-between;
 }
-.total-likes > * {
-  margin-left: 1vw;
-}
-.total-likes::after {
+.likes-price__container__likes::after {
   font-family: "Font Awesome 5 Free";
   content: "";
-  margin-left: 3vw;
+  margin-left: 0.5vw;
   margin-right: 1vw;
+}
+.likes-price__container__price::after {
+  content: " € / Jour";
+  margin-right: 1vw;
+}
+.likes-price__container > * {
+  margin-left: 1vw;
 }
 
 .main-content {
-  /*margin-top: 20vh;*/
+  margin-top: 20vh;
   background-color: white;
   width: 100vw;
-  min-height: 100vh;
+  /*min-height: 100vh;*/
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -118,6 +139,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   font-family: "DM Sans";
   align-items: flex-end;
   padding-right: 2vw;
+  font-size: 2vw;
 }
 .main-content__photographer-header {
   width: 100vw;
@@ -128,6 +150,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   align-items: flex-start;
   box-sizing: border-box;
   padding-left: 5vw;
+  padding-top: 0vh;
 }
 .main-content__business-card {
   display: flex;
@@ -143,8 +166,8 @@ The @ content directive allows for custom properties to be specified in the @inc
 }
 .main-content__business-card__name {
   color: #d3573c;
-  font-size: 5vh;
-  height: 6vh;
+  font-size: 3vw;
+  height: 4vw;
 }
 .main-content__business-card__location {
   font-size: 1vw;
@@ -216,12 +239,13 @@ The @ content directive allows for custom properties to be specified in the @inc
 .main-content__photographer-card__contact-button {
   background-color: #901c1c;
   margin-right: 30vw;
-  height: 6vh;
+  height: 4.5vw;
   width: 15vw;
-  padding: 1vh;
+  padding: 1.5vw;
   color: white;
   font-family: "DM Sans";
-  font-size: 3vh;
+  font-size: 1.5vw;
+  line-height: 1.5vw;
   border-radius: 0.5vw;
   box-sizing: border-box;
 }
@@ -247,28 +271,45 @@ The @ content directive allows for custom properties to be specified in the @inc
   display: flex;
   flex-direction: column;
   width: 10vw;
-  height: 4vh;
+  height: 2.5vw;
   overflow: hidden;
   border-radius: 5%;
   margin-right: 70vw;
+  color: white;
 }
 .filter-menu:hover {
-  overflow: visible;
+  animation: drop-down-filter-menu 0.5s ease-out forwards;
+}
+.filter-menu__container {
+  display: flex;
+  flex-direction: row;
+  height: 2.5vw;
+  width: 100%;
+  padding-left: 4vw;
 }
 .filter-menu__filter {
   font-family: "DM Sans";
-  font-size: 4vh;
-  line-height: 4vh;
+  font-size: 1.5vw;
+  line-height: 1.5vw;
   background-color: #901c1c;
   z-index: 4;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5vw;
+}
+.filter-menu__filter:nth-child(1)::after {
+  font-family: "Font Awesome 5 Free";
+  content: "";
+  font-weight: bold;
 }
 
 .filter-label {
   font-family: "DM Sans";
-  font-size: 4vh;
-  line-height: 4vh;
+  font-size: 1.5vw;
+  line-height: 1.5vw;
   width: 10vw;
-  float: left;
+  padding: 0.5vw;
 }
 
 .modal-viewer {
@@ -284,6 +325,9 @@ The @ content directive allows for custom properties to be specified in the @inc
   justify-content: center;
   margin: 0 auto;
   width: auto;
+}
+.modal-viewer:focus {
+  outline: none;
 }
 .modal-viewer__media {
   display: flex;
@@ -343,6 +387,7 @@ The @ content directive allows for custom properties to be specified in the @inc
   position: absolute;
   top: 0;
   height: 20vh;
+  width: 80vw;
   align-items: center;
   animation: enter-right 0.5s ease-out forwards;
   margin-bottom: 5vh;
@@ -350,11 +395,10 @@ The @ content directive allows for custom properties to be specified in the @inc
 .header__logo {
   display: flex;
   flex-direction: row;
-  height: 6vh;
-  min-width: 15vw;
+  height: 6vw;
   color: #901c1c;
   font-family: "Roboto";
-  font-size: 6vh;
+  font-size: 3vw;
   margin-left: 5vw;
   margin-right: 3vw;
   align-items: center;
@@ -363,17 +407,17 @@ The @ content directive allows for custom properties to be specified in the @inc
   justify-content: center;
   display: flex;
   flex-direction: row;
-  flex-wrap: no-wrap;
+  flex-wrap: wrap;
   font-family: "Roboto";
-  width: 50vw;
+  width: 60vw;
 }
 .header__tag-bar__tag {
-  margin: 0.5vw;
+  margin: 0.3vw;
   background-color: transparent;
   border: 0.1vw solid #901c1c;
   border-radius: 4vw;
   padding: 0 0.5vw;
-  font-size: 1.2vw;
+  font-size: 1.5vw;
 }
 .header__tag-bar__tag::before {
   content: "#";
