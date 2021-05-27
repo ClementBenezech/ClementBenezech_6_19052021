@@ -43,7 +43,7 @@ function InitializePage() {
     domElementCreator = domController();
 
     //Adding eventListener to the logo. On click, it will reload the home page
-    document.getElementById("header__logo").addEventListener("click", () => { domElementCreator.renderHome()});
+    document.getElementById("header__logo").addEventListener("click", () => { window.open ('../../index.html','_self',false);});
 
     //Adding eventlistener on the contact modale close button
     document.getElementById('contact-modale__close').addEventListener("click", () => {
