@@ -16,9 +16,7 @@ function createPhotographer (photographerData) {
             containerDiv = domController("article", this.id, "main-content__photographer-card", "main-content").renderDomElement();
             
             containerDiv.addEventListener("click", () => {
-                window.open ('public/pages/photographer.html/photographer?'+this.id,'_self',false);    
-                
-                /*this.renderPhotographerPage();*/
+                window.open ('../../public/pages/photographer.html?photographer='+this.id,'_self',false);    
             })
             portraitDiv = domController("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image).renderDomElement() ;
             nameDiv = domController("div", "name", "main-content__photographer-card__name", containerDiv.id, this.name).renderDomElement();
@@ -32,9 +30,10 @@ function createPhotographer (photographerData) {
         },
         renderPhotographerPage: function() {
             
-            domElementCreator.deleteMainContent();
+            /*domElementCreator.deleteMainContent();*/
             //removing the tag bar since it should no appear on this type of pages
-            document.getElementById("header__tag-bar").remove();  
+            /*document.getElementById("header__tag-bar").remove(); */
+ 
             this.renderPhotographerHeader();         
 
             //Rendering media items on the photographers page            
@@ -437,8 +436,8 @@ function createPhotographer (photographerData) {
                         titleDiv = domController("div","main-content__title", "main-content__title", "main-content", "Nos Photographes").renderDomElement();
                             //Create a Global Media List to be accessed by the PhotoGrapher Object
                         globalMediaList = new Array(0);
-                        photographerList = [];
-                        fetch('./public/FishEyeData.json').then(response => {
+                        var photographerList = [];
+                        fetch('../../public/FishEyeData.json').then(response => {
                                 return response.json();
                             
                                         }).then(data => {  
@@ -515,7 +514,7 @@ function createPhotographer (photographerData) {
                                         let newImg = document.createElement(this.elementTag);
                                         newImg.id = this.elementId;
                                         newImg.className = this.elementClass;
-                                        newImg.setAttribute("src", "public/images/small/"+this.elementContent);
+                                        newImg.setAttribute("src", pageUrlBase+"images/small/"+this.elementContent);
                                         
                                         console.log(this.elementParent);
 
@@ -524,7 +523,7 @@ function createPhotographer (photographerData) {
                                         //if this a "modale" picture (from carousel component), then we give it bigger size images from the media collection
                                         if (this.elementParent === "modal-viewer") {
                                             
-                                            newImg.setAttribute("srcset", "public/images/small/"+this.elementContent+" 800w, public/images/"+this.elementContent+" 1920w");
+                                            newImg.setAttribute("srcset", globalImgUrlBase+"images/small/"+this.elementContent+" 800w, public/images/"+this.elementContent+" 1920w");
                                             newImg.setAttribute("sizes", "80vw");                                        
                                         }
 
@@ -544,32 +543,3 @@ function createPhotographer (photographerData) {
                 }
             
         }
-
-    
-
-//Api Call. Getting Photographers and Media information from example JSON file.
-function InitializePage() {
-
-    //Create a dom element creator as an entry point for the object public methods renderHome, deleteMainContent
-    domElementCreator = domController();
-
-    //Adding eventListener to the logo. On click, it will reload the home page
-    document.getElementById("header__logo").addEventListener("click", () => { domElementCreator.renderHome()});
-
-    //Adding eventlistener on the contact modale close button
-    document.getElementById('contact-modale__close').addEventListener("click", () => {
-        console.log(document.getElementById('contact-modale'));
-        document.getElementById('contact-modale').className = "contact-modale--hidden";
-    })
-
-
-
-    //rendering Home Page
-    domElementCreator.renderHome();
-}
-
-
-
-InitializePage();
-
-  
