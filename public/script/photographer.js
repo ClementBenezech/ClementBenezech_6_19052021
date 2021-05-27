@@ -4,7 +4,7 @@ function InitializePage() {
     
     globalMediaList = new Array(0);
     photographerList = [];
-    fetch(pageUrlBase+'FishEyeData.json').then(response => {
+    fetch("../FishEyeData.json").then(response => {
             return response.json();
         
                     }).then(data => {  

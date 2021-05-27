@@ -437,11 +437,11 @@ function createPhotographer (photographerData) {
                         titleDiv = domController("div","main-content__title", "main-content__title", "main-content", "Nos Photographes").renderDomElement();
                             //Create a Global Media List to be accessed by the PhotoGrapher Object
                        
-                            var pageUrlBase = "../../public/";
+
                        
-                            globalMediaList = new Array(0);
+                        globalMediaList = new Array(0);
                         var photographerList = [];
-                        fetch(pageUrlBase+'FishEyeData.json').then(response => {
+                        fetch("../../public/FishEyeData.json").then(response => {
                                 return response.json();
                             
                                         }).then(data => {  
