@@ -16,7 +16,7 @@ function createPhotographer (photographerData) {
             containerDiv = domController("article", this.id, "main-content__photographer-card", "main-content").renderDomElement();
             
             containerDiv.addEventListener("click", () => {
-                window.open ("../public/pages/photographer.html?photographer="+this.id,'_self',false);    
+                window.open ("public/pages/photographer.html?photographer="+this.id,'_self',false);    
             })
             portraitDiv = domController("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image).renderDomElement() ;
             nameDiv = domController("div", "name", "main-content__photographer-card__name", containerDiv.id, this.name).renderDomElement();
