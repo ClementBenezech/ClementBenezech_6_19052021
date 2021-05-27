@@ -55,6 +55,7 @@ function InitializePage() {
 }
 
 /*this variable is used to "prefix" the images paths when the dom element are generated*/
+
 var pageUrlBase = "../";
 
 InitializePage();

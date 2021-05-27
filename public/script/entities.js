@@ -430,12 +430,16 @@ function createPhotographer (photographerData) {
                 renderHome: function(selectedTag) {
                         //each time home is rendered, we call the api again (in case site content has been uptdated in the meantime. )
                         //alternatively we could create a initializeData function which would do the "fetching job" and we could call this whenever we want
+                        
                         console.log("rendering home");
                         this.deleteMainContent();
                         //Inserting Page Title
                         titleDiv = domController("div","main-content__title", "main-content__title", "main-content", "Nos Photographes").renderDomElement();
                             //Create a Global Media List to be accessed by the PhotoGrapher Object
-                        globalMediaList = new Array(0);
+                       
+                            var pageUrlBase = "../../public/";
+                       
+                            globalMediaList = new Array(0);
                         var photographerList = [];
                         fetch(pageUrlBase+'FishEyeData.json').then(response => {
                                 return response.json();
