@@ -527,7 +527,7 @@ function createPhotographer (photographerData) {
                                         //if this a "modale" picture (from carousel component), then we give it bigger size images from the media collection
                                         if (this.elementParent === "modal-viewer") {
                                             
-                                            newImg.setAttribute("srcset", globalImgUrlBase+"images/small/"+this.elementContent+" 800w, public/images/"+this.elementContent+" 1920w");
+                                            newImg.setAttribute("srcset", pageUrlBase+"images/small/"+this.elementContent+" 800w, "+pageUrlBase+"/images/"+this.elementContent+" 1920w");
                                             newImg.setAttribute("sizes", "80vw");                                        
                                         }
 
