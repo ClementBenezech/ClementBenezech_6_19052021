@@ -437,7 +437,7 @@ function createPhotographer (photographerData) {
                             //Create a Global Media List to be accessed by the PhotoGrapher Object
                         globalMediaList = new Array(0);
                         var photographerList = [];
-                        fetch('../../public/FishEyeData.json').then(response => {
+                        fetch('../public/FishEyeData.json').then(response => {
                                 return response.json();
                             
                                         }).then(data => {  
