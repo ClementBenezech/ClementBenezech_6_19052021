@@ -252,7 +252,7 @@ function createPhotographer (photographerData) {
                     
 
                     mediaContainer = domController("button", "main-content__media-list__media"+media.id, "main-content__media-list__media", mediaList.id).renderDomElement();
-                    mediaContainer.tabIndex = 1;
+
                     mediaContainer.addEventListener("keydown", event => {
                             if (event.key === "Enter" || event.key === " ") {
                                 aMedia.renderModale(media, photographerMediaList)
