@@ -42,6 +42,14 @@ The @ content directive allows for custom properties to be specified in the @inc
     bottom: 0vw;
   }
 }
+button {
+  all: unset;
+}
+button:focus {
+  border: 3px solid #901c1c;
+  box-sizing: border-box;
+}
+
 .likes-price__container {
   position: fixed;
   right: 5vw;

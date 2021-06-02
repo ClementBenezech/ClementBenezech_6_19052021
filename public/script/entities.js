@@ -13,11 +13,20 @@ function createPhotographer (photographerData) {
         renderCard: function () {
             //will render the photographer card on the home page
            
-            containerDiv = domController("article", this.id, "main-content__photographer-card", "main-content").renderDomElement();
+            containerDiv = domController("button", this.id, "main-content__photographer-card", "main-content").renderDomElement();
+            
+            //Adding event listerner for keyboard and mouse navigation
             
             containerDiv.addEventListener("click", () => {
                 window.open ("public/pages/photographer.html?photographer="+this.id,'_self',false);    
             })
+
+            containerDiv.addEventListener("keydown", event => { 
+                if (event.code === "Enter" || event.code === " ") {
+                    window.open ("public/pages/photographer.html?photographer="+this.id,'_self',false);}
+            });
+
+            
             portraitDiv = domController("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image).renderDomElement() ;
             nameDiv = domController("div", "name", "main-content__photographer-card__name", containerDiv.id, this.name).renderDomElement();
             locationDiv = domController("div", "location", "main-content__photographer-card__location", containerDiv.id, this.city+", "+this.country).renderDomElement();
@@ -242,7 +251,17 @@ function createPhotographer (photographerData) {
                     console.log(media);
                     
 
-                    mediaContainer = domController("article", "main-content__media-list__media"+media.id, "main-content__media-list__media", mediaList.id).renderDomElement();
+                    mediaContainer = domController("button", "main-content__media-list__media"+media.id, "main-content__media-list__media", mediaList.id).renderDomElement();
+                    mediaContainer.tabIndex = 1;
+                    mediaContainer.addEventListener("keydown", event => {
+                            if (event.key === "Enter" || event.key === " ") {
+                                aMedia.renderModale(media, photographerMediaList)
+                                //to allow keyboard nav, we are using a "button type" container, and add an event listener for enter and space keys.
+                        }
+                        
+                    
+                    });
+
 
 
 
@@ -250,6 +269,7 @@ function createPhotographer (photographerData) {
 
                     aMediaDiv = aMedia.renderDomElement();                  
                     aMediaDiv.addEventListener("click", () => {aMedia.renderModale(media, photographerMediaList)});
+                    
 
                     titleContainer = domController("div", "main-content__media-list__media__title-container"+media.id, "main-content__media-list__media__title-container", mediaContainer.id).renderDomElement();
                     title = domController("div", "main-content__media-list__media__title-container__title", "main-content__media-list__media__title-container__title", titleContainer.id, media.title).renderDomElement();
@@ -325,23 +345,45 @@ function createPhotographer (photographerData) {
                         //DOM: Creating the "carousel" dom Elements: closebutton, left and right arrows
                         modaleContainer =    domController("div", "modal-viewer", "modal-viewer", "body").renderDomElement();
                         
-                        modaleClose =       domController("div", "modal-viewer__close", "modal-viewer__close", modaleContainer.id).renderDomElement();
-                        modalePrevious =    domController("div", "modal-viewer__previous", "modal-viewer__nav-arrow modal-viewer__previous", modaleContainer.id).renderDomElement();
-                        modaleNext =        domController("div", "modal-viewer__next", "modal-viewer__nav-arrow modal-viewer__next", modaleContainer.id).renderDomElement();
+                        modaleClose =       domController("button", "modal-viewer__close", "modal-viewer__close", modaleContainer.id).renderDomElement();
+                        modalePrevious =    domController("button", "modal-viewer__previous", "modal-viewer__nav-arrow modal-viewer__previous", modaleContainer.id).renderDomElement();
+                        modaleNext =        domController("button", "modal-viewer__next", "modal-viewer__nav-arrow modal-viewer__next", modaleContainer.id).renderDomElement();
 
                         //DOM: Adding Event Listerners on the 3 nav buttons
                         modaleClose.addEventListener("click", () => { 
                             this.destroyModale();
                         });
 
+                        modaleClose.addEventListener("keydown", event => { 
+                            if (event.code === "Enter" || event.code === " ") {
+                            this.destroyModale();}
+                        });
+
+
                         modalePrevious.addEventListener("click", () => {
                             this.destroyModale();
                             this.renderModale(mediaPrevious, photographerMediaList);
                         });
 
+                        modalePrevious.addEventListener("keydown", event => { 
+                            if (event.code === "Enter" || event.code === " ") 
+                            {
+                            this.destroyModale();
+                            this.renderModale(mediaPrevious, photographerMediaList);
+                            }
+                        });
+
                         modaleNext.addEventListener("click", () => { 
                             this.destroyModale();
                             this.renderModale(mediaNext, photographerMediaList);
+                        });
+
+                        modaleNext.addEventListener("keydown", event => { 
+                            if (event.code === "Enter" || event.code === " ") 
+                            {
+                            this.destroyModale();
+                            this.renderModale(mediaNext, photographerMediaList);
+                            }
                         });
 
 
@@ -504,22 +546,41 @@ function createPhotographer (photographerData) {
                             case "article":
                             case "div":
                             case "section":
+                            case "button":
                                         let newDiv = document.createElement(this.elementTag);
                                         newDiv.id = this.elementId;
                                         newDiv.className = this.elementClass;
                                         document.getElementById(this.elementParent).appendChild(newDiv);
                                         if (this.elementContent) {
                                             newDiv.innerHTML += this.elementContent;
+                                            
+                                        }
+                                        
+                                        if (this.elementTag != "div")
+                                        {
+                                        newDiv.tabIndex = 0;
                                         }
                                         return newDiv;   
                                     break;
+                            /*case "button":
+
+                                        let newDiv = document.createElement(this.elementTag);
+                                        newDiv.id = this.elementId;
+                                        newDiv.className = this.elementClass;
+                                        document.getElementById(this.elementParent).appendChild(newDiv);*/
+
+
                             case "img":
                             case "video":
                                         let newImg = document.createElement(this.elementTag);
                                         newImg.id = this.elementId;
                                         newImg.className = this.elementClass;
+                                        newImg.setAttribute("alt", this.elementContent);
                                         newImg.setAttribute("src", pageUrlBase+"images/small/"+this.elementContent);
                                         
+                                        newImg.tabIndex = 0;
+
+
                                         console.log(this.elementParent);
 
                                         document.getElementById(this.elementParent).appendChild(newImg);
