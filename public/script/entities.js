@@ -72,7 +72,7 @@ function createPhotographer (photographerData) {
                 })
 
 
-                portraitDiv = domController("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image).renderDomElement();      
+                portraitDiv = domController("img", "portrait", "main-content__business-card__portrait", containerDiv.id, this.image).renderDomElement();      
                 /*priceDiv = this.domController("div", "price", "main-content__photographer-card__price", containerDiv.id, this.price);*/
                 
                    
@@ -278,8 +278,17 @@ function createPhotographer (photographerData) {
                     likes.addEventListener("click", () => {
                             media.likes = media.likes+1;
                             this.renderMediaList(photographer, orderBy);
-                            console.log("trying toi add listener on likes");
+                            console.log("trying to add listener on likes");
                     });
+
+                    likes.addEventListener("keydown", event => {
+                        if (event.key === "Enter" || event.key === " ") {
+                            media.likes = media.likes+1;
+                            this.renderMediaList(photographer, orderBy);                                                                 
+                    }
+                    
+                
+                });
 
 
                 })
@@ -526,6 +535,7 @@ function createPhotographer (photographerData) {
 
                                                 tagBar = domController("div", "header__tag-bar", "header__tag-bar", "header").renderDomElement();
                                             }
+
                                             
                                             globalMediaList[0].getTagList("global").forEach( tag => {
                                                 currentTag = domController("div", "tag", "header__tag-bar__tag", "header__tag-bar", tag).renderDomElement();
@@ -533,7 +543,15 @@ function createPhotographer (photographerData) {
                                                 //addingEventListener on each tag. Will use renderHome with a tag parameter to display only relevant photographs
                                                 currentTag.addEventListener("click", () => {
                                                     this.renderHome(tag)});
-                                            })
+                                                
+                                                currentTag.addEventListener("keydown", event => { 
+                                                    if (event.key === "Enter" || event.key === " ")
+                                                    {
+                                                        this.renderHome(tag)
+                                                    }
+                                                })
+
+                                         })
                                         })
                                       
 
@@ -556,7 +574,7 @@ function createPhotographer (photographerData) {
                                             
                                         }
                                         
-                                        if (this.elementTag != "div")
+                                        if (true /*this.elementTag != "div" || this.elementId == "tag"*/ )  
                                         {
                                         newDiv.tabIndex = 0;
                                         }

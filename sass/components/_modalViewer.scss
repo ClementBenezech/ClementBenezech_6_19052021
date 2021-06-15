@@ -11,6 +11,12 @@
   justify-content: center;
   margin: 0 auto;
   width: auto;
+  @include mobile-only {
+    top: 0vh;
+    left: 0vw;
+    right: 0vw;
+    bottom: vh;
+  }
 
   &:focus {
     outline: none;
@@ -21,6 +27,9 @@
     flex-direction: row;
     max-height: 80vh;
     min-height: 80vh;
+    @include mobile-only {
+      min-height: auto;
+    }
     max-width: 60vw;
     border-radius: 0.5vh;
     animation: enter-left-carousel 0.2s ease-out forwards;

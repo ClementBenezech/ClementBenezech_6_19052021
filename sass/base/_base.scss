@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 button {
   all: unset;
   &:focus {
@@ -13,8 +17,15 @@ button {
   background-color: $color-secondary-background;
   height: 3vh;
   width: 15vw;
+
   font-family: $font-family-primary;
   font-size: 1vw;
+  @include mobile-only {
+    height: 3vw;
+    width: 45vw;
+    font-size: 4vw;
+    display: none;
+  }
   border-radius: 1vh 1vh 0 0;
   padding-top: 1vh;
   padding-bottom: 1vh;
@@ -44,6 +55,9 @@ button {
 
 .main-content {
   margin-top: 20vh;
+  @include mobile-only {
+    padding-top: 10vw;
+  }
   background-color: rgb(255, 255, 255);
   width: 100vw;
   /*min-height: 100vh;*/
@@ -53,6 +67,9 @@ button {
   justify-content: center;
   overflow: hidden;
   animation: enter-bottom 1s ease-out forwards;
+  @include mobile-only {
+    flex-direction: column;
+  }
   &__media-list {
     display: flex;
     flex-direction: row;
@@ -64,7 +81,12 @@ button {
     &__media {
       box-sizing: border-box;
       width: 27vw;
+
       height: 30vw;
+      @include mobile-only {
+        width: 90vw;
+        height: 90vw;
+      }
 
       overflow: hidden;
       margin-bottom: 5vw;
@@ -72,10 +94,17 @@ button {
         object-fit: cover;
         height: 27vw;
         width: 27vw;
+        @include mobile-only {
+          width: 90vw;
+          height: 80vw;
+        }
         border-radius: 0.5vw;
       }
       &__title-container {
         height: 3vw;
+        @include mobile-only {
+          height: 10vw;
+        }
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -84,6 +113,9 @@ button {
 
         &__title {
           font-size: 1.5vw;
+          @include mobile-only {
+            font-size: 4vw;
+          }
           color: $color-primary;
         }
 
@@ -91,6 +123,9 @@ button {
           font-size: 1.5vw;
           margin-right: 0vw;
           color: $color-primary-background;
+          @include mobile-only {
+            font-size: 4vw;
+          }
           &::after {
             font-family: "Font Awesome 5 Free";
             content: "";
@@ -106,7 +141,6 @@ button {
     top: 7vh;
     left: 0;
     width: 98vw;
-
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -115,6 +149,13 @@ button {
     align-items: flex-end;
     padding-right: 2vw;
     font-size: 2vw;
+    @include mobile-only {
+      top: 1vw;
+      font-size: 4vw;
+      margin-top: 3vw;
+      width: 94vw;
+      height: 5vw;
+    }
   }
 
   &__photographer-header {
@@ -127,6 +168,10 @@ button {
     box-sizing: border-box;
     padding-left: 5vw;
     padding-top: 0vh;
+    @include mobile-only {
+      justify-content: space-between;
+      width: 97vw;
+    }
   }
 
   &__business-card {
@@ -134,24 +179,47 @@ button {
     flex-direction: column;
     justify-items: flex-start;
     justify-content: flex-start;
-    width: 30vw;
+    width: 60vw;
     font-family: $font-family-primary;
 
     & > * {
       text-align: left;
       font-size: 2vw;
+      @include mobile-only {
+        font-size: 4vw;
+      }
     }
     &__name {
       color: $color-primary;
       font-size: 3vw;
       height: 4vw;
+      @include mobile-only {
+        font-size: 7vw;
+        height: 9vw;
+      }
     }
     &__location {
       font-size: 1vw;
       color: $color-primary-background;
+      @include mobile-only {
+        font-size: 3vw;
+      }
     }
     &__tagline {
       font-size: 1vw;
+      @include mobile-only {
+        font-size: 3vw;
+      }
+    }
+    &__portrait {
+      width: 10vw;
+      height: 10vw;
+      @include mobile-only {
+        width: 30vw;
+        height: 30vw;
+      }
+      object-fit: cover;
+      border-radius: 50%;
     }
     &__tag-list {
       justify-content: left;
@@ -182,18 +250,33 @@ button {
     align-items: center;
     justify-content: flex-start;
     font-family: $font-family-primary;
+    @include mobile-only {
+      width: 100vw;
+      height: auto;
+      margin-bottom: 5vw;
+    }
     & > * {
       display: flex;
       background-color: white;
       font-size: 1.5vw;
       height: auto;
+      @include mobile-only {
+        font-size: 3vw;
+        height: auto;
+      }
     }
     &__location {
       font-size: 1vw;
       color: $color-primary-background;
+      @include mobile-only {
+        font-size: 3vw;
+      }
     }
     &__price {
       font-size: 0.75vw;
+      @include mobile-only {
+        font-size: 3vw;
+      }
       color: $color-primary-background;
       &::after {
         content: " € / Jour";
@@ -202,21 +285,33 @@ button {
     &__portrait {
       width: 10vw;
       height: 10vw;
+      @include mobile-only {
+        width: 50vw;
+        height: 50vw;
+      }
       object-fit: cover;
       border-radius: 50%;
     }
+
     &__name {
       color: $color-primary;
       font-size: 2vw;
       height: 3vw;
+      @include mobile-only {
+        font-size: 5vw;
+        height: 6vw;
+      }
     }
     &__tagline {
       font-size: 1vw;
       text-align: center;
+      @include mobile-only {
+        font-size: 3vw;
+      }
     }
     &__contact-button {
       background-color: $color-primary-background;
-      margin-right: 30vw;
+      margin-right: 5vw;
 
       height: 4.5vw;
       width: 15vw;
@@ -227,6 +322,13 @@ button {
       line-height: 1.5vw;
       border-radius: 0.5vw;
       box-sizing: border-box;
+      @include mobile-only {
+        position: fixed;
+        bottom: 10vw;
+        left: 35vw;
+        width: 30vw;
+        font-size: 3vw;
+      }
     }
     &__tag-list {
       justify-content: space-evenly;
@@ -234,6 +336,7 @@ button {
       flex-direction: row;
 
       flex-wrap: wrap;
+
       &__tag {
         margin: 0.5vw;
         background-color: transparent;
@@ -241,6 +344,9 @@ button {
         border-radius: 4vw;
         padding: 0 0.5vw;
         font-size: 1vw;
+        @include mobile-only {
+          font-size: 3vw;
+        }
         &::before {
           content: "#";
         }

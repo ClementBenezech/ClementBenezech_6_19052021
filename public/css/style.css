@@ -42,6 +42,10 @@ The @ content directive allows for custom properties to be specified in the @inc
     bottom: 0vw;
   }
 }
+body {
+  overflow-x: hidden;
+}
+
 button {
   all: unset;
 }
@@ -64,6 +68,14 @@ button:focus {
   padding-bottom: 1vh;
   display: flex;
   justify-content: space-between;
+}
+@media screen and (max-width: 1080px) {
+  .likes-price__container {
+    height: 3vw;
+    width: 45vw;
+    font-size: 4vw;
+    display: none;
+  }
 }
 .likes-price__container__likes::after {
   font-family: "Font Awesome 5 Free";
@@ -91,6 +103,16 @@ button:focus {
   overflow: hidden;
   animation: enter-bottom 1s ease-out forwards;
 }
+@media screen and (max-width: 1080px) {
+  .main-content {
+    padding-top: 10vw;
+  }
+}
+@media screen and (max-width: 1080px) {
+  .main-content {
+    flex-direction: column;
+  }
+}
 .main-content__media-list {
   display: flex;
   flex-direction: row;
@@ -107,11 +129,23 @@ button:focus {
   overflow: hidden;
   margin-bottom: 5vw;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__media-list__media {
+    width: 90vw;
+    height: 90vw;
+  }
+}
 .main-content__media-list__media__image {
   object-fit: cover;
   height: 27vw;
   width: 27vw;
   border-radius: 0.5vw;
+}
+@media screen and (max-width: 1080px) {
+  .main-content__media-list__media__image {
+    width: 90vw;
+    height: 80vw;
+  }
 }
 .main-content__media-list__media__title-container {
   height: 3vw;
@@ -121,14 +155,29 @@ button:focus {
   align-items: center;
   font-family: "DM Sans";
 }
+@media screen and (max-width: 1080px) {
+  .main-content__media-list__media__title-container {
+    height: 10vw;
+  }
+}
 .main-content__media-list__media__title-container__title {
   font-size: 1.5vw;
   color: #d3573c;
+}
+@media screen and (max-width: 1080px) {
+  .main-content__media-list__media__title-container__title {
+    font-size: 4vw;
+  }
 }
 .main-content__media-list__media__title-container__likes {
   font-size: 1.5vw;
   margin-right: 0vw;
   color: #901c1c;
+}
+@media screen and (max-width: 1080px) {
+  .main-content__media-list__media__title-container__likes {
+    font-size: 4vw;
+  }
 }
 .main-content__media-list__media__title-container__likes::after {
   font-family: "Font Awesome 5 Free";
@@ -149,6 +198,15 @@ button:focus {
   padding-right: 2vw;
   font-size: 2vw;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__title {
+    top: 1vw;
+    font-size: 4vw;
+    margin-top: 3vw;
+    width: 94vw;
+    height: 5vw;
+  }
+}
 .main-content__photographer-header {
   width: 100vw;
   display: flex;
@@ -160,29 +218,68 @@ button:focus {
   padding-left: 5vw;
   padding-top: 0vh;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__photographer-header {
+    justify-content: space-between;
+    width: 97vw;
+  }
+}
 .main-content__business-card {
   display: flex;
   flex-direction: column;
   justify-items: flex-start;
   justify-content: flex-start;
-  width: 30vw;
+  width: 60vw;
   font-family: "DM Sans";
 }
 .main-content__business-card > * {
   text-align: left;
   font-size: 2vw;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__business-card > * {
+    font-size: 4vw;
+  }
+}
 .main-content__business-card__name {
   color: #d3573c;
   font-size: 3vw;
   height: 4vw;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__business-card__name {
+    font-size: 7vw;
+    height: 9vw;
+  }
+}
 .main-content__business-card__location {
   font-size: 1vw;
   color: #901c1c;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__business-card__location {
+    font-size: 3vw;
+  }
+}
 .main-content__business-card__tagline {
   font-size: 1vw;
+}
+@media screen and (max-width: 1080px) {
+  .main-content__business-card__tagline {
+    font-size: 3vw;
+  }
+}
+.main-content__business-card__portrait {
+  width: 10vw;
+  height: 10vw;
+  object-fit: cover;
+  border-radius: 50%;
+}
+@media screen and (max-width: 1080px) {
+  .main-content__business-card__portrait {
+    width: 30vw;
+    height: 30vw;
+  }
 }
 .main-content__business-card__tag-list {
   justify-content: left;
@@ -212,19 +309,42 @@ button:focus {
   justify-content: flex-start;
   font-family: "DM Sans";
 }
+@media screen and (max-width: 1080px) {
+  .main-content__photographer-card {
+    width: 100vw;
+    height: auto;
+    margin-bottom: 5vw;
+  }
+}
 .main-content__photographer-card > * {
   display: flex;
   background-color: white;
   font-size: 1.5vw;
   height: auto;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__photographer-card > * {
+    font-size: 3vw;
+    height: auto;
+  }
+}
 .main-content__photographer-card__location {
   font-size: 1vw;
   color: #901c1c;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__photographer-card__location {
+    font-size: 3vw;
+  }
+}
 .main-content__photographer-card__price {
   font-size: 0.75vw;
   color: #901c1c;
+}
+@media screen and (max-width: 1080px) {
+  .main-content__photographer-card__price {
+    font-size: 3vw;
+  }
 }
 .main-content__photographer-card__price::after {
   content: " € / Jour";
@@ -235,18 +355,35 @@ button:focus {
   object-fit: cover;
   border-radius: 50%;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__photographer-card__portrait {
+    width: 50vw;
+    height: 50vw;
+  }
+}
 .main-content__photographer-card__name {
   color: #d3573c;
   font-size: 2vw;
   height: 3vw;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__photographer-card__name {
+    font-size: 5vw;
+    height: 6vw;
+  }
+}
 .main-content__photographer-card__tagline {
   font-size: 1vw;
   text-align: center;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__photographer-card__tagline {
+    font-size: 3vw;
+  }
+}
 .main-content__photographer-card__contact-button {
   background-color: #901c1c;
-  margin-right: 30vw;
+  margin-right: 5vw;
   height: 4.5vw;
   width: 15vw;
   padding: 1.5vw;
@@ -256,6 +393,15 @@ button:focus {
   line-height: 1.5vw;
   border-radius: 0.5vw;
   box-sizing: border-box;
+}
+@media screen and (max-width: 1080px) {
+  .main-content__photographer-card__contact-button {
+    position: fixed;
+    bottom: 10vw;
+    left: 35vw;
+    width: 30vw;
+    font-size: 3vw;
+  }
 }
 .main-content__photographer-card__tag-list {
   justify-content: space-evenly;
@@ -271,6 +417,11 @@ button:focus {
   padding: 0 0.5vw;
   font-size: 1vw;
 }
+@media screen and (max-width: 1080px) {
+  .main-content__photographer-card__tag-list__tag {
+    font-size: 3vw;
+  }
+}
 .main-content__photographer-card__tag-list__tag::before {
   content: "#";
 }
@@ -284,6 +435,11 @@ button:focus {
   border-radius: 5%;
   margin-right: 70vw;
   color: white;
+}
+@media screen and (max-width: 1080px) {
+  .filter-menu {
+    display: none;
+  }
 }
 .filter-menu:hover {
   animation: drop-down-filter-menu 0.5s ease-out forwards;
@@ -319,6 +475,11 @@ button:focus {
   width: 10vw;
   padding: 0.5vw;
 }
+@media screen and (max-width: 1080px) {
+  .filter-label {
+    display: none;
+  }
+}
 
 .modal-viewer {
   position: fixed;
@@ -334,6 +495,14 @@ button:focus {
   margin: 0 auto;
   width: auto;
 }
+@media screen and (max-width: 1080px) {
+  .modal-viewer {
+    top: 0vh;
+    left: 0vw;
+    right: 0vw;
+    bottom: vh;
+  }
+}
 .modal-viewer:focus {
   outline: none;
 }
@@ -346,6 +515,11 @@ button:focus {
   border-radius: 0.5vh;
   animation: enter-left-carousel 0.2s ease-out forwards;
   z-index: 5;
+}
+@media screen and (max-width: 1080px) {
+  .modal-viewer__media {
+    min-height: auto;
+  }
 }
 .modal-viewer__nav-arrow {
   position: absolute;
@@ -400,6 +574,17 @@ button:focus {
   animation: enter-right 0.5s ease-out forwards;
   margin-bottom: 5vh;
 }
+@media screen and (max-width: 1080px) {
+  .header {
+    width: 100vw;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 1080px) {
+  .header {
+    flex-wrap: wrap;
+  }
+}
 .header__logo {
   display: flex;
   flex-direction: row;
@@ -411,6 +596,12 @@ button:focus {
   margin-right: 3vw;
   align-items: center;
 }
+@media screen and (max-width: 1080px) {
+  .header__logo {
+    font-size: 12vw;
+    width: 100%;
+  }
+}
 .header__tag-bar {
   justify-content: center;
   display: flex;
@@ -419,6 +610,12 @@ button:focus {
   font-family: "Roboto";
   width: 60vw;
 }
+@media screen and (max-width: 1080px) {
+  .header__tag-bar {
+    width: 80vw;
+    margin-bottom: 5vw;
+  }
+}
 .header__tag-bar__tag {
   margin: 0.3vw;
   background-color: transparent;
@@ -426,6 +623,12 @@ button:focus {
   border-radius: 4vw;
   padding: 0 0.5vw;
   font-size: 1.5vw;
+}
+@media screen and (max-width: 1080px) {
+  .header__tag-bar__tag {
+    font-size: 5vw;
+    margin: 1vw;
+  }
 }
 .header__tag-bar__tag::before {
   content: "#";

@@ -7,18 +7,28 @@
 
   height: 20vh;
   width: 80vw;
+  @include mobile-only {
+    width: 100vw;
+    justify-content: center;
+  }
   align-items: center;
   animation: enter-right 0.5s ease-out forwards;
   margin-bottom: 5vh;
+  @include mobile-only {
+    flex-wrap: wrap;
+  }
   &__logo {
     display: flex;
     flex-direction: row;
-
     height: 6vw;
 
     color: $color-primary-background;
     font-family: "Roboto";
     font-size: 3vw;
+    @include mobile-only {
+      font-size: 12vw;
+      width: 100%;
+    }
     margin-left: 5vw;
     margin-right: 3vw;
     align-items: center;
@@ -30,6 +40,10 @@
     flex-wrap: wrap;
     font-family: "Roboto";
     width: 60vw;
+    @include mobile-only {
+      width: 80vw;
+      margin-bottom: 5vw;
+    }
     &__tag {
       margin: 0.3vw;
       background-color: transparent;
@@ -37,6 +51,11 @@
       border-radius: 4vw;
       padding: 0 0.5vw;
       font-size: 1.5vw;
+      @include mobile-only {
+        font-size: 5vw;
+        margin: 1vw;
+      }
+
       &::before {
         content: "#";
       }

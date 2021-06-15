@@ -7,6 +7,9 @@
   border-radius: 5%;
   margin-right: 70vw;
   color: white;
+  @include mobile-only {
+    display: none;
+  }
 
   &:hover {
     animation: drop-down-filter-menu 0.5s ease-out forwards;
@@ -46,4 +49,7 @@
   line-height: 1.5vw;
   width: 10vw;
   padding: 0.5vw;
+  @include mobile-only {
+    display: none;
+  }
 }

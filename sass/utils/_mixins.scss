@@ -1,8 +1,8 @@
 /*Used to adress desktop specific layout
 This mixin uses the width value defined for desktop by retrieving it from the $breakpoints map.
 The @ content directive allows for custom properties to be specified in the @include in the scss class directly, making it reusable*/
-@mixin desktop-only {
-  @media screen and (min-width: map-get($breakpoints, desktop)) {
+@mixin mobile-only {
+  @media screen and (max-width: map-get($breakpoints, mobile)) {
     @content;
   }
 }
