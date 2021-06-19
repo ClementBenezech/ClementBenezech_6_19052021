@@ -103,14 +103,14 @@ function createPhotographer (photographerData) {
                     /*console.log ("On crée le tag "+tag+" dans la div "+tagsDiv.id);*/
                     
                     currentTag.addEventListener("click", event => {
-                        window.open ("/index.html?tag="+tag,'_self',false)
+                        window.open ("../../index.html?tag="+tag,'_self',false)
                         event.stopPropagation();                                                             
                     });
                     
                     currentTag.addEventListener("keydown", event => { 
                         if (event.key === "Enter" || event.key === " ")
                         {
-                            window.open ("/index.html?tag="+tag,'_self',false)
+                            window.open ("../../index.html?tag="+tag,'_self',false)
                             event.stopPropagation();     
                         }
                     })
