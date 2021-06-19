@@ -5,7 +5,7 @@ function InitializePage() {
     domElementCreator = domController();
 
     //Adding eventListener to the logo. On click, it will reload the home page
-    document.getElementById("header__logo").addEventListener("click", () => { window.open ('index.html','_self',false);});
+    document.getElementById("header__logo").addEventListener("click", () => { window.open ('../../index.html','_self',false);});
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
