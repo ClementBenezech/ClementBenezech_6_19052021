@@ -15,7 +15,7 @@ The @ content directive allows for custom properties to be specified in the @inc
     margin-top: 100vw;
   }
   100% {
-    margin-top: 20vh;
+    margin-top: 0;
   }
 }
 @keyframes enter-left-carousel {
@@ -92,7 +92,6 @@ button:focus {
 }
 
 .main-content {
-  margin-top: 20vh;
   background-color: white;
   width: 100vw;
   /*min-height: 100vh;*/
@@ -105,11 +104,8 @@ button:focus {
 }
 @media screen and (max-width: 1080px) {
   .main-content {
-    padding-top: 10vw;
-  }
-}
-@media screen and (max-width: 1080px) {
-  .main-content {
+    margin-top: 0;
+    padding-top: 0;
     flex-direction: column;
   }
 }
@@ -120,7 +116,7 @@ button:focus {
   align-content: center;
   justify-content: space-evenly;
   margin-top: 3vw;
-  width: 100vw;
+  width: 95vw;
 }
 .main-content__media-list__media {
   box-sizing: border-box;
@@ -186,7 +182,7 @@ button:focus {
 }
 .main-content__title {
   position: absolute;
-  top: 7vh;
+  top: 4vh;
   left: 0;
   width: 98vw;
   display: flex;
@@ -211,17 +207,20 @@ button:focus {
   width: 100vw;
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: flex-start;
   text-align: center;
   align-items: flex-start;
   box-sizing: border-box;
   padding-left: 5vw;
+  padding-right: 5vw;
   padding-top: 0vh;
 }
 @media screen and (max-width: 1080px) {
   .main-content__photographer-header {
     justify-content: space-between;
     width: 97vw;
+    margin-top: 5vw;
   }
 }
 .main-content__business-card {
@@ -412,9 +411,10 @@ button:focus {
 .main-content__photographer-card__tag-list__tag {
   margin: 0.5vw;
   background-color: transparent;
-  border: 0.1vw solid #901c1c;
+  border: 0.1vw solid lightgrey;
+  color: #901c1c;
   border-radius: 4vw;
-  padding: 0 0.5vw;
+  padding: 0.5vw;
   font-size: 1vw;
 }
 @media screen and (max-width: 1080px) {
@@ -500,7 +500,7 @@ button:focus {
     top: 0vh;
     left: 0vw;
     right: 0vw;
-    bottom: vh;
+    bottom: 0vh;
   }
 }
 .modal-viewer:focus {
@@ -566,18 +566,19 @@ button:focus {
   display: flex;
   flex-direction: row;
   z-index: 3;
-  position: absolute;
+  position: relative;
   top: 0;
-  height: 20vh;
   width: 80vw;
+  overflow: hidden;
   align-items: center;
   animation: enter-right 0.5s ease-out forwards;
-  margin-bottom: 5vh;
 }
 @media screen and (max-width: 1080px) {
   .header {
     width: 100vw;
+    max-height: 40vw;
     justify-content: center;
+    align-items: center;
   }
 }
 @media screen and (max-width: 1080px) {
@@ -600,6 +601,7 @@ button:focus {
   .header__logo {
     font-size: 12vw;
     width: 100%;
+    height: 12vw;
   }
 }
 .header__tag-bar {
@@ -612,22 +614,26 @@ button:focus {
 }
 @media screen and (max-width: 1080px) {
   .header__tag-bar {
-    width: 80vw;
+    width: 90vw;
     margin-bottom: 5vw;
+    margin: 5vw 0;
+    padding-bottom: 5vw;
   }
 }
 .header__tag-bar__tag {
   margin: 0.3vw;
   background-color: transparent;
-  border: 0.1vw solid #901c1c;
+  border: 0.02vw solid lightgrey;
   border-radius: 4vw;
   padding: 0 0.5vw;
   font-size: 1.5vw;
+  color: #901c1c;
 }
 @media screen and (max-width: 1080px) {
   .header__tag-bar__tag {
-    font-size: 5vw;
+    font-size: 4vw;
     margin: 1vw;
+    padding: 1vw;
   }
 }
 .header__tag-bar__tag::before {

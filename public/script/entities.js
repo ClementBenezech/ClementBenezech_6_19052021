@@ -35,6 +35,19 @@ function createPhotographer (photographerData) {
             tagsDiv = domController("div", "tags"+this.id, "main-content__photographer-card__tag-list", containerDiv.id).renderDomElement();
             globalMediaList[0].getTagList(this).forEach( tag => {
                 currentTag = domController("div", "tag", "main-content__photographer-card__tag-list__tag", tagsDiv.id, tag).renderDomElement();
+                //addingEventListener on each tag. Will use renderHome with a tag parameter to display only relevant photographs
+                currentTag.addEventListener("click", event => {
+                    domElementCreator.renderHome(tag);
+                    event.stopPropagation();                                                             
+                });
+                
+                currentTag.addEventListener("keydown", event => { 
+                    if (event.key === "Enter" || event.key === " ")
+                    {
+                        domElementCreator.renderHome(tag);
+                        event.stopPropagation();     
+                    }
+                })
             })             
         },
         renderPhotographerPage: function() {
@@ -88,6 +101,19 @@ function createPhotographer (photographerData) {
             this.tags.forEach( tag => {
                     currentTag = domController("div", "tag", "main-content__photographer-card__tag-list__tag", tagsDiv.id, tag).renderDomElement();
                     /*console.log ("On crée le tag "+tag+" dans la div "+tagsDiv.id);*/
+                    
+                    currentTag.addEventListener("click", event => {
+                        window.open ("/index.html?tag="+tag,'_self',false)
+                        event.stopPropagation();                                                             
+                    });
+                    
+                    currentTag.addEventListener("keydown", event => { 
+                        if (event.key === "Enter" || event.key === " ")
+                        {
+                            window.open ("/index.html?tag="+tag,'_self',false)
+                            event.stopPropagation();     
+                        }
+                    })
             })
         },
       
@@ -284,7 +310,8 @@ function createPhotographer (photographerData) {
                     likes.addEventListener("keydown", event => {
                         if (event.key === "Enter" || event.key === " ") {
                             media.likes = media.likes+1;
-                            this.renderMediaList(photographer, orderBy);                                                                 
+                            this.renderMediaList(photographer, orderBy);
+                            event.stopPropagation();                                                                 
                     }
                     
                 
