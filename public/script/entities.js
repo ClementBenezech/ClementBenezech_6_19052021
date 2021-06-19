@@ -74,8 +74,9 @@ function createPhotographer (photographerData) {
                 ContactButton.addEventListener("click", () => {
                         document.getElementById("contact-modale").className = "contact-modale"
                         
-                        if (document.getElementById("contact-modale__form__contact-label") != undefined) {
-                            document.getElementById("contact-modale__form__contact-label").remove();
+                        if (document.getElementById("contact-modale__form__contact-name") != undefined) {
+                            document.getElementById("contact-modale__form__contact-name").remove();
+
                             }
                         
                         customContactName = domController("div", "contact-modale__form__contact-name", "contact-modale__form__contact-name", "contact-modale__form", this.name).renderDomElement();

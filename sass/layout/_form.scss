@@ -7,16 +7,18 @@
   bottom: 0;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
   z-index: 5;
+  width: 100%;
+
   &--hidden {
     display: none;
   }
   &__close {
     position: absolute;
-    top: 10vh;
-    right: 26vw;
+
+    right: 20%;
+    top: 2%;
     z-index: 99;
     color: black;
     height: 5vw;
@@ -28,35 +30,52 @@
       font-family: "Font Awesome 5 Free";
       content: "\f00d";
       font-weight: bold;
-      font-size: 5vh;
+      font-size: 5vw;
       color: white;
     }
   }
 
   &__form {
-    width: 50vw;
-    height: 80vh;
+    width: 60%;
+    height: auto;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     background-color: $color-tertiary-background;
     border-radius: 0.5vh;
-    padding-top: 4vh;
     flex-wrap: nowrap;
+    padding-left: 5%;
 
     & > * {
-      height: 6vh;
       width: 90%;
       font-family: $font-family-primary;
-      font-size: 4vh;
+      font-size: 3vh;
       color: #312e2e;
       margin-bottom: 1vh;
+      border-radius: 0.2vw;
+    }
+
+    &__contact-me-label {
+      font-size: 3.5vw;
+    }
+
+    &__contact-name {
+      font-size: 3.5vw;
     }
     & > #GET-message {
-      height: 20vh;
+      height: 40vh;
       margin-bottom: 2vw;
+      max-height: 25%;
+    }
+
+    &__submit {
+      color: white;
+      background-color: $color-primary-background;
+      border: none;
+      padding: 0.5vw;
+      width: 20vw;
     }
   }
 }

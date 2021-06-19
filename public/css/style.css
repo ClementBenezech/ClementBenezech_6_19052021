@@ -247,7 +247,7 @@ button:focus {
 }
 @media screen and (max-width: 1080px) {
   .main-content__business-card__name {
-    font-size: 7vw;
+    font-size: 6vw;
     height: 9vw;
   }
 }
@@ -649,17 +649,17 @@ button:focus {
   bottom: 0;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
   z-index: 5;
+  width: 100%;
 }
 .contact-modale--hidden {
   display: none;
 }
 .contact-modale__close {
   position: absolute;
-  top: 10vh;
-  right: 26vw;
+  right: 20%;
+  top: 2%;
   z-index: 99;
   color: black;
   height: 5vw;
@@ -671,33 +671,47 @@ button:focus {
   font-family: "Font Awesome 5 Free";
   content: "";
   font-weight: bold;
-  font-size: 5vh;
+  font-size: 5vw;
   color: white;
 }
 .contact-modale__form {
-  width: 50vw;
-  height: 80vh;
+  width: 60%;
+  height: auto;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   background-color: #db8876;
   border-radius: 0.5vh;
-  padding-top: 4vh;
   flex-wrap: nowrap;
+  padding-left: 5%;
 }
 .contact-modale__form > * {
-  height: 6vh;
   width: 90%;
   font-family: "DM Sans";
-  font-size: 4vh;
+  font-size: 3vh;
   color: #312e2e;
   margin-bottom: 1vh;
+  border-radius: 0.2vw;
+}
+.contact-modale__form__contact-me-label {
+  font-size: 3.5vw;
+}
+.contact-modale__form__contact-name {
+  font-size: 3.5vw;
 }
 .contact-modale__form > #GET-message {
-  height: 20vh;
+  height: 40vh;
   margin-bottom: 2vw;
+  max-height: 25%;
+}
+.contact-modale__form__submit {
+  color: white;
+  background-color: #901c1c;
+  border: none;
+  padding: 0.5vw;
+  width: 20vw;
 }
 
 /*# sourceMappingURL=style.css.map */

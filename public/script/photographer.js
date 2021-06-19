@@ -51,6 +51,18 @@ function InitializePage() {
         document.getElementById('contact-modale').className = "contact-modale--hidden";
     })
 
+     //Adding eventlistener on the contact modale send buton
+     document.getElementById('contact-modale__form__submit').addEventListener("click", event => {
+        document.getElementById('contact-modale').className = "contact-modale--hidden";
+        event.preventDefault();
+        //emptying fields so the modale is empty again if reopened (simulates the form being sent)
+        Array.prototype.slice.call(document.getElementById('contact-modale__form').children, 0).forEach(element => {
+            if (element.id != "contact-modale__form__submit") {
+            element.value = "";
+        }
+        })
+    })
+
 
 }
 
