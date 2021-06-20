@@ -1,12 +1,13 @@
 .modal-viewer {
   position: fixed;
-  top: 5vh;
-  left: 5vw;
-  right: 5vw;
-  bottom: 5vh;
-  background: rgba(white, 0.9);
+  top: 0vh;
+  left: 0vw;
+  right: 0vw;
+  bottom: 0vh;
+  background: white;
   z-index: 4;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -22,30 +23,53 @@
     outline: none;
   }
 
+  &__title {
+    width: 80vh;
+    color: $color-primary-background;
+    font-family: $font-family-primary;
+    font-size: 1vw;
+    padding: 1vw;
+    @include mobile-only {
+      width: 80vw;
+      font-size: 4vw;
+    }
+  }
+
+  &__image-container {
+    display: flex;
+    flex-direction: row;
+  }
+
   &__media {
     display: flex;
     flex-direction: row;
-    max-height: 80vh;
-    min-height: 80vh;
+    height: 80vh;
+    width: 80vh;
     @include mobile-only {
-      min-height: auto;
+      height: 80vw;
+      width: 80vw;
     }
-    max-width: 60vw;
+
     border-radius: 0.5vh;
     animation: enter-left-carousel 0.2s ease-out forwards;
     z-index: 5;
+    object-fit: cover;
   }
   &__nav-arrow {
-    position: absolute;
-    top: 48vh;
+    /*position: absolute;
+    top: 48vh;*/
     z-index: 3;
     color: black;
     font-size: 3vw;
     color: $color-primary-background;
     font-weight: bold;
+    @include mobile-only {
+      font-size: 7vw;
+    }
   }
   &__previous {
-    left: 10vw;
+    /*left: 10vw;*/
+    margin-right: 3vw;
     &::after {
       font-family: "Font Awesome 5 Free";
       content: "\f104";
@@ -53,23 +77,31 @@
   }
   &__next {
     text-align: right;
-    right: 10vw;
+    margin-left: 3vw;
+    /*right: 10vw;*/
     &::after {
       font-family: "Font Awesome 5 Free";
       content: "\f105";
     }
   }
   &__close {
-    position: absolute;
+    /*position: absolute;
     top: 1vw;
-    right: 2vw;
+    right: 2vw;*/
     z-index: 99;
     color: black;
-    height: 1vw;
-    width: 1vw;
+    height: 2vw;
+    width: 2vw;
     color: $color-primary-background;
     font-size: 2vw;
     font-weight: bold;
+    margin-left: -2vw;
+    @include mobile-only {
+      top: 40vw;
+      right: 5vw;
+      font-size: 5vw;
+      margin-left: -4vw;
+    }
     &::after {
       font-family: "Font Awesome 5 Free";
       content: "\f00d";

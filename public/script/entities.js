@@ -376,16 +376,18 @@ function createPhotographer (photographerData) {
                             mediaNext = photographerMediaList[photographerMediaList.indexOf(media) +1];
                         }
                         
+                        //Adding the modale elements
+                        modaleContainer =   domController("div", "modal-viewer", "modal-viewer", "body").renderDomElement();
+                        imageContainer =    domController("div", "modal-viewer__image-container", "modal-viewer__image-container", modaleContainer.id).renderDomElement();
+                        modaleTitle =       domController("div", "modal-viewer__title", "modal-viewer__title", modaleContainer.id, media.title).renderDomElement();
+                        modalePrevious =    domController("button", "modal-viewer__previous", "modal-viewer__nav-arrow modal-viewer__previous", imageContainer.id).renderDomElement();
+                        modalePicture =     domController(media.mediaType, this.elementId, "modal-viewer__media", imageContainer.id, media.mediaLink ).renderDomElement();
+                        modaleNext =        domController("button", "modal-viewer__next", "modal-viewer__nav-arrow modal-viewer__next", imageContainer.id).renderDomElement();
+                        modaleClose =       domController("button", "modal-viewer__close", "modal-viewer__close", imageContainer.id).renderDomElement();
                         
-                
                         
-                        //DOM: Creating the "carousel" dom Elements: closebutton, left and right arrows
-                        modaleContainer =    domController("div", "modal-viewer", "modal-viewer", "body").renderDomElement();
                         
-                        modaleClose =       domController("button", "modal-viewer__close", "modal-viewer__close", modaleContainer.id).renderDomElement();
-                        modalePrevious =    domController("button", "modal-viewer__previous", "modal-viewer__nav-arrow modal-viewer__previous", modaleContainer.id).renderDomElement();
-                        modaleNext =        domController("button", "modal-viewer__next", "modal-viewer__nav-arrow modal-viewer__next", modaleContainer.id).renderDomElement();
-
+                        
                         //DOM: Adding Event Listerners on the 3 nav buttons
                         modaleClose.addEventListener("click", () => { 
                             this.destroyModale();
@@ -442,9 +444,7 @@ function createPhotographer (photographerData) {
 
                         })                     
                         
-                        //DOM: Adding the current picture in the modale.
-                        modalePicture =     domController(media.mediaType, this.elementId, "modal-viewer__media", modaleContainer.id, media.mediaLink ).renderDomElement();
-
+                        
                         modaleContainer.focus();
                 },
 
@@ -632,10 +632,10 @@ function createPhotographer (photographerData) {
                                         document.getElementById(this.elementParent).appendChild(newImg);
 
                                         //if this a "modale" picture (from carousel component), then we give it bigger size images from the media collection
-                                        if (this.elementParent === "modal-viewer") {
+                                        if (this.elementParent === "modal-viewer__image-container") {
                                             
-                                            newImg.setAttribute("srcset", pageUrlBase+"images/small/"+this.elementContent+" 800w, "+pageUrlBase+"/images/"+this.elementContent+" 1920w");
-                                            newImg.setAttribute("sizes", "80vw");                                        
+                                            newImg.setAttribute("srcset", pageUrlBase+"images/"+this.elementContent+" 2000w,"+pageUrlBase+"images/small/"+this.elementContent+" 500w");
+                                            newImg.setAttribute("sizes", "100vw");        
                                         }
 
                                         //If this is a video, activate video controls.

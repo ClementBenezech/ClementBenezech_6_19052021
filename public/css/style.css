@@ -48,10 +48,10 @@ body {
 
 button {
   all: unset;
-}
-button:focus {
-  border: 3px solid #901c1c;
-  box-sizing: border-box;
+  /*&:focus {
+    border: 3px solid $color-primary-background;
+    box-sizing: border-box;
+  }*/
 }
 
 .likes-price__container {
@@ -383,7 +383,6 @@ button:focus {
 .main-content__photographer-card__contact-button {
   background-color: #901c1c;
   margin-right: 5vw;
-  height: 4.5vw;
   width: 15vw;
   padding: 1.5vw;
   color: white;
@@ -391,7 +390,6 @@ button:focus {
   font-size: 1.5vw;
   line-height: 1.5vw;
   border-radius: 0.5vw;
-  box-sizing: border-box;
 }
 @media screen and (max-width: 1080px) {
   .main-content__photographer-card__contact-button {
@@ -400,6 +398,8 @@ button:focus {
     left: 35vw;
     width: 30vw;
     font-size: 3vw;
+    line-height: 3vw;
+    padding: 2.5vw;
   }
 }
 .main-content__photographer-card__tag-list {
@@ -483,13 +483,14 @@ button:focus {
 
 .modal-viewer {
   position: fixed;
-  top: 5vh;
-  left: 5vw;
-  right: 5vw;
-  bottom: 5vh;
-  background: rgba(255, 255, 255, 0.9);
+  top: 0vh;
+  left: 0vw;
+  right: 0vw;
+  bottom: 0vh;
+  background: white;
   z-index: 4;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -506,32 +507,56 @@ button:focus {
 .modal-viewer:focus {
   outline: none;
 }
+.modal-viewer__title {
+  width: 80vh;
+  color: #901c1c;
+  font-family: "DM Sans";
+  font-size: 1vw;
+  padding: 1vw;
+}
+@media screen and (max-width: 1080px) {
+  .modal-viewer__title {
+    width: 80vw;
+    font-size: 4vw;
+  }
+}
+.modal-viewer__image-container {
+  display: flex;
+  flex-direction: row;
+}
 .modal-viewer__media {
   display: flex;
   flex-direction: row;
-  max-height: 80vh;
-  min-height: 80vh;
-  max-width: 60vw;
+  height: 80vh;
+  width: 80vh;
   border-radius: 0.5vh;
   animation: enter-left-carousel 0.2s ease-out forwards;
   z-index: 5;
+  object-fit: cover;
 }
 @media screen and (max-width: 1080px) {
   .modal-viewer__media {
-    min-height: auto;
+    height: 80vw;
+    width: 80vw;
   }
 }
 .modal-viewer__nav-arrow {
-  position: absolute;
-  top: 48vh;
+  /*position: absolute;
+  top: 48vh;*/
   z-index: 3;
   color: black;
   font-size: 3vw;
   color: #901c1c;
   font-weight: bold;
 }
+@media screen and (max-width: 1080px) {
+  .modal-viewer__nav-arrow {
+    font-size: 7vw;
+  }
+}
 .modal-viewer__previous {
-  left: 10vw;
+  /*left: 10vw;*/
+  margin-right: 3vw;
 }
 .modal-viewer__previous::after {
   font-family: "Font Awesome 5 Free";
@@ -539,23 +564,33 @@ button:focus {
 }
 .modal-viewer__next {
   text-align: right;
-  right: 10vw;
+  margin-left: 3vw;
+  /*right: 10vw;*/
 }
 .modal-viewer__next::after {
   font-family: "Font Awesome 5 Free";
   content: "";
 }
 .modal-viewer__close {
-  position: absolute;
+  /*position: absolute;
   top: 1vw;
-  right: 2vw;
+  right: 2vw;*/
   z-index: 99;
   color: black;
-  height: 1vw;
-  width: 1vw;
+  height: 2vw;
+  width: 2vw;
   color: #901c1c;
   font-size: 2vw;
   font-weight: bold;
+  margin-left: -2vw;
+}
+@media screen and (max-width: 1080px) {
+  .modal-viewer__close {
+    top: 40vw;
+    right: 5vw;
+    font-size: 5vw;
+    margin-left: -4vw;
+  }
 }
 .modal-viewer__close::after {
   font-family: "Font Awesome 5 Free";
@@ -667,6 +702,11 @@ button:focus {
   font-family: "Roboto";
   color: black;
 }
+@media screen and (max-width: 1080px) {
+  .contact-modale__close {
+    right: 5%;
+  }
+}
 .contact-modale__close::after {
   font-family: "Font Awesome 5 Free";
   content: "";
@@ -687,6 +727,11 @@ button:focus {
   flex-wrap: nowrap;
   padding-left: 5%;
 }
+@media screen and (max-width: 1080px) {
+  .contact-modale__form {
+    width: 100%;
+  }
+}
 .contact-modale__form > * {
   width: 90%;
   font-family: "DM Sans";
@@ -698,11 +743,21 @@ button:focus {
 .contact-modale__form__contact-me-label {
   font-size: 3.5vw;
 }
+@media screen and (max-width: 1080px) {
+  .contact-modale__form__contact-me-label {
+    font-size: 6vw;
+  }
+}
 .contact-modale__form__contact-name {
   font-size: 3.5vw;
 }
+@media screen and (max-width: 1080px) {
+  .contact-modale__form__contact-name {
+    font-size: 6vw;
+  }
+}
 .contact-modale__form > #GET-message {
-  height: 40vh;
+  height: 25vw;
   margin-bottom: 2vw;
   max-height: 25%;
 }
@@ -712,6 +767,13 @@ button:focus {
   border: none;
   padding: 0.5vw;
   width: 20vw;
+  border-radius: 1vw;
+}
+@media screen and (max-width: 1080px) {
+  .contact-modale__form__submit {
+    width: 20vw;
+    align-self: center;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

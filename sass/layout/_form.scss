@@ -25,6 +25,9 @@
     width: 5vw;
     font-family: "Roboto";
     color: black;
+    @include mobile-only {
+      right: 5%;
+    }
 
     &::after {
       font-family: "Font Awesome 5 Free";
@@ -37,6 +40,9 @@
 
   &__form {
     width: 60%;
+    @include mobile-only {
+      width: 100%;
+    }
     height: auto;
     display: flex;
     flex-direction: column;
@@ -59,13 +65,19 @@
 
     &__contact-me-label {
       font-size: 3.5vw;
+      @include mobile-only {
+        font-size: 6vw;
+      }
     }
 
     &__contact-name {
       font-size: 3.5vw;
+      @include mobile-only {
+        font-size: 6vw;
+      }
     }
     & > #GET-message {
-      height: 40vh;
+      height: 25vw;
       margin-bottom: 2vw;
       max-height: 25%;
     }
@@ -76,6 +88,11 @@
       border: none;
       padding: 0.5vw;
       width: 20vw;
+      border-radius: 1vw;
+      @include mobile-only {
+        width: 20vw;
+        align-self: center;
+      }
     }
   }
 }

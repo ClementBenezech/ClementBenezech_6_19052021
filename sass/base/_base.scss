@@ -4,10 +4,10 @@ body {
 
 button {
   all: unset;
-  &:focus {
+  /*&:focus {
     border: 3px solid $color-primary-background;
     box-sizing: border-box;
-  }
+  }*/
 }
 
 .likes-price__container {
@@ -315,7 +315,6 @@ button {
       background-color: $color-primary-background;
       margin-right: 5vw;
 
-      height: 4.5vw;
       width: 15vw;
       padding: 1.5vw;
       color: white;
@@ -323,13 +322,15 @@ button {
       font-size: 1.5vw;
       line-height: 1.5vw;
       border-radius: 0.5vw;
-      box-sizing: border-box;
+
       @include mobile-only {
         position: fixed;
         bottom: 10vw;
         left: 35vw;
         width: 30vw;
         font-size: 3vw;
+        line-height: 3vw;
+        padding: 2.5vw;
       }
     }
     &__tag-list {
