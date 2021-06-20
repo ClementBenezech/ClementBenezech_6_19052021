@@ -27,7 +27,7 @@ function createPhotographer (photographerData) {
             });
 
             
-            portraitDiv = domController("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image).renderDomElement() ;
+            portraitDiv = domController("img", "portrait", "main-content__photographer-card__portrait", containerDiv.id, this.image, this.name).renderDomElement() ;
             nameDiv = domController("div", "name", "main-content__photographer-card__name", containerDiv.id, this.name).renderDomElement();
             locationDiv = domController("div", "location", "main-content__photographer-card__location", containerDiv.id, this.city+", "+this.country).renderDomElement();
             taglineDiv = domController("div", "tagline", "main-content__photographer-card__tagline", containerDiv.id, this.tagline).renderDomElement();
@@ -86,7 +86,7 @@ function createPhotographer (photographerData) {
                 })
 
 
-                portraitDiv = domController("img", "portrait", "main-content__business-card__portrait", containerDiv.id, this.image).renderDomElement();      
+                portraitDiv = domController("img", "portrait", "main-content__business-card__portrait", containerDiv.id, this.image, this.name).renderDomElement();      
                 /*priceDiv = this.domController("div", "price", "main-content__photographer-card__price", containerDiv.id, this.price);*/
                 
                    
@@ -292,7 +292,7 @@ function createPhotographer (photographerData) {
 
 
 
-                    aMedia = domController(media.mediaType, media.id, "main-content__media-list__media__image", mediaContainer.id, media.mediaLink);
+                    aMedia = domController(media.mediaType, media.id, "main-content__media-list__media__image", mediaContainer.id, media.mediaLink, media.title);
 
                     aMediaDiv = aMedia.renderDomElement();                  
                     aMediaDiv.addEventListener("click", () => {aMedia.renderModale(media, photographerMediaList)});
@@ -324,7 +324,7 @@ function createPhotographer (photographerData) {
             }
     }
 
-   function domController(elementTag, elementId, elementClass, elementParent, elementContent) {
+   function domController(elementTag, elementId, elementClass, elementParent, elementContent, elementAlt) {
         //Will create a dom element to render the specified element on the page
         //Also provides methods to interact with the DOM: deletMainContent and renderHome
         return {
@@ -334,6 +334,7 @@ function createPhotographer (photographerData) {
             elementClass: elementClass,
             elementParent: elementParent,
             elementContent: elementContent,
+            elementAlt: elementAlt,
             photographerMediaList: new Array(0),
 
             deleteMainContent: function() {
@@ -381,7 +382,7 @@ function createPhotographer (photographerData) {
                         imageContainer =    domController("div", "modal-viewer__image-container", "modal-viewer__image-container", modaleContainer.id).renderDomElement();
                         modaleTitle =       domController("div", "modal-viewer__title", "modal-viewer__title", modaleContainer.id, media.title).renderDomElement();
                         modalePrevious =    domController("button", "modal-viewer__previous", "modal-viewer__nav-arrow modal-viewer__previous", imageContainer.id).renderDomElement();
-                        modalePicture =     domController(media.mediaType, this.elementId, "modal-viewer__media", imageContainer.id, media.mediaLink ).renderDomElement();
+                        modalePicture =     domController(media.mediaType, this.elementId, "modal-viewer__media", imageContainer.id, media.mediaLink, media.title ).renderDomElement();
                         modaleNext =        domController("button", "modal-viewer__next", "modal-viewer__nav-arrow modal-viewer__next", imageContainer.id).renderDomElement();
                         modaleClose =       domController("button", "modal-viewer__close", "modal-viewer__close", imageContainer.id).renderDomElement();
                         
@@ -600,34 +601,33 @@ function createPhotographer (photographerData) {
                                         if (this.elementContent) {
                                             newDiv.innerHTML += this.elementContent;
                                             
-                                        }
-                                        
-                                        if (true /*this.elementTag != "div" || this.elementId == "tag"*/ )  
-                                        {
+                                        }                                                             
                                         newDiv.tabIndex = 0;
-                                        }
                                         return newDiv;   
-                                    break;
-                            /*case "button":
-
-                                        let newDiv = document.createElement(this.elementTag);
-                                        newDiv.id = this.elementId;
-                                        newDiv.className = this.elementClass;
-                                        document.getElementById(this.elementParent).appendChild(newDiv);*/
-
-
                             case "img":
                             case "video":
                                         let newImg = document.createElement(this.elementTag);
                                         newImg.id = this.elementId;
                                         newImg.className = this.elementClass;
-                                        newImg.setAttribute("alt", this.elementContent);
+                                        newImg.setAttribute("alt", elementAlt);
+
+                                        /*currentMedia = globalMediaList.find(media => {
+
+                                            console.log("media.mediaLink "+media.mediaLink);
+                                            console.log(this.elementContent);
+                                            if(media.mediaLink === this.elementContent)
+                                                newImg.setAttribute("alt", media.title);
+                                                return true;
+                                        });*/
+                                        
+                                        
+
+
+
+                                        
                                         newImg.setAttribute("src", pageUrlBase+"images/small/"+this.elementContent);
                                         
                                         newImg.tabIndex = 0;
-
-
-                                        console.log(this.elementParent);
 
                                         document.getElementById(this.elementParent).appendChild(newImg);
 
