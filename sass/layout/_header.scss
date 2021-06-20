@@ -65,6 +65,14 @@
       &::before {
         content: "#";
       }
+      &:hover {
+        color: white;
+        background-color: $color-primary-background;
+      }
+      &:focus {
+        color: white;
+        background-color: $color-primary-background;
+      }
     }
   }
 }

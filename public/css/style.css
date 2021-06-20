@@ -204,7 +204,7 @@ button {
   }
 }
 .main-content__photographer-header {
-  width: 100vw;
+  width: 90vw;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -212,9 +212,11 @@ button {
   text-align: center;
   align-items: flex-start;
   box-sizing: border-box;
-  padding-left: 5vw;
-  padding-right: 5vw;
-  padding-top: 0vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-top: 2vh;
+  background-color: #fafafa;
+  margin-bottom: 5vw;
 }
 @media screen and (max-width: 1080px) {
   .main-content__photographer-header {
@@ -228,12 +230,18 @@ button {
   flex-direction: column;
   justify-items: flex-start;
   justify-content: flex-start;
-  width: 60vw;
+  width: 30vw;
   font-family: "DM Sans";
+}
+@media screen and (max-width: 1080px) {
+  .main-content__business-card {
+    width: 60vw;
+  }
 }
 .main-content__business-card > * {
   text-align: left;
   font-size: 2vw;
+  margin-bottom: 1vw;
 }
 @media screen and (max-width: 1080px) {
   .main-content__business-card > * {
@@ -243,7 +251,7 @@ button {
 .main-content__business-card__name {
   color: #d3573c;
   font-size: 3vw;
-  height: 4vw;
+  height: 3vw;
 }
 @media screen and (max-width: 1080px) {
   .main-content__business-card__name {
@@ -271,6 +279,7 @@ button {
 .main-content__business-card__portrait {
   width: 10vw;
   height: 10vw;
+  margin-left: 30vw;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -278,10 +287,11 @@ button {
   .main-content__business-card__portrait {
     width: 30vw;
     height: 30vw;
+    margin-left: 0vw;
   }
 }
 .main-content__business-card__tag-list {
-  justify-content: left;
+  justify-content: flex-start;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -382,8 +392,7 @@ button {
 }
 .main-content__photographer-card__contact-button {
   background-color: #901c1c;
-  margin-right: 5vw;
-  width: 15vw;
+  margin-right: 0vw;
   padding: 1.5vw;
   color: white;
   font-family: "DM Sans";
@@ -401,6 +410,10 @@ button {
     line-height: 3vw;
     padding: 2.5vw;
   }
+}
+.main-content__photographer-card__contact-button:hover {
+  background-color: #d3573c;
+  color: black;
 }
 .main-content__photographer-card__tag-list {
   justify-content: space-evenly;
@@ -425,6 +438,14 @@ button {
 .main-content__photographer-card__tag-list__tag::before {
   content: "#";
 }
+.main-content__photographer-card__tag-list__tag:hover {
+  color: white;
+  background-color: #901c1c;
+}
+.main-content__photographer-card__tag-list__tag:focus {
+  color: white;
+  background-color: #901c1c;
+}
 
 .filter-menu {
   display: flex;
@@ -433,7 +454,7 @@ button {
   height: 2.5vw;
   overflow: hidden;
   border-radius: 5%;
-  margin-right: 70vw;
+  margin-left: 3vw;
   color: white;
 }
 @media screen and (max-width: 1080px) {
@@ -449,7 +470,7 @@ button {
   flex-direction: row;
   height: 2.5vw;
   width: 100%;
-  padding-left: 4vw;
+  padding-left: 5vw;
 }
 .filter-menu__filter {
   font-family: "DM Sans";
@@ -472,7 +493,7 @@ button {
   font-family: "DM Sans";
   font-size: 1.5vw;
   line-height: 1.5vw;
-  width: 10vw;
+  width: 8vw;
   padding: 0.5vw;
 }
 @media screen and (max-width: 1080px) {
@@ -674,6 +695,14 @@ button {
 .header__tag-bar__tag::before {
   content: "#";
 }
+.header__tag-bar__tag:hover {
+  color: white;
+  background-color: #901c1c;
+}
+.header__tag-bar__tag:focus {
+  color: white;
+  background-color: #901c1c;
+}
 
 .contact-modale {
   position: fixed;
@@ -771,7 +800,7 @@ button {
 }
 @media screen and (max-width: 1080px) {
   .contact-modale__form__submit {
-    width: 20vw;
+    width: 25vw;
     align-self: center;
   }
 }
