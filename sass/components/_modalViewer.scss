@@ -54,6 +54,12 @@
     animation: enter-left-carousel 0.2s ease-out forwards;
     z-index: 5;
     object-fit: cover;
+    &--right {
+      animation: enter-right-carousel 0.2s ease-out forwards;
+    }
+    &--left {
+      animation: enter-left-carousel 0.2s ease-out forwards;
+    }
   }
   &__nav-arrow {
     /*position: absolute;

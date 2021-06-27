@@ -220,21 +220,21 @@ function createMedia (mediaData) {
                     media.mediaType = "video";
                     media.mediaLink = media.video;
                 }
-                
+
                 mediaContainer = domController("button", "main-content__media-list__media"+media.id, "main-content__media-list__media", mediaList.id).renderDomElement();
                 aMedia = domController(media.mediaType, media.id, "main-content__media-list__media__image", mediaContainer.id, media.mediaLink, media.title);
                 aMediaDiv = aMedia.renderDomElement();                  
-                aMediaDiv.addEventListener("click", () => {aMedia.renderModale(media, photographerMediaList)});
+                aMediaDiv.addEventListener("click", () => {aMedia.renderModale(media, photographerMediaList, "left")});
                 titleContainer = domController("div", "main-content__media-list__media__title-container"+media.id, "main-content__media-list__media__title-container", mediaContainer.id).renderDomElement();
                 title = domController("div", "main-content__media-list__media__title-container__title", "main-content__media-list__media__title-container__title", titleContainer.id, media.title).renderDomElement();
                 likes = domController("div", "main-content__media-list__media__title-container__likes", "main-content__media-list__media__title-container__likes", titleContainer.id, media.likes).renderDomElement();;
 
                 mediaContainer.addEventListener("keydown", event => {
                     if (event.key === "Enter" || event.key === " ") {
-                        aMedia.renderModale(media, photographerMediaList)
+                        aMedia.renderModale(media, photographerMediaList, "left")
                         //to allow keyboard nav, we are using a "button type" container, and add an event listener for enter and space keys.
                     }          
-                });
+                });                                                                                                                     
 
                 likes.addEventListener("click", () => {
                     media.likes = media.likes+1;
@@ -279,7 +279,7 @@ function domController(elementTag, elementId, elementClass, elementParent, eleme
                 })
         },
 
-        renderModale: function(media, photographerMediaList) {                 
+        renderModale: function(media, photographerMediaList, direction) {                 
             this.photographerMediaList = photographerMediaList;
             
             //Settting up a maxIndex value for the array. I need to decrease it by 1 for it to point to the right media object. I may have an empty object at the end of the array.
@@ -303,7 +303,7 @@ function domController(elementTag, elementId, elementClass, elementParent, eleme
             imageContainer =    domController("div", "modal-viewer__image-container", "modal-viewer__image-container", modaleContainer.id).renderDomElement();
             modaleTitle =       domController("div", "modal-viewer__title", "modal-viewer__title", modaleContainer.id, media.title).renderDomElement();
             modalePrevious =    domController("button", "modal-viewer__previous", "modal-viewer__nav-arrow modal-viewer__previous", imageContainer.id, null, "Précédent").renderDomElement();
-            modalePicture =     domController(media.mediaType, this.elementId, "modal-viewer__media", imageContainer.id, media.mediaLink, media.title ).renderDomElement();
+            modalePicture =     domController(media.mediaType, this.elementId, "modal-viewer__media modal-viewer__media--"+direction, imageContainer.id, media.mediaLink, media.title ).renderDomElement();
             modaleNext =        domController("button", "modal-viewer__next", "modal-viewer__nav-arrow modal-viewer__next", imageContainer.id, null, "Suivant").renderDomElement();
             modaleClose =       domController("button", "modal-viewer__close", "modal-viewer__close", imageContainer.id, null, "Fermer").renderDomElement();
 
@@ -320,27 +320,27 @@ function domController(elementTag, elementId, elementClass, elementParent, eleme
 
             modalePrevious.addEventListener("click", () => {
                 this.destroyModale();
-                this.renderModale(mediaPrevious, photographerMediaList);
+                this.renderModale(mediaPrevious, photographerMediaList, "right");
             });
 
             modalePrevious.addEventListener("keydown", event => { 
                 if (event.code === "Enter" || event.code === " ") 
                 {
                 this.destroyModale();
-                this.renderModale(mediaPrevious, photographerMediaList);
+                this.renderModale(mediaPrevious, photographerMediaList, "right");
                 }
             });
 
             modaleNext.addEventListener("click", () => { 
                 this.destroyModale();
-                this.renderModale(mediaNext, photographerMediaList);
+                this.renderModale(mediaNext, photographerMediaList, "left");
             });
 
             modaleNext.addEventListener("keydown", event => { 
                 if (event.code === "Enter" || event.code === " ") 
                 {
                 this.destroyModale();
-                this.renderModale(mediaNext, photographerMediaList);
+                this.renderModale(mediaNext, photographerMediaList, "left");
                 }
             });
 
@@ -352,10 +352,10 @@ function domController(elementTag, elementId, elementClass, elementParent, eleme
             modaleContainer.addEventListener("keydown", (event) => {
                 if (event.key === "ArrowLeft") {
                     domElementCreator.destroyModale();
-                    domElementCreator.renderModale(mediaPrevious, this.photographerMediaList);
+                    domElementCreator.renderModale(mediaPrevious, this.photographerMediaList, "right");
                 } else if (event.key === "ArrowRight") {
                     domElementCreator.destroyModale();
-                    domElementCreator.renderModale(mediaNext, this.photographerMediaList);
+                    domElementCreator.renderModale(mediaNext, this.photographerMediaList, "left");
                 } else if (event.key === "Escape") {
                     domElementCreator.destroyModale();
                 }    
@@ -366,14 +366,14 @@ function domController(elementTag, elementId, elementClass, elementParent, eleme
         previousEventListener: function (e) {      
             if (e.key === "ArrowLeft") {
                 domElementCreator.destroyModale();
-                domElementCreator.renderModale(mediaPrevious, this.photographerMediaList);
+                domElementCreator.renderModale(mediaPrevious, this.photographerMediaList, "right");
             }
         },
 
         nextEventListener: function (e) {
             if (e.key === "ArrowRight") {
                 domElementCreator.destroyModale();
-                domElementCreator.renderModale(mediaNext, this.photographerMediaList);
+                domElementCreator.renderModale(mediaNext, this.photographerMediaList, "left");
             }
         },
 

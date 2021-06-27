@@ -25,6 +25,15 @@
   }
 }
 
+@keyframes enter-right-carousel {
+  0% {
+    margin-left: 100vw;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+
 @keyframes drop-down-filter-menu {
   0% {
     height: 2.5vw;

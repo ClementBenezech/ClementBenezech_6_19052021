@@ -26,6 +26,14 @@ The @ content directive allows for custom properties to be specified in the @inc
     margin-right: 0;
   }
 }
+@keyframes enter-right-carousel {
+  0% {
+    margin-left: 100vw;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
 @keyframes drop-down-filter-menu {
   0% {
     height: 2.5vw;
@@ -560,6 +568,12 @@ button {
     height: 80vw;
     width: 80vw;
   }
+}
+.modal-viewer__media--right {
+  animation: enter-right-carousel 0.2s ease-out forwards;
+}
+.modal-viewer__media--left {
+  animation: enter-left-carousel 0.2s ease-out forwards;
 }
 .modal-viewer__nav-arrow {
   /*position: absolute;
