@@ -722,55 +722,62 @@ button {
 }
 .contact-modale__close {
   position: absolute;
-  right: 20%;
-  top: 2%;
+  right: 30%;
+  top: 14%;
   z-index: 99;
   color: black;
-  height: 5vw;
-  width: 5vw;
+  height: 3vw;
+  width: 3vw;
   font-family: "Roboto";
   color: black;
 }
 @media screen and (max-width: 1080px) {
   .contact-modale__close {
-    right: 5%;
+    right: 5vw;
+    top: 5vw;
   }
 }
 .contact-modale__close::after {
   font-family: "Font Awesome 5 Free";
   content: "";
   font-weight: bold;
-  font-size: 5vw;
+  font-size: 3vw;
   color: white;
 }
 .contact-modale__form {
-  width: 60%;
-  height: auto;
+  width: 40%;
+  flex-wrap: nowrap;
+  max-height: 80vh;
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
   background-color: #db8876;
   border-radius: 0.5vh;
   flex-wrap: nowrap;
-  padding-left: 5%;
+  padding-left: 2%;
+  padding-right: 2%;
 }
 @media screen and (max-width: 1080px) {
   .contact-modale__form {
     width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    margin-top: 0vh;
   }
 }
 .contact-modale__form > * {
-  width: 90%;
+  width: 96%;
   font-family: "DM Sans";
   font-size: 3vh;
   color: #312e2e;
-  margin-bottom: 1vh;
-  border-radius: 0.2vw;
+  margin-bottom: 0.1vh;
+  border-radius: 0.7vh;
 }
 .contact-modale__form__contact-me-label {
-  font-size: 3.5vw;
+  font-size: 2.5vw;
 }
 @media screen and (max-width: 1080px) {
   .contact-modale__form__contact-me-label {
@@ -778,17 +785,21 @@ button {
   }
 }
 .contact-modale__form__contact-name {
-  font-size: 3.5vw;
+  font-size: 2.5vw;
 }
 @media screen and (max-width: 1080px) {
   .contact-modale__form__contact-name {
     font-size: 6vw;
   }
 }
-.contact-modale__form > #GET-message {
-  height: 25vw;
+.contact-modale__form > #get-message {
+  height: 10vh;
   margin-bottom: 2vw;
-  max-height: 25%;
+}
+@media screen and (max-width: 1080px) {
+  .contact-modale__form > #get-message {
+    height: auto;
+  }
 }
 .contact-modale__form__submit {
   color: white;

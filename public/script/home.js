@@ -1,5 +1,5 @@
 //Api Call. Getting Photographers and Media information from example JSON file.
-function InitializePage() {
+function initializePage() {
 
     //Create a dom element creator as an entry point for the object public methods renderHome, deleteMainContent
     domElementCreator = domController();
@@ -16,7 +16,6 @@ function InitializePage() {
 }
 
 /*this variable is used to "prefix" the images paths when the dom element are generated*/
+const pageUrlBase = "public/";
 
-var pageUrlBase = "public/";
-
-InitializePage();
+initializePage();
