@@ -61,6 +61,10 @@
         margin: 1vw;
         padding: 1vw;
       }
+      &--selected {
+        color: white;
+        background-color: $color-primary-background;
+      }
 
       &::before {
         content: "#";

@@ -129,11 +129,47 @@ function createMedia (mediaData) {
         likes: mediaData.likes,
         date:  mediaData.date,	
         price: mediaData.price,
-        mediaLink: "",
-        mediaType: "",
+        createMediaType: function () {
+            if (this.video != undefined) {
+                this.mediaLink = this.video;
+                this.mediaType = "video";
+            } else if (this.image != undefined ) {
+                this.mediaLink = this.image;
+                this.mediaType = "img";
+            }
+        },
         addToCollection: function () {
             globalMediaList.push(this);
         },
+        renderMediaElement: function () {
+            if (this.mediaType == "video") {
+                domElement = this.renderImageElement();
+            } else if (this.mediaType == "img") {
+                domElement = this.renderVideoElement();
+            }
+        return domElement
+        },
+        renderVideoElement: function() {
+            let newImg = document.createElement(this.mediaType);
+            newImg.id = this.elementId;
+            newImg.className = "main-content__media-list__media__image";
+            newImg.setAttribute("alt", this.title);                               
+            newImg.setAttribute("src", pageUrlBase+"images/small/"+this.mediaLink);                                      
+            newImg.tabIndex = 0;
+            /*document.getElementById(this.elementParent).appendChild(newImg);
+            document.getElementById(newImg.id).controls = true;*/
+            return newImg; 
+        },
+        renderImageElement: function() {
+            let newImg = document.createElement(this.mediaType);
+            newImg.id = this.elementId;
+            newImg.className = "main-content__media-list__media__image";
+            newImg.setAttribute("alt", this.title);                               
+            newImg.setAttribute("src", pageUrlBase+"images/small/"+this.mediaLink);                                      
+            newImg.tabIndex = 0;
+            return newImg; 
+        },
+
         getTagList: function(photographer) {
 
             let photographerMediaList = globalMediaList;
@@ -213,25 +249,33 @@ function createMedia (mediaData) {
             //Then we generate a card for each media in the array   
             photographerMediaList.forEach (media => {
                 //finding out media-type of the object, and filling the property
-                if (media.image != undefined){
+                /*This is deprecated as this process is now handled when we create the media by calling the createMediaType method*/
+                /*if (media.image != undefined){
                     media.mediaType = "img";
                     media.mediaLink = media.image;
                 } else if (media.video != undefined) {
                     media.mediaType = "video";
                     media.mediaLink = media.video;
-                }
+                }*/
+
+                /* We do not use this anymore as we will call the media.renderMediaElement() instead, which will call the right method depending on the media type*/
+                /*aMedia = domController(media.mediaType, media.id, "main-content__media-list__media__image", mediaContainer.id, media.mediaLink, media.title);*/
+                /*aMediaDiv = aMedia.renderDomElement();*/
+
+                /* Instead, we call the renderMedia() method*/
 
                 mediaContainer = domController("button", "main-content__media-list__media"+media.id, "main-content__media-list__media", mediaList.id).renderDomElement();
-                aMedia = domController(media.mediaType, media.id, "main-content__media-list__media__image", mediaContainer.id, media.mediaLink, media.title);
-                aMediaDiv = aMedia.renderDomElement();                  
-                aMediaDiv.addEventListener("click", () => {aMedia.renderModale(media, photographerMediaList, "left")});
+                aMediaDiv = document.getElementById(mediaContainer.id).appendChild(media.renderMediaElement());
+
+
+                aMediaDiv.addEventListener("click", () => {domElementCreator.renderModale(media, photographerMediaList, "left")});
                 titleContainer = domController("div", "main-content__media-list__media__title-container"+media.id, "main-content__media-list__media__title-container", mediaContainer.id).renderDomElement();
                 title = domController("div", "main-content__media-list__media__title-container__title", "main-content__media-list__media__title-container__title", titleContainer.id, media.title).renderDomElement();
                 likes = domController("div", "main-content__media-list__media__title-container__likes", "main-content__media-list__media__title-container__likes", titleContainer.id, media.likes).renderDomElement();;
 
                 mediaContainer.addEventListener("keydown", event => {
                     if (event.key === "Enter" || event.key === " ") {
-                        aMedia.renderModale(media, photographerMediaList, "left")
+                        this.renderModale(media, photographerMediaList, "left")
                         //to allow keyboard nav, we are using a "button type" container, and add an event listener for enter and space keys.
                     }          
                 });                                                                                                                     
@@ -463,7 +507,13 @@ function domController(elementTag, elementId, elementClass, elementParent, eleme
 
                             
                             globalMediaList[0].getTagList("global").forEach( tag => {
-                                currentTag = domController("div", "tag", "header__tag-bar__tag", "header__tag-bar", tag).renderDomElement();
+                                if (tag == selectedTag) {
+                                    currentTag = domController("div", "tag", "header__tag-bar__tag header__tag-bar__tag--selected", "header__tag-bar", tag).renderDomElement();
+                                }
+                                else {
+                                    currentTag = domController("div", "tag", "header__tag-bar__tag  ", "header__tag-bar", tag).renderDomElement();
+                                }
+                                
 
                                 //addingEventListener on each tag. Will use renderHome with a tag parameter to display only relevant photographs
                                 currentTag.addEventListener("click", () => {

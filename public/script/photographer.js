@@ -11,6 +11,9 @@ function initializePage() {
         //Creating media and adding it to collection
         data['media'].forEach(media => {
         let currentMedia = createMedia (media);
+        //Added for factory method. 
+        currentMedia.createMediaType();
+        //**************************
         currentMedia.addToCollection();
         })
         //Creating Photographers Objects

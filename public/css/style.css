@@ -473,6 +473,9 @@ button {
 .filter-menu:hover {
   animation: drop-down-filter-menu 0.5s ease-out forwards;
 }
+.filter-menu:focus-within {
+  animation: drop-down-filter-menu 0.5s ease-out forwards;
+}
 .filter-menu__container {
   display: flex;
   flex-direction: row;
@@ -705,6 +708,10 @@ button {
     margin: 1vw;
     padding: 1vw;
   }
+}
+.header__tag-bar__tag--selected {
+  color: white;
+  background-color: #901c1c;
 }
 .header__tag-bar__tag::before {
   content: "#";
