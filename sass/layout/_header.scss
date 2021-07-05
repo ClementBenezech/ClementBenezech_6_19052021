@@ -35,6 +35,26 @@
     margin-right: 3vw;
     align-items: center;
   }
+  &__back-to-top {
+    position: fixed;
+    top: 0;
+    left: 48vw;
+    display: none;
+    color: black;
+    background-color: $color-secondary-background;
+    font-family: $font-family-primary;
+    font-size: 1vw;
+    margin-top: 0.5vh;
+    padding: 0.5vh 0.5vw;
+    border-radius: 5%;
+    &:focus {
+      border: 3px solid red;
+    }
+    &--visible {
+      display: block;
+    }
+  }
+
   &__tag-bar {
     justify-content: center;
     display: flex;

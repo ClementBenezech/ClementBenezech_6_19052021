@@ -68,6 +68,9 @@ button {
     padding-top: 0;
     flex-direction: column;
   }
+  &:focus {
+    border: 3px solid red;
+  }
   &__media-list {
     display: flex;
     flex-direction: row;

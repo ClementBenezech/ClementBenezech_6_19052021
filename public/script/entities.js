@@ -138,36 +138,36 @@ function createMedia (mediaData) {
                 this.mediaType = "img";
             }
         },
-        addToCollection: function () {
-            globalMediaList.push(this);
-        },
         renderMediaElement: function () {
             if (this.mediaType == "video") {
-                domElement = this.renderImageElement();
-            } else if (this.mediaType == "img") {
                 domElement = this.renderVideoElement();
+            } else if (this.mediaType == "img") {
+                domElement = this.renderImageElement();
             }
         return domElement
         },
         renderVideoElement: function() {
-            let newImg = document.createElement(this.mediaType);
-            newImg.id = this.elementId;
-            newImg.className = "main-content__media-list__media__image";
-            newImg.setAttribute("alt", this.title);                               
-            newImg.setAttribute("src", pageUrlBase+"images/small/"+this.mediaLink);                                      
-            newImg.tabIndex = 0;
-            /*document.getElementById(this.elementParent).appendChild(newImg);
-            document.getElementById(newImg.id).controls = true;*/
-            return newImg; 
+            let newVideo = document.createElement(this.mediaType);
+            newVideo.id = this.id;
+            newVideo.className = "main-content__media-list__media__image";
+            newVideo.setAttribute("alt", this.title);                               
+            newVideo.setAttribute("src", pageUrlBase+"images/small/"+this.mediaLink);                                      
+            newVideo.tabIndex = 0;
+            //activating controls display on the video
+            newVideo.controls = true;
+            return newVideo; 
         },
         renderImageElement: function() {
             let newImg = document.createElement(this.mediaType);
-            newImg.id = this.elementId;
+            newImg.id = this.id;
             newImg.className = "main-content__media-list__media__image";
             newImg.setAttribute("alt", this.title);                               
             newImg.setAttribute("src", pageUrlBase+"images/small/"+this.mediaLink);                                      
             newImg.tabIndex = 0;
             return newImg; 
+        },
+        addToCollection: function () {
+            globalMediaList.push(this);
         },
 
         getTagList: function(photographer) {
@@ -248,21 +248,6 @@ function createMedia (mediaData) {
             
             //Then we generate a card for each media in the array   
             photographerMediaList.forEach (media => {
-                //finding out media-type of the object, and filling the property
-                /*This is deprecated as this process is now handled when we create the media by calling the createMediaType method*/
-                /*if (media.image != undefined){
-                    media.mediaType = "img";
-                    media.mediaLink = media.image;
-                } else if (media.video != undefined) {
-                    media.mediaType = "video";
-                    media.mediaLink = media.video;
-                }*/
-
-                /* We do not use this anymore as we will call the media.renderMediaElement() instead, which will call the right method depending on the media type*/
-                /*aMedia = domController(media.mediaType, media.id, "main-content__media-list__media__image", mediaContainer.id, media.mediaLink, media.title);*/
-                /*aMediaDiv = aMedia.renderDomElement();*/
-
-                /* Instead, we call the renderMedia() method*/
 
                 mediaContainer = domController("button", "main-content__media-list__media"+media.id, "main-content__media-list__media", mediaList.id).renderDomElement();
                 aMediaDiv = document.getElementById(mediaContainer.id).appendChild(media.renderMediaElement());
