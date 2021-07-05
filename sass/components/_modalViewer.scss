@@ -55,10 +55,10 @@
     z-index: 5;
     object-fit: cover;
     &--right {
-      animation: enter-right-carousel 0.2s ease-out forwards;
+      animation: enter-right-carousel 0.5s ease-in-out forwards;
     }
     &--left {
-      animation: enter-left-carousel 0.2s ease-out forwards;
+      animation: enter-left-carousel 0.5s ease-in-out forwards;
     }
   }
   &__nav-arrow {

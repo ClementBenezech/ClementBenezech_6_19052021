@@ -570,10 +570,10 @@ button {
   }
 }
 .modal-viewer__media--right {
-  animation: enter-right-carousel 0.2s ease-out forwards;
+  animation: enter-right-carousel 0.5s ease-in-out forwards;
 }
 .modal-viewer__media--left {
-  animation: enter-left-carousel 0.2s ease-out forwards;
+  animation: enter-left-carousel 0.5s ease-in-out forwards;
 }
 .modal-viewer__nav-arrow {
   /*position: absolute;

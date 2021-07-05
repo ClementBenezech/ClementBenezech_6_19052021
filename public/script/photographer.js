@@ -22,24 +22,20 @@ function initializePage() {
     }).then(() => {
                         
         //As i've changed the website architecture to "two pages" instead of "one page", we need to retrieve the GET parameter.
-
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         selectedPhotographerId = urlParams.getAll('photographer')[0];
 
         //Then, we get the right photographer object from the photographer array
-
         selectedPhotographer = photographerList.find(photographer => photographer.id === parseInt(selectedPhotographerId, 10));
                             
         //We render the photographer page for the specified photographer.
-        
         selectedPhotographer.renderPhotographerPage();
-
         })
 
 
 
-    //Create a dom element creator as an entry point for the object public methods renderHome, deleteMainContent
+    //Create a dom element creator as an entry point for the object public methods renderHome, deleteMainContent...
     domElementCreator = domController();
 
     //Adding eventListener to the logo. On click, it will reload the home page
